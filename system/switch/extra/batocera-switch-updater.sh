@@ -2007,8 +2007,8 @@ echo -e "${R}       ${W}/${R}/${W}\\\\${R}/      "
 sleep 0.1111
 # -------------------------
 clear
-echo -e "${W}─────────────────────────────────────────────────────────────────────────────────────────────────────┐"
-echo -e "${W}SWITCH UPDATER FOR BATOCERA | !!Download from archive.org (slow download speed) wait 1 to 5 minutes!!│"
+echo -e "${W}──────────────────────────────────────────────────────────────────────────────────────────────────────┐"
+echo -e "${W}SWITCH UPDATER FOR BATOCERA | !!Download from archive.org (slow download speed) wait 1 to 10 minutes!!│"
 echo
 # -------------------------
 links=/userdata/system/switch/extra/links
