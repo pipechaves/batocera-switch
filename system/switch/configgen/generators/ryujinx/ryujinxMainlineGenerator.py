@@ -2,17 +2,17 @@
 
 import generators
 from configgen.generators.Generator import Generator
-import Command as Command
+from configgen import Command as Command
 import os
 import stat
 import json
 import uuid
 from os import path
 from os import environ
-import batoceraFiles as batoceraFiles
-import controllersConfig as controllersConfig
+from configgen import batoceraFiles as batoceraFiles
+from configgen import controllersConfig as controllersConfig
 from shutil import copyfile
-from utils.logger import get_logger
+from configgen.utils.logger import get_logger
 import subprocess
 
 
@@ -20,7 +20,7 @@ eslog = get_logger(__name__)
 
 class RyujinxMainlineGenerator(Generator):
 
-    def generate(self, system, rom, playersControllers, gameResolution):
+    def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
         #handles chmod so you just need to download Ryujinx.AppImage
         if os.path.exists("/userdata/system/switch/Ryujinx.AppImage"):
             st = os.stat("/userdata/system/switch/Ryujinx.AppImage")
@@ -269,12 +269,6 @@ class RyujinxMainlineGenerator(Generator):
 
         if ((system.isOptSet('ryu_auto_controller_config') and not (system.config["ryu_auto_controller_config"] == "0")) or not system.isOptSet('ryu_auto_controller_config')):
             
-            # make sure that libSDL2.so is restored (because when using Xbox series X, it has to be renamed in libSDL2.so-configgen
-            filename_sdl2 = os.environ["PYSDL2_DLL_PATH"] + "libSDL2.so"
-            filename_sdl2_configgen = filename_sdl2 + "-configgen"
-            if not os.path.exists(filename_sdl2):
-                os.replace(filename_sdl2_configgen, filename_sdl2)
-
             filename = "/userdata/system/switch/configgen/debugcontrollers.txt"
             if os.path.exists(filename):
                 file = open(filename, 'r')
@@ -651,16 +645,6 @@ class RyujinxMainlineGenerator(Generator):
             
             data['input_config'] = input_config
 
-        # if we turn the auto_control_config off, then it's better to avoid conflicts with the sdl2 coming from ryujinx (which completely messes up xbox series x controllers with both bluetooth and dongle
-        try:
-            if system.config["ryu_auto_controller_config"] == "0":
-                filename_sdl2 = os.environ["PYSDL2_DLL_PATH"] + "libSDL2.so"
-                filename_sdl2_configgen = filename_sdl2 + "-configgen"
-                if os.path.exists(filename_sdl2):
-                    os.replace(filename_sdl2, filename_sdl2_configgen)
-        except:
-            pass
-        
         #Resolution Scale
         if system.isOptSet('ryu_resolution_scale'):
             if system.config["ryu_resolution_scale"] in {'1.0', '2.0', '3.0', '4.0', 1.0, 2.0, 3.0, 4.0}:

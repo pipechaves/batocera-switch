@@ -2,22 +2,22 @@
 
 import generators
 from configgen.generators.Generator import Generator
-import Command as Command
+from configgen import Command as Command
 import os
 import shutil
 import stat
-import batoceraFiles as batoceraFiles
-import controllersConfig as controllersConfig
+from configgen import batoceraFiles as batoceraFiles
+from configgen import controllersConfig as controllersConfig
 import configparser
 from shutil import copyfile
-from utils.logger import get_logger
+from configgen.utils.logger import get_logger
 import subprocess
 
 eslog = get_logger(__name__)
 
 class YuzuMainlineGenerator(Generator):
 
-    def generate(self, system, rom, playersControllers, gameResolution):
+    def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
         #handles chmod so you just need to download yuzu.AppImage
         if os.path.exists("/userdata/system/switch/yuzu.AppImage"):
             st = os.stat("/userdata/system/switch/yuzu.AppImage")

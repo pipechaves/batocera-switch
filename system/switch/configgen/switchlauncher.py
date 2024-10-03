@@ -1,18 +1,8 @@
 #!/usr/bin/env python
 
-#Code is emulatorlauncher.py from Batocera 35 with minor changes to generator importer
-#Added for Switch Add-On
-import platform
-from packaging import version
-
-if version.parse(platform.release()) < version.parse("6.1.18"):
-    import sys
-    sys.path.append('/usr/lib/python3.10/site-packages/configgen/')
-else:
-    import sys
-    sys.path.append('/usr/lib/python3.11/site-packages/configgen/')
-
 import os
+from pathlib import Path
+
 profiler = None
 
 # 1) touch /var/run/emulatorlauncher.perf
@@ -28,34 +18,26 @@ if os.path.exists("/var/run/emulatorlauncher.perf"):
 
 ### import always needed ###
 import argparse
-import GeneratorImporter
 import signal
 import time
 from sys import exit
 import subprocess
-import batoceraFiles
-import utils.videoMode as videoMode
-############################
-from utils.logger import get_logger
+import json
+
+from configgen import controllersConfig as controllers
+import GeneratorImporter
+from configgen.batoceraPaths import SAVES
+from configgen.Emulator import Emulator
+from configgen.utils import bezels as bezelsUtil
+from configgen.utils import videoMode
+from configgen.utils import gunsUtils
+from configgen.utils import wheelsUtils
+from configgen.utils.logger import get_logger
+
 eslog = get_logger(__name__)
-############################
 
-from Emulator import Emulator
-import controllersConfig as controllers
-import utils.bezels as bezelsUtil
-
-def get_batocera_version():
-    batocera_version_path = '/usr/bin/batocera-version'
-    if os.path.exists(batocera_version_path):
-        try:
-            result = subprocess.run([batocera_version_path], capture_output=True, text=True)
-            if result.returncode == 0:
-                return int(result.stdout.strip()[:2])
-        except Exception:
-            pass
-    return None
-
-batocera_version = get_batocera_version()
+# enable mouse
+subprocess.run(["unclutter-remote", "-s"])
 
 def squashfs_begin(rom):
     eslog.debug(f"squashfs_begin({rom})")
@@ -163,15 +145,35 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
         if "emulator" in system.config:
             eslog.debug("emulator: {}".format(system.config["emulator"]))
 
+    # metadata
+    metadata = controllers.getGamesMetaData(systemName, rom)
+
     # search guns in case use_guns is enabled for this game
     # force use_guns in case es tells it has a gun
     if system.isOptSet('use_guns') == False and args.lightgun:
         system.config["use_guns"] = True
     if system.isOptSet('use_guns') and system.getOptBoolean('use_guns'):
         guns = controllers.getGuns()
+        if "core" in system.config:
+            gunsUtils.precalibration(systemName, system.config['emulator'], system.config["core"], rom)
+        else:
+            gunsUtils.precalibration(systemName, system.config['emulator'], None, rom)
     else:
-        eslog.info("guns disabled.");
+        eslog.info("guns disabled.")
         guns = []
+
+    # search wheels in case use_wheels is enabled for this game
+    # force use_wheels in case es tells it has a wheel
+    wheelProcesses = None
+    if system.isOptSet('use_wheels') == False and args.wheel:
+        system.config["use_wheels"] = True
+    if system.isOptSet('use_wheels') and system.getOptBoolean('use_wheels'):
+        deviceInfos = controllers.getDevicesInformation()
+        (wheelProcesses, playersControllers, deviceInfos) = wheelsUtils.reconfigureControllers(playersControllers, system, rom, metadata, deviceInfos)
+        wheels = wheelsUtils.getWheelsFromDevicesInfos(deviceInfos)
+    else:
+        eslog.info("wheels disabled.")
+        wheels = []
 
     # find the generator
     generator = GeneratorImporter.getGenerator(system.config['emulator'])
@@ -210,9 +212,9 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
         eslog.debug("resolution: {}x{}".format(str(gameResolution["width"]), str(gameResolution["height"])))
 
         # savedir: create the save directory if not already done
-        dirname = os.path.join(batoceraFiles.savesDir, system.name)
-        if not os.path.exists(dirname):
-            os.makedirs(dirname)
+        dirname = SAVES / system.name
+        if not dirname.exists():
+            dirname.mkdir(parents=True)
 
         # core
         effectiveCore = ""
@@ -233,6 +235,8 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
             system.config["netplay.server.ip"] = args.netplayip
         if args.netplayport is not None:
             system.config["netplay.server.port"] = args.netplayport
+        if args.netplaysession is not None:
+            system.config["netplay.server.session"] = args.netplaysession
 
         # autosave arguments
         if args.state_slot is not None:
@@ -242,14 +246,9 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
         if args.state_filename is not None:
             system.config["state_filename"] = args.state_filename
 
-        if batocera_version is not None and batocera_version >= 39:
-            if generator.getMouseMode(system.config, effectiveRom):
-                mouseChanged = True
-                videoMode.changeMouse(True)
-        else:
-            if generator.getMouseMode(system.config):
-                mouseChanged = True
-                videoMode.changeMouse(True)
+        if generator.getMouseMode(system.config, rom):
+            mouseChanged = True
+            videoMode.changeMouse(True)
 
         # SDL VSync is a big deal on OGA and RPi4
         if system.isOptSet('sdlvsync') and system.getOptBoolean('sdlvsync') == False:
@@ -258,48 +257,38 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
             system.config["sdlvsync"] = '1'
         os.environ.update({'SDL_RENDER_VSYNC': system.config["sdlvsync"]})
 
-        # enable mouse
-        subprocess.run(["unclutter-remote", "-s"])
         # run a script before emulator starts
         callExternalScripts("/usr/share/batocera/configgen/scripts", "gameStart", [systemName, system.config['emulator'], effectiveCore, effectiveRom])
         callExternalScripts("/userdata/system/scripts", "gameStart", [systemName, system.config['emulator'], effectiveCore, effectiveRom])
 
         # run the emulator
         try:
-            from Evmapy import Evmapy
-            #Test Batocera Version
-            #cmd = os.system( "batocera-es-swissknife --version" ) 
-            a = subprocess.Popen('batocera-es-swissknife --version', shell=True, stdout=subprocess.PIPE)
-            b = a.stdout.read().decode("utf-8")
-            if version.parse(platform.release()) < version.parse("6.2"):
-                if(b.startswith('35')):
-                    Evmapy.start(systemName, system.config['emulator'], effectiveCore, effectiveRomConfiguration, playersControllers)
-                else:
-                    Evmapy.start(systemName, system.config, effectiveCore, effectiveRomConfiguration, playersControllers)                
-            else:
-                Evmapy.start(systemName, system.config['emulator'], effectiveCore, effectiveRomConfiguration, playersControllers, guns)
-            
+            from configgen.Evmapy import Evmapy
+            Evmapy.start(systemName, system.config['emulator'], effectiveCore, effectiveRomConfiguration, playersControllers, guns)
+
+            # hotkeygen context
+            hkc = generator.getHotkeysContext()
+            eslog.debug("hotkeygen: updating context to {}".format(hkc["name"]))
+            subprocess.call(["hotkeygen", "--new-context", hkc["name"], json.dumps(hkc["keys"])])
+
             # change directory if wanted
             executionDirectory = generator.executionDirectory(system.config, effectiveRom)
             if executionDirectory is not None:
                 os.chdir(executionDirectory)
 
-            #Original
-            #cmd = generator.generate(system, rom, playersControllers, guns, gameResolution)
-            #Switch
-            cmd = generator.generate(system, rom, playersControllers, gameResolution)
+            cmd = generator.generate(system, rom, playersControllers, metadata, guns, wheels, gameResolution)
 
-            #if system.isOptSet('hud_support') and system.getOptBoolean('hud_support') == True:
-            hud_bezel = getHudBezel(system, generator, rom, gameResolution, controllers.gunsBordersSizeName(guns, system.config))
-            if (system.isOptSet('hud') and system.config['hud'] != "" and system.config['hud'] != "none") or hud_bezel is not None:
-                gameinfos = extractGameInfosFromXml(args.gameinfoxml)
-                cmd.env["MANGOHUD_DLSYM"] = "1"
-                hudconfig = getHudConfig(system, args.systemname, system.config['emulator'], effectiveCore, rom, gameinfos, hud_bezel)
-                with open('/var/run/hud.config', 'w') as f:
-                    f.write(hudconfig)
-                cmd.env["MANGOHUD_CONFIGFILE"] = "/var/run/hud.config"
-                if generator.hasInternalMangoHUDCall() == False:
-                    cmd.array.insert(0, "mangohud")
+            if system.isOptSet('hud_support') and system.getOptBoolean('hud_support') == True:
+                hud_bezel = getHudBezel(system, generator, rom, gameResolution, controllers.gunsBordersSizeName(guns, system.config), controllers.gunsBorderRatioType(guns, system.config))
+                if (system.isOptSet('hud') and system.config['hud'] != "" and system.config['hud'] != "none") or hud_bezel is not None:
+                    gameinfos = extractGameInfosFromXml(args.gameinfoxml)
+                    cmd.env["MANGOHUD_DLSYM"] = "1"
+                    hudconfig = getHudConfig(system, args.systemname, system.config['emulator'], effectiveCore, rom, gameinfos, hud_bezel)
+                    with open('/var/run/hud.config', 'w') as f:
+                        f.write(hudconfig)
+                    cmd.env["MANGOHUD_CONFIGFILE"] = "/var/run/hud.config"
+                    if generator.hasInternalMangoHUDCall() == False:
+                        cmd.array.insert(0, "mangohud")
 
             if profiler:
                 profiler.disable()
@@ -307,6 +296,10 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
             if profiler:
                 profiler.enable()
         finally:
+            # reset hotkeygen context
+            eslog.debug("hotkeygen: resetting to default context")
+            subprocess.call(["hotkeygen", "--default-context"])
+
             Evmapy.stop()
 
         # run a script after emulator shuts down
@@ -327,10 +320,16 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
             except Exception:
                 pass # don't fail
 
+        if wheelProcesses is not None and len(wheelProcesses) > 0:
+            try:
+                wheelsUtils.resetControllers(wheelProcesses)
+            except Exception:
+                eslog.error("hum, unable to reset wheel controllers !")
+                pass # don't fail
     # exit
     return exitCode
 
-def getHudBezel(system, generator, rom, gameResolution, bordersSize):
+def getHudBezel(system, generator, rom, gameResolution, bordersSize, bordersRatio):
     if generator.supportsInternalBezels():
         eslog.debug("skipping bezels for emulator {}".format(system.config['emulator']))
         return None
@@ -350,7 +349,7 @@ def getHudBezel(system, generator, rom, gameResolution, bordersSize):
     else:
         eslog.debug("hud enabled. trying to apply the bezel {}".format(system.config['bezel']))
 
-        bezel = "none"
+        bezel = system.config['bezel']
         bz_infos = bezelsUtil.getBezelInfos(rom, bezel, system.name, system.config['emulator'])
         if bz_infos is None:
             eslog.debug("no bezel info file found")
@@ -363,7 +362,6 @@ def getHudBezel(system, generator, rom, gameResolution, bordersSize):
     # bottom, top, left and right must not cover too much the image to be considered as compatible
     if os.path.exists(overlay_info_file):
         try:
-            import json
             infos = json.load(open(overlay_info_file))
         except:
             eslog.warning(f"unable to read {overlay_info_file}")
@@ -387,18 +385,21 @@ def getHudBezel(system, generator, rom, gameResolution, bordersSize):
     bezel_ratio  = bezel_width / bezel_height
 
     # the screen and bezel ratio must be approximatly the same
-    if abs(screen_ratio - bezel_ratio) > max_ratio_delta:
-        eslog.debug(f"screen ratio ({screen_ratio}) is too far from the bezel one ({bezel_ratio}) : {screen_ratio} - {bezel_ratio} > {max_ratio_delta}")
-        return None
+    if bordersSize is None:
+        if abs(screen_ratio - bezel_ratio) > max_ratio_delta:
+            eslog.debug(f"screen ratio ({screen_ratio}) is too far from the bezel one ({bezel_ratio}) : {screen_ratio} - {bezel_ratio} > {max_ratio_delta}")
+            return None
 
     # the ingame image and the bezel free space must feet
     ## the bezel top and bottom cover must be minimum
-    if "top" in infos and infos["top"] / bezel_height > max_cover:
-        eslog.debug("bezel top covers too much the game image : {} / {} > {}".format(infos["top"], bezel_height, max_cover))
-        return None
-    if "bottom" in infos and infos["bottom"] / bezel_height > max_cover:
-        eslog.debug("bezel bottom covers too much the game image : {} / {} > {}".format(infos["bottom"], bezel_height, max_cover))
-        return None
+    # in case there is a border, force it
+    if bordersSize is None:
+        if "top" in infos and infos["top"] / bezel_height > max_cover:
+            eslog.debug("bezel top covers too much the game image : {} / {} > {}".format(infos["top"], bezel_height, max_cover))
+            return None
+        if "bottom" in infos and infos["bottom"] / bezel_height > max_cover:
+            eslog.debug("bezel bottom covers too much the game image : {} / {} > {}".format(infos["bottom"], bezel_height, max_cover))
+            return None
 
     # if there is no information about top/bottom, assume default is 0
 
@@ -411,24 +412,27 @@ def getHudBezel(system, generator, rom, gameResolution, bordersSize):
         eslog.debug(f"bezel has no left info in {overlay_info_file}")
         # assume default is 4/3 over 16/9
         infos_left = (bezel_width - (bezel_height / 3 * 4)) / 2
-        if abs((infos_left  - ((bezel_width-img_width)/2.0)) / img_width) > max_cover:
-            eslog.debug(f"bezel left covers too much the game image : {infos_left  - ((bezel_width-img_width)/2.0)} / {img_width} > {max_cover}")
-            return None
-        
+        if bordersSize is None:
+            if abs((infos_left  - ((bezel_width-img_width)/2.0)) / img_width) > max_cover:
+                eslog.debug(f"bezel left covers too much the game image : {infos_left  - ((bezel_width-img_width)/2.0)} / {img_width} > {max_cover}")
+                return None
+
     if "right" not in infos:
         eslog.debug(f"bezel has no right info in {overlay_info_file}")
         # assume default is 4/3 over 16/9
         infos_right = (bezel_width - (bezel_height / 3 * 4)) / 2
-        if abs((infos_right - ((bezel_width-img_width)/2.0)) / img_width) > max_cover:
-            eslog.debug(f"bezel right covers too much the game image : {infos_right  - ((bezel_width-img_width)/2.0)} / {img_width} > {max_cover}")
+        if bordersSize is None:
+            if abs((infos_right - ((bezel_width-img_width)/2.0)) / img_width) > max_cover:
+                eslog.debug(f"bezel right covers too much the game image : {infos_right  - ((bezel_width-img_width)/2.0)} / {img_width} > {max_cover}")
+                return None
+
+    if bordersSize is None:
+        if "left"  in infos and abs((infos["left"]  - ((bezel_width-img_width)/2.0)) / img_width) > max_cover:
+            eslog.debug("bezel left covers too much the game image : {} / {} > {}".format(infos["left"]  - ((bezel_width-img_width)/2.0), img_width, max_cover))
             return None
-    
-    if "left"  in infos and abs((infos["left"]  - ((bezel_width-img_width)/2.0)) / img_width) > max_cover:
-        eslog.debug("bezel left covers too much the game image : {} / {} > {}".format(infos["left"]  - ((bezel_width-img_width)/2.0), img_width, max_cover))
-        return None
-    if "right" in infos and abs((infos["right"] - ((bezel_width-img_width)/2.0)) / img_width) > max_cover:
-        eslog.debug("bezel right covers too much the game image : {} / {} > {}".format(infos["right"]  - ((bezel_width-img_width)/2.0), img_width, max_cover))
-        return None
+        if "right" in infos and abs((infos["right"] - ((bezel_width-img_width)/2.0)) / img_width) > max_cover:
+            eslog.debug("bezel right covers too much the game image : {} / {} > {}".format(infos["right"]  - ((bezel_width-img_width)/2.0), img_width, max_cover))
+            return None
 
     # if screen and bezel sizes doesn't match, resize
     # stretch option
@@ -455,9 +459,9 @@ def getHudBezel(system, generator, rom, gameResolution, bordersSize):
     if bordersSize is not None:
         eslog.debug("Draw gun borders")
         output_png_file = "/tmp/bezel_gunborders.png"
-
         innerSize, outerSize = bezelsUtil.gunBordersSize(bordersSize)
-        borderSize = bezelsUtil.gunBorderImage(overlay_png_file, output_png_file, innerSize, outerSize)
+        eslog.debug("Gun border ratio = {}".format(bordersRatio))
+        borderSize = bezelsUtil.gunBorderImage(overlay_png_file, output_png_file, bordersRatio, innerSize, outerSize, bezelsUtil.gunsBordersColorFomConfig(system.config))
         overlay_png_file = output_png_file
 
     eslog.debug(f"applying bezel {overlay_png_file}")
@@ -549,7 +553,11 @@ def getHudConfig(system, systemName, emulator, core, rom, gameinfos, bezel):
 def runCommand(command):
     global proc
 
-    command.env.update(os.environ)
+    # compute environment : first the current envs, then override by values set at generator level
+    envvars = dict(os.environ)
+    envvars.update(command.env)
+    command.env = envvars
+
     eslog.debug(f"command: {str(command)}")
     eslog.debug(f"command: {str(command.array)}")
     eslog.debug(f"env: {str(command.env)}")
@@ -579,7 +587,8 @@ def signal_handler(signal, frame):
         eslog.debug('killing proc')
         proc.kill()
 
-if __name__ == '__main__':
+def launch():
+    global proc
     proc = None
     signal.signal(signal.SIGINT, signal_handler)
     parser = argparse.ArgumentParser(description='emulator-launcher script')
@@ -602,12 +611,14 @@ if __name__ == '__main__':
     parser.add_argument("-netplaypass",    help="enable spectator mode",       type=str, required=False)
     parser.add_argument("-netplayip",      help="remote ip",                   type=str, required=False)
     parser.add_argument("-netplayport",    help="remote port",                 type=str, required=False)
+    parser.add_argument("-netplaysession", help="netplay session",             type=str, required=False)
     parser.add_argument("-state_slot",     help="state slot",                  type=str, required=False)
     parser.add_argument("-state_filename", help="state filename",              type=str, required=False)
     parser.add_argument("-autosave",       help="autosave",                    type=str, required=False)
     parser.add_argument("-systemname",     help="system fancy name",           type=str, required=False)
     parser.add_argument("-gameinfoxml",    help="game info xml",               type=str, nargs='?', default='/dev/null', required=False)
     parser.add_argument("-lightgun",       help="configure lightguns",         action="store_true")
+    parser.add_argument("-wheel",          help="configure wheel",             action="store_true")
 
     args = parser.parse_args()
     try:
@@ -626,6 +637,9 @@ if __name__ == '__main__':
     eslog.debug(f"Exiting configgen with status {str(exitcode)}")
 
     exit(exitcode)
+
+if __name__ == '__main__':
+    launch()
 
 # Local Variables:
 # tab-width:4
