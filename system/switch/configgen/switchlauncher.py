@@ -27,7 +27,7 @@ import json
 from configgen import controllersConfig as controllers
 import GeneratorImporter
 from configgen.batoceraPaths import SAVES
-from configgen.Emulator import Emulator
+from Emulator import Emulator
 from configgen.utils import bezels as bezelsUtil
 from configgen.utils import videoMode
 from configgen.utils import gunsUtils
