@@ -231,6 +231,9 @@ url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/swit
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/GeneratorImporter.py" "$url/GeneratorImporter.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switchlauncher.py" "$url/switchlauncher.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switchlauncher2.py" "$url/switchlauncher2.py"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/configgen-defaults.yml" "$url/configgen-defaults.yml"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/configgen-defaults-arch.yml" "$url/configgen-defaults-arch.yml"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Emulator.py" "$url/Emulator.py"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/CONFIGS/EMULATIONSTATION
 path=/userdata/system/configs/emulationstation
