@@ -6,7 +6,8 @@ This version integrates work from ordovice, foclabroc, Batocera Nation, and uure
 
 ## EASY INSTALL
 From a terminal window, run the following:<br>
-```curl -L bit.ly/foclabroc-switchoff | bash```
+```curl -L bit.ly/foclabroc-switchoff-40 | bash```  (v39-v40)
+```curl -L bit.ly/foclabroc-switchoff | bash```  (v41+)
 
 After installing, place your prod.keys and title.keys in /share/bios/switch/  
 If you wish to use Ryujinx you will also need to supply the firmware zip file
