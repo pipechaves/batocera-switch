@@ -1,11 +1,14 @@
-#!/usr/bin/env python
+from __future__ import annotations
 
-import generators
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from generators.Generator import Generator
 
 # not the nicest way, possibly one of the faster i think
 # some naming rules may allow to modify this function to less than 10 lines
 
-def getGenerator(emulator):
+def getGenerator(emulator: str) -> Generator:
 
     if emulator == 'yuzu':
         from generators.yuzu.yuzuMainlineGenerator import YuzuMainlineGenerator	

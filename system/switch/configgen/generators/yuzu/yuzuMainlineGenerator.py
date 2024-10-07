@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-
+from __future__ import annotations
 import generators
 from configgen.generators.Generator import Generator
 from configgen import Command as Command
@@ -12,10 +11,24 @@ import configparser
 from shutil import copyfile
 from configgen.utils.logger import get_logger
 import subprocess
+from typing import TYPE_CHECKING, Final
+
+if TYPE_CHECKING:
+    from pathlib import Path
+
+    from ...controllersConfig import ControllerMapping
+    from ...Emulator import Emulator
+    from ...types import HotkeysContext
 
 eslog = get_logger(__name__)
 
 class YuzuMainlineGenerator(Generator):
+
+    def getHotkeysContext(self) -> HotkeysContext:
+        return {
+            "name": "yuzu-mainline",
+            "keys": { "exit": ["KEY_LEFTALT", "KEY_F4"] }
+        }
 
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
         #handles chmod so you just need to download yuzu.AppImage
