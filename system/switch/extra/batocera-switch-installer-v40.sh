@@ -2,7 +2,7 @@
 # BATOCERA.PRO INSTALLER
 ######################################################################
 #--------------------------------------------------------------------- 
-APPNAME="SWITCH-EMULATION-40" 
+APPNAME="SWITCH-EMULATION FOR 39/40" 
 ORIGIN="github.com/foclabroc/batocera-switch" 
 #---------------------------------------------------------------------
 ######################################################################
@@ -302,6 +302,7 @@ chmod a+x /userdata/system/switch/extra/*.sh 2>/dev/null
 chmod a+x /userdata/system/switch/extra/batocera-config* 2>/dev/null
 chmod a+x /userdata/system/switch/extra/batocera-switch-lib* 2>/dev/null
 chmod a+x /userdata/system/switch/extra/*.desktop 2>/dev/null
+chmod a+x /userdata/system/.local/share/applications/*.desktop 2>/dev/null
 # --------------------------------------------------------------------
 echo -e "${X} > INSTALLED OK${X}" 
 sleep 1

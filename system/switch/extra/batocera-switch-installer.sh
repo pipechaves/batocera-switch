@@ -2,7 +2,7 @@
 # BATOCERA.PRO INSTALLER
 ######################################################################
 #--------------------------------------------------------------------- 
-APPNAME="SWITCH-EMULATION" 
+APPNAME="SWITCH-EMULATION FOR 41+" 
 ORIGIN="github.com/foclabroc/batocera-switch" 
 #---------------------------------------------------------------------
 ######################################################################
@@ -151,7 +151,6 @@ fi
 rm -rf /userdata/system/switch 2>/dev/null
 rm /userdata/system/configs/emulationstation/add_feat_switch.cfg 2>/dev/null
 rm /userdata/system/configs/emulationstation/es_features.cfg 2>/dev/null
-rm /userdata/system/.local/share/applications/suyu-config.desktop 2>/dev/null
 # -------------------------------------------------------------------- 
 # FILL PATHS
 #mkdir -p /userdata/roms/ports/images 2>/dev/null
@@ -208,6 +207,7 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzu
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyu" "$url/batocera-config-suyu"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyuQL" "$url/batocera-config-suyuQL"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu.png" "$url/suyu.png"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
 # -------------------------------------------------------------------- 
 # + get default config file: 
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/CONFIG.txt" "https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-config.txt"
@@ -274,10 +274,10 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-logo.png" "$url/suyu-logo.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-screenshot.png" "$url/suyu-screenshot.png"
 # -------------------------------------------------------------------- 
-# # FILL /USERDATA/SYSTEM/.LOCAL/SHARE/APPLICATIONS
+# FILL /USERDATA/SYSTEM/.LOCAL/SHARE/APPLICATIONS
 path=/userdata/system/.local/share/applications
-url=https://archive.org/download/yuzu1734_202410/suyu-config.desktop
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
+url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra
+wget --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/ROMS/SWITCH
 path=/userdata/roms/switch
@@ -302,6 +302,7 @@ chmod a+x /userdata/system/switch/extra/*.sh 2>/dev/null
 chmod a+x /userdata/system/switch/extra/batocera-config* 2>/dev/null
 chmod a+x /userdata/system/switch/extra/batocera-switch-lib* 2>/dev/null
 chmod a+x /userdata/system/switch/extra/*.desktop 2>/dev/null
+chmod a+x /userdata/system/.local/share/applications/*.desktop 2>/dev/null
 # --------------------------------------------------------------------
 echo -e "${X} > INSTALLED OK${X}" 
 sleep 1
