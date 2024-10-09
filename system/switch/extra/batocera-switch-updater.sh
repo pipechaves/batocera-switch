@@ -2024,7 +2024,7 @@ update_emulator 2 5 $(echo "$EMULATORS" | cut -d "-" -f 2) "$link_yuzu" "$link_y
 update_emulator 3 5 $(echo "$EMULATORS" | cut -d "-" -f 3) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
 update_emulator 4 5 $(echo "$EMULATORS" | cut -d "-" -f 4) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
 update_emulator 5 5 $(echo "$EMULATORS" | cut -d "-" -f 5) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
-echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATORS UPDATED ${GREEN}OK ${THEME_COLOR} │${X}"
+echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATORS INSTALLED ${GREEN}OK ${THEME_COLOR} │${X}"
 echo -e "${THEME_COLOR}──────────────────────────────────────┘${X}"
 fi
 # UPDATE 4 EMULATORS -------------------------------------
@@ -2033,7 +2033,7 @@ update_emulator 1 4 $(echo "$EMULATORS" | cut -d "-" -f 1) "$link_yuzu" "$link_y
 update_emulator 2 4 $(echo "$EMULATORS" | cut -d "-" -f 2) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
 update_emulator 3 4 $(echo "$EMULATORS" | cut -d "-" -f 3) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
 update_emulator 4 4 $(echo "$EMULATORS" | cut -d "-" -f 4) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
-echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATORS UPDATED ${GREEN}OK ${THEME_COLOR} │${X}"
+echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATORS INSTALLED ${GREEN}OK ${THEME_COLOR} │${X}"
 echo -e "${THEME_COLOR}──────────────────────────────────────┘${X}"
 fi
 # UPDATE 3 EMULATORS -------------------------------------
@@ -2041,20 +2041,20 @@ if [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 5)" = "" ]] && [[ "$(
 update_emulator 1 3 $(echo "$EMULATORS" | cut -d "-" -f 1) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
 update_emulator 2 3 $(echo "$EMULATORS" | cut -d "-" -f 2) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
 update_emulator 3 3 $(echo "$EMULATORS" | cut -d "-" -f 3) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
-echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATORS UPDATED ${GREEN}OK ${THEME_COLOR} │${X}"
+echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATORS INSTALLED ${GREEN}OK ${THEME_COLOR} │${X}"
 echo -e "${THEME_COLOR}──────────────────────────────────────┘${X}"
 fi
 # UPDATE 2 EMULATORS -------------------------------------
 if [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 5)" = "" ]] && [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 4)" = "" ]] && [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 3)" = "" ]] && [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 2)" != "" ]]; then
 update_emulator 1 2 $(echo "$EMULATORS" | cut -d "-" -f 1) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
 update_emulator 2 2 $(echo "$EMULATORS" | cut -d "-" -f 2) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
-echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATORS UPDATED ${GREEN}OK ${THEME_COLOR} │${X}"
+echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATORS INSTALLED ${GREEN}OK ${THEME_COLOR} │${X}"
 echo -e "${THEME_COLOR}──────────────────────────────────────┘${X}"
 fi
 # UPDATE 1 EMULATOR ---------------------------------------
 if [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 5)" = "" ]] && [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 4)" = "" ]] && [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 3)" = "" ]] && [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 2)" = "" ]] && [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 1)" != "" ]]; then
 update_emulator 1 1 $(echo "$EMULATORS" | cut -d "-" -f 1) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
-echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATOR UPDATED ${GREEN}OK ${THEME_COLOR} │${X}"
+echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATOR INSTALLED ${GREEN}OK ${THEME_COLOR} │${X}"
 echo -e "${THEME_COLOR}─────────────────────────────────────┘${X}"
 fi
 # 
@@ -2240,7 +2240,7 @@ function post-install() {
 sleep 1
 echo
 echo -e "${THEME_COLOR_OK}❯❯❯ ${F}DOWNLOADING SUYU-DEV ${T}...${T}"
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/suyu.AppImage" "https://archive.org/download/suyu_20241008/suyu.AppImage"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/suyu.AppImage" "https://archive.org/download/suyu_20241009/suyu.AppImage"
 chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
 # -------------------------------------------------------------------
 # get additional files 
