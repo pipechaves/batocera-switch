@@ -174,6 +174,7 @@ mkdir /userdata/system/switch 2>/dev/null
 mkdir /userdata/system/switch/extra 2>/dev/null
 mkdir /userdata/system/switch/configgen 2>/dev/null
 mkdir /userdata/system/switch/configgen/generators 2>/dev/null
+mkdir /userdata/system/switch/configgen/generators/suyu 2>/dev/null
 mkdir /userdata/system/switch/configgen/generators/yuzu 2>/dev/null
 mkdir /userdata/system/switch/configgen/generators/ryujinx 2>/dev/null
 
@@ -203,6 +204,9 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryuj
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinx.png" "$url/ryujinx.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzu.png" "$url/yuzu.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzuEA.png" "$url/yuzuEA.png"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyu" "$url/batocera-config-suyu"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyuQL" "$url/batocera-config-suyuQL"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu.png" "$url/suyu.png"
 # -------------------------------------------------------------------- 
 # + get default config file: 
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/CONFIG.txt" "https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-config.txt"
@@ -212,6 +216,11 @@ path=/userdata/system/switch/configgen/generators/ryujinx
 url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/ryujinx
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinxMainlineGenerator.py" "$url/ryujinxMainlineGenerator.py"
+# -------------------------------------------------------------------- 
+# FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/SUYU-DEV
+path=/userdata/system/switch/configgen/generators/suyu
+url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/suyu
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyuGenerator.py" "$url/suyuGenerator.py"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/YUZU
 path=/userdata/system/switch/configgen/generators/yuzu
@@ -249,6 +258,8 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/swit
 path=/userdata/roms/ports 
 url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater.sh" "$url/Switch Updater.sh"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Suyu Qlauncher.sh" "$url/Suyu Qlauncher.sh"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Suyu Qlauncher.sh.keys" "$url/Suyu Qlauncher.sh.keys"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/ROMS/PORTS/IMAGES 
 path=/userdata/roms/ports/images
@@ -258,6 +269,14 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Swit
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater-mix.png" "$url/Switch Updater-mix.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater-screenshot.png" "$url/Switch Updater-screenshot.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater-wheel.png" "$url/Switch Updater-wheel.png"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-boxart.png" "$url/suyu-boxart.png"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-logo.png" "$url/suyu-logo.png"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-screenshot.png" "$url/suyu-screenshot.png"
+# -------------------------------------------------------------------- 
+# FILL /USERDATA/SYSTEM/.LOCAL/SHARE/APPLICATIONS
+path=/userdata/system/.local/share/applications
+url=https://raw.githubusercontent.com/foclabroc/batocera-switch/system/switch/extra
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/ROMS/SWITCH
 path=/userdata/roms/switch

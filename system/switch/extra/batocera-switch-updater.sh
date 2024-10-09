@@ -329,7 +329,7 @@ echo "MODE=$MODE" >> /tmp/updater-mode
 #      fi
 #   fi
 #fi
-# -------------------------------------------------------------------
+#-------------------------------------------------------------------
 # get tar dependencies 
 # \\ 
 link_tar=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
@@ -2007,8 +2007,7 @@ echo -e "${R}       ${W}/${R}/${W}\\\\${R}/      "
 sleep 0.1111
 # -------------------------
 clear
-echo -e "${W}──────────────────────────────────────────────────────────────────────────────────────────────────────┐"
-echo -e "${W}SWITCH UPDATER FOR BATOCERA | !!Download from archive.org (slow download speed) wait 1 to 10 minutes!!│"
+echo -e "${W}SWITCH UPDATER FOR BATOCERA | !!Download from archive.org (slow download speed) wait 1 to 10 minutes!!"
 echo
 # -------------------------
 links=/userdata/system/switch/extra/links
@@ -2238,11 +2237,11 @@ function post-install() {
          fi
 # ------------------------------------------------------------------- 
 # show info 
-chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
 sleep 1
 echo
-echo -e "${THEME_COLOR_YUZU}❯❯❯ ${F}UPDATING ADDITIONAL FILES ${T}...${T}"
-
+echo -e "${THEME_COLOR_OK}❯❯❯ ${F}DOWNLOADING SUYU-DEV ${T}...${T}"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/suyu.AppImage" "https://archive.org/download/suyu_20241008/suyu.AppImage"
+chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
 # -------------------------------------------------------------------
 # get additional files 
 # ------------------------------------------------------------------- 

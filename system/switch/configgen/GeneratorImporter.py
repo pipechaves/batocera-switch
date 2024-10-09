@@ -10,6 +10,10 @@ if TYPE_CHECKING:
 
 def getGenerator(emulator: str) -> Generator:
 
+    if emulator == 'suyu-dev':
+        from generators.suyu.suyuGenerator import YuzuMainlineGenerator	
+        return YuzuMainlineGenerator()
+
     if emulator == 'yuzu':
         from generators.yuzu.yuzuMainlineGenerator import YuzuMainlineGenerator	
         return YuzuMainlineGenerator()
