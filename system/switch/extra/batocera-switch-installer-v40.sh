@@ -277,7 +277,7 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu
 # FILL /USERDATA/SYSTEM/.LOCAL/SHARE/APPLICATIONS
 path=/userdata/system/.local/share/applications
 url=https://archive.org/download/yuzu1734_202410/suyu-config.desktop
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies "$path/suyu-config.desktop" "$url/suyu-config.desktop"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/ROMS/SWITCH
 path=/userdata/roms/switch
