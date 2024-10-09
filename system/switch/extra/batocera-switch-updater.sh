@@ -2239,7 +2239,7 @@ function post-install() {
 # show info 
 sleep 1
 echo
-echo -e "${THEME_COLOR_OK}❯❯❯ ${F}DOWNLOADING SUYU-DEV ${T}...${T}"
+echo -e "${THEME_COLOR_OK}❯❯❯ ${F}DOWNLOADING SUYU-DEV ${T}0.0.3${T}"
 wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/suyu.AppImage" "https://archive.org/download/suyu_20241009/suyu.AppImage"
 chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
 # -------------------------------------------------------------------
