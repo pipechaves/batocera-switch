@@ -30,7 +30,7 @@ class YuzuMainlineGenerator(Generator):
             "keys": { "exit": ["KEY_LEFTALT", "KEY_F4"] }
         }
 
-    def generate(self, system, rom, playersControllers, gameResolution):
+    def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
         #handles chmod so you just need to download suyu.AppImage
         if os.path.exists("/userdata/system/switch/suyu.AppImage"):
             st = os.stat("/userdata/system/switch/suyu.AppImage")
