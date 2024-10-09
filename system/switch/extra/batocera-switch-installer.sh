@@ -182,6 +182,7 @@ mkdir /userdata/system/switch/configgen/generators/ryujinx 2>/dev/null
 mkdir /userdata/system/configs 2>/dev/null
 mkdir /userdata/system/configs/evmapy 2>/dev/null
 mkdir /userdata/system/configs/emulationstation 2>/dev/null
+mkdir /userdata/system/.local/share/applications 2>/dev/null
 
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/EXTRA
