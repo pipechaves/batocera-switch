@@ -275,9 +275,9 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-screenshot.png" "$url/suyu-screenshot.png"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/.LOCAL/SHARE/APPLICATIONS
-path="/userdata/system/.local/share/applications"
+path=/userdata/system/.local/share/applications
 url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
+wget --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/ROMS/SWITCH
 path=/userdata/roms/switch
