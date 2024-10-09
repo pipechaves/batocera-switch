@@ -209,6 +209,7 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzu
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyu" "$url/batocera-config-suyu"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyuQL" "$url/batocera-config-suyuQL"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu.png" "$url/suyu.png"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
 # -------------------------------------------------------------------- 
 # + get default config file: 
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/CONFIG.txt" "https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-config.txt"
