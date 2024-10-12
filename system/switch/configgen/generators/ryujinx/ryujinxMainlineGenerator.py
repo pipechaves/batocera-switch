@@ -11,7 +11,7 @@ from os import environ
 from configgen import batoceraFiles as batoceraFiles
 from configgen import controllersConfig as controllersConfig
 from shutil import copyfile
-from configgen.utils.logger import get_logger
+import logging
 import subprocess
 from typing import TYPE_CHECKING, Final
 
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     from ...Emulator import Emulator
     from ...types import HotkeysContext
 
-eslog = get_logger(__name__)
+eslog = logging.getLogger(__name__)
 
 class RyujinxMainlineGenerator(Generator):
 
