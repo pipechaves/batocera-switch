@@ -874,7 +874,7 @@ mkdir /userdata/system/switch/extra/downloads 2>/dev/null
 
 if [ "$3" = "YUZU" ]; then
 T=$THEME_COLOR_YUZU
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/yuzu1734.AppImage" "https://www.dropbox.com/scl/fi/matzqudopz3ijr8tp7r6o/yuzu1734.AppImage?rlkey=0832ap91ujbs0vq87kfvxh96p&st=qqbogksi&dl=1"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/yuzu1734.AppImage" "https://foclabroc.freeboxos.fr:55973/share/pbpFVdQsWQuIZLBK/yuzu1734.AppImage"
 link_yuzu="/userdata/system/switch/yuzu1734.AppImage"
 version="1734"
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
@@ -987,7 +987,7 @@ fi
 ##
 if [ "$3" = "YUZUEA" ]; then
 T=$THEME_COLOR_YUZUEA
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/yuzuea4176.AppImage" "https://www.dropbox.com/scl/fi/etp772jekklojq8swesjd/yuzuea4176.AppImage?rlkey=3ishiwiqw8rnpksoyecjb3k0g&st=7cbcn9k9&dl=1"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/yuzuea4176.AppImage" "https://foclabroc.freeboxos.fr:55973/share/wFMuNBT3U8Wwa2x5/yuzuea4176.AppImage"
 link_yuzuEA="/userdata/system/switch/yuzuea4176.AppImage"
 version="4176"
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
@@ -1100,7 +1100,7 @@ fi
 ##
 if [ "$3" = "RYUJINX" ]; then
 T=$THEME_COLOR_RYUJINX
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinx1403.tar.gz" "https://www.dropbox.com/scl/fi/wkjj8unot8gmrz66ehe0x/ryujinx1403.tar.gz?rlkey=jja3vede6d9id8djgyc056pjv&st=jpmtkdrs&dl=1"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinx1403.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/lqVHIOAnffqV6hVv/ryujinx1403.tar.gz"
 link_ryujinx="/userdata/system/switch/ryujinx1403.tar.gz"
 version="1403"
 # --------------------------------------------------------
@@ -1264,7 +1264,7 @@ fi
 #
 if [ "$3" = "RYUJINXLDN" ]; then
 T=$THEME_COLOR_RYUJINXLDN
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinxldn313.tar.gz" "https://www.dropbox.com/scl/fi/v0fzayocecwthto1cnfzy/ryujinxldn313.tar.gz?rlkey=ekpxzy2j9ft7yt2ji653rk22n&st=chvs9enm&dl=1"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinxldn313.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/wYMor7MbJcP8x3Nz/ryujinxldn313.tar.gz"
 link_ryujinxldn="/userdata/system/switch/ryujinxldn313.tar.gz"
 version="3.1.3"
 # --------------------------------------------------------
@@ -1426,7 +1426,7 @@ fi
 #
 if [ "$3" = "RYUJINXAVALONIA" ]; then
 T=$THEME_COLOR_RYUJINXAVALONIA
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinxava1403.tar.gz" "https://www.dropbox.com/scl/fi/jldgpoczclo3389iv1u34/ryujinxava1403.tar.gz?rlkey=r5t3w2huuyf6kopw62fkvtacx&st=eay2j40j&dl=1"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinxava1403.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/DU36Dg9YsZK-gYsr/ryujinxava1403.tar.gz"
 link_ryujinxavalonia="/userdata/system/switch/ryujinxava1403.tar.gz"
 version="1403"
 # --------------------------------------------------------
@@ -2007,7 +2007,7 @@ echo -e "${R}       ${W}/${R}/${W}\\\\${R}/      "
 sleep 0.1111
 # -------------------------
 clear
-echo -e "${W}SWITCH UPDATER FOR BATOCERA | !!Download from Dropbox wait 1 to 5 minutes!!"
+echo -e "${W}SWITCH UPDATER FOR BATOCERA | !!Downloading... wait 1 to 5 minutes!!"
 echo
 # -------------------------
 links=/userdata/system/switch/extra/links
@@ -2240,7 +2240,7 @@ function post-install() {
 sleep 1
 echo
 echo -e "${THEME_COLOR_OK}❯❯❯ ${F}DOWNLOADING SUYU-DEV ${T}0.0.3${T}"
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/suyu.AppImage" "https://www.dropbox.com/scl/fi/jq8oixtz1wcxzfnppamws/suyu.AppImage?rlkey=xzcxcyx2v1x7v8zangrp83lmv&st=1cpuwu87&dl=1"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/suyu.AppImage" "https://foclabroc.freeboxos.fr:55973/share/R6i7dVr560xwTpTj/suyu.AppImage"
 chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
 # -------------------------------------------------------------------
 # get additional files 
