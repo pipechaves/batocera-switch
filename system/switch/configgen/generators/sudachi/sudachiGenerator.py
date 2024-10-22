@@ -97,7 +97,11 @@ class SudachiGenerator(Generator):
             
         if not os.path.exists("/userdata/system/.local/share/sudachi/play_time"):
             st = os.symlink("/userdata/system/configs/yuzu/play_time","/userdata/system/.local/share/sudachi/play_time")
-            
+
+        if os.path.exists("/userdata/system/.local/share/sudachi/pulse"):            
+            if not os.path.islink("/userdata/system/.local/share/sudachi/pulse"):
+                shutil.rmtree("/userdata/system/.local/share/sudachi/pulse")
+	    
         if not os.path.exists("/userdata/system/.local/share/sudachi/pulse"):
             st = os.symlink("/userdata/system/configs/yuzu/pulse","/userdata/system/.local/share/sudachi/pulse")
             
