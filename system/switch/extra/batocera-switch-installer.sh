@@ -177,6 +177,7 @@ mkdir /userdata/system/switch/configgen/generators 2>/dev/null
 mkdir /userdata/system/switch/configgen/generators/suyu 2>/dev/null
 mkdir /userdata/system/switch/configgen/generators/yuzu 2>/dev/null
 mkdir /userdata/system/switch/configgen/generators/ryujinx 2>/dev/null
+mkdir /userdata/system/switch/configgen/generators/sudachi 2>/dev/null
 
 mkdir /userdata/system/configs 2>/dev/null
 mkdir /userdata/system/configs/evmapy 2>/dev/null
@@ -188,6 +189,8 @@ path=/userdata/system/switch/extra
 url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-ryujinx" "$url/batocera-config-ryujinx"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-ryujinx-avalonia" "$url/batocera-config-ryujinx-avalonia"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-sudachi" "$url/batocera-config-sudachi"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-sudachiQL" "$url/batocera-config-sudachiQL"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-yuzu" "$url/batocera-config-yuzu"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-yuzuEA" "$url/batocera-config-yuzuEA"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-libselinux.so.1" "$url/batocera-switch-libselinux.so.1"
@@ -207,7 +210,9 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzu
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyu" "$url/batocera-config-suyu"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyuQL" "$url/batocera-config-suyuQL"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu.png" "$url/suyu.png"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/sudachi.png" "$url/sudachi.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/sudachi-config.desktop" "$url/sudachi-config.desktop"
 # -------------------------------------------------------------------- 
 # + get default config file: 
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/CONFIG.txt" "https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-config.txt"
@@ -222,6 +227,11 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryuj
 path=/userdata/system/switch/configgen/generators/suyu
 url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/suyu
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyuGenerator.py" "$url/suyuGenerator.py"
+# -------------------------------------------------------------------- 
+# FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/SUDACHI
+path=/userdata/system/switch/configgen/generators/sudachi
+url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/sudachi
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/sudachiGenerator.py" "$url/sudachiGenerator.py"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/YUZU
 path=/userdata/system/switch/configgen/generators/yuzu
@@ -278,6 +288,11 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu
 path=/userdata/system/.local/share/applications
 url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra
 wget --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
+# -------------------------------------------------------------------- 
+# FILL /USERDATA/SYSTEM/.LOCAL/SHARE/APPLICATIONS
+path=/userdata/system/.local/share/applications
+url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra
+wget --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/sudachi-config.desktop" "$url/sudachi-config.desktop"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/ROMS/SWITCH
 path=/userdata/roms/switch
