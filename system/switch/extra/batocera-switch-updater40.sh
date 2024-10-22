@@ -202,13 +202,13 @@ rm -rf "$f" 2>/dev/null
                rm "$u" 2>/dev/null
                   echo '#!/bin/bash' >> "$u"
                   echo "sed -i 's/^Icon=.*$/Icon=\/userdata\/system\/switch\/extra\/icon_loading.png/' /usr/share/applications/switch-updater.desktop 2>/dev/null" >> "$u"
-                  echo "  rm /tmp/.batocera-switch-updater.sh 2>/dev/null" >> "$u"
-                  echo "  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O /tmp/.batocera-switch-updater.sh https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh" >> "$u"
-                  ##echo "  curl -sSf https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh -o /tmp/.batocera-switch-updater.sh " >> "$u"
-                  echo "  sed -i 's,unclutter-remote -h,unclutter-remote -s,g' /tmp/.batocera-switch-updater.sh" >> "$u"
-                  echo "  dos2unix /tmp/.batocera-switch-updater.sh 2>/dev/null && chmod 777 /tmp/.batocera-switch-updater.sh 2>/dev/null" >> "$u"
-                  echo "    bash /tmp/.batocera-switch-updater.sh" >> "$u"
-                  echo "  rm /tmp/.batocera-switch-updater.sh 2>/dev/null" >> "$u"
+                  echo "  rm /tmp/.batocera-switch-updater40.sh 2>/dev/null" >> "$u"
+                  echo "  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O /tmp/.batocera-switch-updater40.sh https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-updater40.sh" >> "$u"
+                  ##echo "  curl -sSf https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-updater40.sh -o /tmp/.batocera-switch-updater40.sh " >> "$u"
+                  echo "  sed -i 's,unclutter-remote -h,unclutter-remote -s,g' /tmp/.batocera-switch-updater40.sh" >> "$u"
+                  echo "  dos2unix /tmp/.batocera-switch-updater40.sh 2>/dev/null && chmod 777 /tmp/.batocera-switch-updater40.sh 2>/dev/null" >> "$u"
+                  echo "    bash /tmp/.batocera-switch-updater40.sh" >> "$u"
+                  echo "  rm /tmp/.batocera-switch-updater40.sh 2>/dev/null" >> "$u"
                   echo "sed -i 's/^Icon=.*$/Icon=\/userdata\/system\/switch\/extra\/icon_updater.png/' /usr/share/applications/switch-updater.desktop 2>/dev/null" >> "$u"
                   echo "exit 0" >> "$u"
                      dos2unix "$u" 2>/dev/null && chmod a+x "$u" 2>/dev/null
@@ -2242,15 +2242,6 @@ echo
 echo -e "${THEME_COLOR_OK}❯❯❯ ${F}DOWNLOADING SUYU-DEV ${T}0.0.3${T}"
 wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/suyu.AppImage" "https://foclabroc.freeboxos.fr:55973/share/R6i7dVr560xwTpTj/suyu.AppImage"
 chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
-echo
-echo -e "${THEME_COLOR_OK}❯❯❯ ${F}DOWNLOADING SUDACHI ${T}1.0.11${T}"
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/sudachi.zip" "https://foclabroc.freeboxos.fr:55973/share/3Y2onhJ2tw2uy2TS/sudachi.zip"
-cd /userdata/system/switch/
-rm -rf /userdata/system/switch/sudachi 2>/dev/null
-unzip -o -qq /userdata/system/switch/sudachi.zip 2>/dev/null
-rm -rf /userdata/system/switch/sudachi.zip 2>/dev/null
-chmod 777 /userdata/system/switch/sudachi/bin/sudachi 2>/dev/null
-chmod 777 /userdata/system/switch/sudachi/bin/sudachi-room 2>/dev/null
 # -------------------------------------------------------------------
 # get additional files 
 # ------------------------------------------------------------------- 
@@ -2581,7 +2572,7 @@ url_es_systems_switch=https://raw.githubusercontent.com/foclabroc/batocera-switc
 # url_ryujinxMainlineGenerator=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/ryujinx/ryujinxMainlineGenerator.py
 # url_yuzuMainlineGenerator=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/yuzu/yuzuMainlineGenerator.py
 #url_sshupdater=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-sshupdater.sh
-url_updater=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh
+url_updater=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-updater40.sh
 url_portsupdater=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports/Switch%20Updater.sh
 url_portsupdaterkeys=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports/Switch%20Updater.sh.keys   
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/configs/evmapy/switch.keys" "$url_switchkeys"
@@ -2611,11 +2602,11 @@ url_portsupdaterkeys=https://raw.githubusercontent.com/foclabroc/batocera-switch
    ###curl -sSf "$url_sshupdater" -o "/userdata/system/switch/extra/batocera-switch-sshupdater.sh"
    ###dos2unix "/userdata/system/switch/extra/batocera-switch-sshupdater.sh" 2>/dev/null
    ###chmod a+x "/userdata/system/switch/extra/batocera-switch-sshupdater.sh" 2>/dev/null
-   # update batocera-switch-updater.sh
-   wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-updater.sh" "$url_updater"
-   ###curl -sSf "$url_updater" -o "/userdata/system/switch/extra/batocera-switch-updater.sh"
-   dos2unix "/userdata/system/switch/extra/batocera-switch-updater.sh" 2>/dev/null
-   chmod a+x "/userdata/system/switch/extra/batocera-switch-updater.sh" 2>/dev/null
+   # update batocera-switch-updater40.sh
+   wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-updater40.sh" "$url_updater"
+   ###curl -sSf "$url_updater" -o "/userdata/system/switch/extra/batocera-switch-updater40.sh"
+   dos2unix "/userdata/system/switch/extra/batocera-switch-updater40.sh" 2>/dev/null
+   chmod a+x "/userdata/system/switch/extra/batocera-switch-updater40.sh" 2>/dev/null
    # update ports Switch Updater.sh
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/roms/ports/Switch Updater.sh" "$url_portsupdater"
    ###curl -sSf "$url_portsupdater" -o "/userdata/roms/ports/Switch Updater.sh"

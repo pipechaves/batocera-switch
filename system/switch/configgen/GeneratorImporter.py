@@ -14,6 +14,10 @@ def getGenerator(emulator: str) -> Generator:
         from generators.suyu.suyuGenerator import YuzuMainlineGenerator	
         return YuzuMainlineGenerator()
 
+    if emulator == 'sudachi':
+        from generators.sudachi.sudachiGenerator import SudachiGenerator
+        return SudachiGenerator()
+
     if emulator == 'yuzu':
         from generators.yuzu.yuzuMainlineGenerator import YuzuMainlineGenerator	
         return YuzuMainlineGenerator()

@@ -196,7 +196,7 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/bato
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-sshupdater.sh" "$url/batocera-switch-sshupdater.sh"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-tar" "$url/batocera-switch-tar"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-tput" "$url/batocera-switch-tput"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-updater.sh" "$url/batocera-switch-updater.sh"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-updater40.sh" "$url/batocera-switch-updater40.sh"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/icon_ryujinx.png" "$url/icon_ryujinx.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/icon_yuzu.png" "$url/icon_yuzu.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/libthai.so.0.3.1" "$url/libthai.so.0.3.1"
@@ -246,7 +246,7 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Emul
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/CONFIGS/EMULATIONSTATION
 path=/userdata/system/configs/emulationstation
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/configs/emulationstation
+url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen40/emulationstation40
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/es_features_switch.cfg" "$url/es_features_switch.cfg"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/es_systems_switch.cfg" "$url/es_systems_switch.cfg"
 # -------------------------------------------------------------------- 
@@ -314,13 +314,13 @@ X='\033[0m' # / resetcolor
 echo -e "${X}LOADING ${X}SWITCH UPDATER${X} . . ." 
 echo -e "${X} "
 rm -rf /userdata/system/switch/extra/installation 2>/dev/null
-rm /tmp/batocera-switch-updater.sh 2>/dev/null 
+rm /tmp/batocera-switch-updater40.sh 2>/dev/null 
 mkdir -p /tmp 2>/dev/null
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/tmp/batocera-switch-updater.sh" "https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh" 
-sed -i 's,MODE=DISPLAY,MODE=CONSOLE,g' /tmp/batocera-switch-updater.sh 2>/dev/null
-dos2unix /tmp/batocera-switch-updater.sh 2>/dev/null 
-chmod a+x /tmp/batocera-switch-updater.sh 2>/dev/null 
-/tmp/batocera-switch-updater.sh CONSOLE 
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/tmp/batocera-switch-updater40.sh" "https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-updater40.sh" 
+sed -i 's,MODE=DISPLAY,MODE=CONSOLE,g' /tmp/batocera-switch-updater40.sh 2>/dev/null
+dos2unix /tmp/batocera-switch-updater40.sh 2>/dev/null 
+chmod a+x /tmp/batocera-switch-updater40.sh 2>/dev/null 
+/tmp/batocera-switch-updater40.sh CONSOLE 
 sleep 0.1 
 echo "OK" >> /userdata/system/switch/extra/installation
 sleep 0.1
