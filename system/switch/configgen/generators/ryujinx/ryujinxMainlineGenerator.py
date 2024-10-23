@@ -8,7 +8,7 @@ import json
 import uuid
 from os import path
 from os import environ
-from configgen import batoceraFiles as batoceraFiles
+import batoceraFiles
 from configgen import controllersConfig as controllersConfig
 from shutil import copyfile
 import logging

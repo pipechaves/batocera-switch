@@ -5,7 +5,7 @@ from configgen import Command as Command
 import os
 import shutil
 import stat
-from configgen import batoceraFiles as batoceraFiles
+import batoceraFiles
 from configgen import controllersConfig as controllersConfig
 import configparser
 import logging
