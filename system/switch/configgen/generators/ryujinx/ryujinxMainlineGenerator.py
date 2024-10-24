@@ -187,7 +187,7 @@ class RyujinxMainlineGenerator(Generator):
 
         data['check_updates_on_start'] = bool('false')
         data['show_confirm_exit'] = bool(0)
-        data['hide_cursor_on_idle'] = bool('true')
+        data['hide_cursor'] = 1
 
         #V-Sync
         if system.isOptSet('ryu_vsync'):
@@ -278,6 +278,14 @@ class RyujinxMainlineGenerator(Generator):
         column_sort['sort_column_id'] = 0
         column_sort['sort_ascending'] = bool(0)         
         data['column_sort'] = column_sort
+        shown_file_types = {}
+        shown_file_types['nsp'] = bool('true')
+        shown_file_types['pfs0'] = bool('true')
+        shown_file_types['xci'] = bool('true')
+        shown_file_types['nca'] = bool('true')
+        shown_file_types['nro'] = bool('true')
+        shown_file_types['nso'] = bool('true')
+        data['shown_file_types'] = shown_file_types 
 
         if ((system.isOptSet('ryu_auto_controller_config') and not (system.config["ryu_auto_controller_config"] == "0")) or not system.isOptSet('ryu_auto_controller_config')):
             
