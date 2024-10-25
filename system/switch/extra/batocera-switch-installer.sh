@@ -254,6 +254,8 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/conf
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/configgen-defaults-arch.yml" "$url/configgen-defaults-arch.yml"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Emulator.py" "$url/Emulator.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batoceraFiles.py" "$url/batoceraFiles.py"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/controllersConfig.py" "$url/controllersConfig.py"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/evmapy.py" "$url/evmapy.py"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/CONFIGS/EMULATIONSTATION
 path=/userdata/system/configs/emulationstation
