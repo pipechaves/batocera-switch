@@ -874,7 +874,7 @@ mkdir /userdata/system/switch/extra/downloads 2>/dev/null
 
 if [ "$3" = "YUZU" ]; then
 T=$THEME_COLOR_YUZU
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/yuzu1734.AppImage" "https://foclabroc.freeboxos.fr:55973/share/pbpFVdQsWQuIZLBK/yuzu1734.AppImage"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/yuzu1734.AppImage" "https://2424.filelu.cloud/d/rn3p3u2njs4f5jtas6mncyhutf7mjicyofvbwza4xf4fkqyohjrj4r6y6dcaiyd4dhgig4sw/yuzu1734.AppImage"
 link_yuzu="/userdata/system/switch/yuzu1734.AppImage"
 version="1734"
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
@@ -987,7 +987,7 @@ fi
 ##
 if [ "$3" = "YUZUEA" ]; then
 T=$THEME_COLOR_YUZUEA
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/yuzuea4176.AppImage" "https://foclabroc.freeboxos.fr:55973/share/wFMuNBT3U8Wwa2x5/yuzuea4176.AppImage"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/yuzuea4176.AppImage" "https://2424.filelu.cloud/d/rn3pvu2njs4f5jtas6miyz5qza3slmptomjqo3obuyyoybvat7dvmoiwczvp3prupns452vz/yuzuea4176.AppImage"
 link_yuzuEA="/userdata/system/switch/yuzuea4176.AppImage"
 version="4176"
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
@@ -1100,7 +1100,7 @@ fi
 ##
 if [ "$3" = "RYUJINX" ]; then
 T=$THEME_COLOR_RYUJINX
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinx1403.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/lqVHIOAnffqV6hVv/ryujinx1403.tar.gz"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinx1403.tar.gz" "https://2424.filelu.cloud/d/rn3mxu2njs4f5jtas6mmsyphr47c7mpcdcif5zrbodu6jx6tmznukkdcobjzd6ysd7of4wuy/ryujinx1403.tar.gz"
 link_ryujinx="/userdata/system/switch/ryujinx1403.tar.gz"
 version="1403"
 # --------------------------------------------------------
@@ -1264,7 +1264,7 @@ fi
 #
 if [ "$3" = "RYUJINXLDN" ]; then
 T=$THEME_COLOR_RYUJINXLDN
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinxldn313.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/wYMor7MbJcP8x3Nz/ryujinxldn313.tar.gz"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinxldn313.tar.gz" "https://2424.filelu.cloud/d/rn3mfu2njs4f5jtas6mmozxuyzj7xr46gx5cvsvb4rzxpjdyiwdy75c33eqilh6rgnl4kojt/ryujinxldn313.tar.gz"
 link_ryujinxldn="/userdata/system/switch/ryujinxldn313.tar.gz"
 version="3.1.3"
 # --------------------------------------------------------
@@ -1426,7 +1426,7 @@ fi
 #
 if [ "$3" = "RYUJINXAVALONIA" ]; then
 T=$THEME_COLOR_RYUJINXAVALONIA
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinxava1403.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/DU36Dg9YsZK-gYsr/ryujinxava1403.tar.gz"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinxava1403.tar.gz" "https://2424.filelu.cloud/d/rn3mnu2njs4f5jtas6mnaypgyyvtdonxuxsukxx27mjdm4fujjhg5w4t7bczo3nznkrxtlmm/ryujinxava1403.tar.gz"
 link_ryujinxavalonia="/userdata/system/switch/ryujinxava1403.tar.gz"
 version="1403"
 # --------------------------------------------------------
@@ -2240,7 +2240,7 @@ function post-install() {
 sleep 1
 echo
 echo -e "${THEME_COLOR_OK}❯❯❯ ${F}DOWNLOADING SUYU-DEV ${T}0.0.3${T}"
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/suyu.AppImage" "https://foclabroc.freeboxos.fr:55973/share/R6i7dVr560xwTpTj/suyu.AppImage"
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/suyu.AppImage" "https://2424.filelu.cloud/d/rn3ntu2njs4f5jtas6mi665tzwmeaa4chbzr5hcfhfknrtwyhle2hn2qxghojxzgxdho4fsq/suyu.AppImage"
 chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
 # -------------------------------------------------------------------
 # get additional files 
