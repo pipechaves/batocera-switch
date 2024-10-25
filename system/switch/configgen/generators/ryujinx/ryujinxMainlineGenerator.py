@@ -9,7 +9,7 @@ import uuid
 from os import path
 from os import environ
 import batoceraFiles
-from configgen import controllersConfig as controllersConfig
+import controllersConfig as controllersConfig
 from shutil import copyfile
 import logging
 import subprocess

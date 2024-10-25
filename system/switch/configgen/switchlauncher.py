@@ -25,7 +25,7 @@ import json
 import logging
 from pathlib import Path
 
-from configgen import controllersConfig as controllers
+import controllersConfig as controllers
 import GeneratorImporter
 from configgen.batoceraPaths import SAVES
 from Emulator import Emulator
@@ -271,7 +271,7 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
         callExternalScripts("/userdata/system/scripts", "gameStart", [systemName, system.config['emulator'], effectiveCore, effectiveRom])
 
         # run the emulator
-        from configgen.utils.evmapy import evmapy
+        from evmapy import evmapy
         with (
             evmapy(systemName, system.config['emulator'], effectiveCore, effectiveRomConfiguration, playersControllers, guns),
 

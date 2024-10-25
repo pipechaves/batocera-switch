@@ -6,7 +6,7 @@ import os
 import shutil
 import stat
 import batoceraFiles
-from configgen import controllersConfig as controllersConfig
+import controllersConfig as controllersConfig
 import configparser
 import logging
 from shutil import copyfile
