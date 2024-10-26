@@ -363,18 +363,24 @@ echo
 echo -e "   ${X}$APPNAME INSTALLED${X}" 
 echo 
 echo 
+echo -e "   ${X}IF INSTALLATION/DOWNLOAD FAIL ${X}"
+echo -e "   ${X}> Add manualy appimage/tar/zip in /userdata/system/switch/appimages${X}" 
+echo -e "   ${X}> Files pack available here : ${X}" 
+echo -e "   ${X}> https://1fichier.com/?3e044oww12djzfwvqbfb ${X}" 
+echo -e "   ${X}> After that relaunch CURL command ${X}" 
 echo
-echo -e "   ${X}-----------------------------------------------------${X}"
+echo
+echo -e "   ${X}-------------------------------------------------------------------${X}"
 echo -e "   ${X}Place your keys into /userdata/bios/switch/${X}" 
 echo -e "   ${X}Firmware *.nca into /userdata/bios/switch/firmware/${X}" 
 echo
 echo -e "   ${X}Use Switch Updater in Ports to update emulators${X}" 
 echo -e "   ${X}For Switch Updater settings, check:${X}"
 echo -e "   ${X}/userdata/system/switch/CONFIG.txt${X}" 
-echo -e "   ${X}-----------------------------------------------------${X}"
+echo -e "   ${X}-------------------------------------------------------------------${X}"
 echo
 echo
-echo -e "   ${X}-----------------------------------------------------${X}"
+echo -e "   ${X}-------------------------------------------------------------------${X}"
 echo -e "   ${X}IN CASE OF ISSUES: ${X}"
 echo 
 echo -e "   ${X}1) try using opengl instead of vulkan ${X}"
@@ -384,7 +390,7 @@ echo
 echo -e "   ${X}CHECK LOGS: ${X}"
 echo -e "   ${X}> emulators logs are in /userdata/system/switch/logs/${X}" 
 echo -e "   ${X}> emulationstation logs are in /userdata/system/logs/${X}" 
-echo -e "   ${X}-----------------------------------------------------${X}"
+echo -e "   ${X}-------------------------------------------------------------------${X}"
 echo 
 echo 
 else
