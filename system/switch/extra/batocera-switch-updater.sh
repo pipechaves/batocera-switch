@@ -861,6 +861,7 @@ temp=/userdata/system/switch/extra/downloads
 mkdir /userdata/system/switch 2>/dev/null
 mkdir /userdata/system/switch/extra 2>/dev/null
 mkdir /userdata/system/switch/extra/downloads 2>/dev/null
+mkdir /userdata/system/switch/appimages 2>/dev/null
 # 
 #
 # ---------------------------------------------------------------------------------- 
@@ -874,7 +875,13 @@ mkdir /userdata/system/switch/extra/downloads 2>/dev/null
 
 if [ "$3" = "YUZU" ]; then
 T=$THEME_COLOR_YUZU
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/yuzu1734.AppImage" "https://2424.filelu.cloud/d/rn3p3u2njs4f5jtas6mncyhutf7mjicyofvbwza4xf4fkqyohjrj4r6y6dcaiyd4dhgig4sw/yuzu1734.AppImage"
+cd /userdata/system/switch/appimages
+yuzuM="/userdata/system/switch/appimages/yuzu1734.AppImage"
+if [ -f "$yuzuM" ]; then
+    cp /userdata/system/switch/appimages/yuzu1734.AppImage /userdata/system/switch/yuzu1734.AppImage 2>/dev/null;
+else 
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/yuzu1734.AppImage" "https://3333.filelu.cloud/d/rf3p3u2njs4f5jtas6mncyhutgen7z25jyy7uqga36auyx4iighescdofzuhggojnsewycvf/yuzu1734.AppImage"
+    cp /userdata/system/switch/appimages/yuzu1734.AppImage /userdata/system/switch/yuzu1734.AppImage 2>/dev/null; fi
 link_yuzu="/userdata/system/switch/yuzu1734.AppImage"
 version="1734"
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
@@ -882,13 +889,13 @@ if [ -f "$link_yuzu" ]; then
 	checksum_file=$(md5sum $link_yuzu | awk '{print $1}')
 	checksum_verified="fc405e5cdf0b506a3f3b28b87dacbcae"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
-		   echo -e "${T}██ ${C}   ${F}YUZU   [${W}!!${T}]   checksum fail"    	
+		   echo -e "${T}YUZU   [${W}!!${T}] download fail put yuzu1734.AppImage in (/system/switch/appimages) then relaunch script"    	
 		else
 		   rm -rf $temp/yuzu 2>/dev/null
 	       mkdir -p $temp/yuzu 2>/dev/null
 	       cd $temp/yuzu
 	       mv $link_yuzu $temp/yuzu/yuzu.AppImage 2>/dev/null
-		   echo -e "${T}██ ${C}   ${F}YUZU   ${T}❯❯   ${T}/$version/"	
+		   echo -e "${T}YUZU   ${T}❯❯   ${T}/$version/ SUCCESS"	
 		   chmod a+x "$temp/yuzu/yuzu.AppImage" 2>/dev/null
 		   $temp/yuzu/yuzu.AppImage --appimage-extract 1>/dev/null 2>/dev/null 
 		   mkdir /userdata/system/switch 2>/dev/null
@@ -987,7 +994,13 @@ fi
 ##
 if [ "$3" = "YUZUEA" ]; then
 T=$THEME_COLOR_YUZUEA
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/yuzuea4176.AppImage" "https://2424.filelu.cloud/d/rn3pvu2njs4f5jtas6miyz5qza3slmptomjqo3obuyyoybvat7dvmoiwczvp3prupns452vz/yuzuea4176.AppImage"
+cd /userdata/system/switch/appimages
+yuzuE="/userdata/system/switch/appimages/yuzuea4176.AppImage"
+if [ -f "$yuzuE" ]; then
+    cp /userdata/system/switch/appimages/yuzuea4176.AppImage /userdata/system/switch/yuzuea4176.AppImage 2>/dev/null;
+else 
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/yuzuea4176.AppImage" "https://3333.filelu.cloud/d/rf3pvu2njs4f5jtas6miyz5qzbsz4o6wadyjituen7ijszabqnscxc45rbtulqbuy2h6bjmt/yuzuea4176.AppImage"
+    cp /userdata/system/switch/appimages/yuzuea4176.AppImage /userdata/system/switch/yuzuea4176.AppImage 2>/dev/null; fi
 link_yuzuEA="/userdata/system/switch/yuzuea4176.AppImage"
 version="4176"
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
@@ -995,9 +1008,9 @@ if [ -f "$link_yuzuEA" ]; then
 	checksum_file=$(md5sum $link_yuzuEA | awk '{print $1}')
 	checksum_verified="9f20b0e6bacd2eb9723637d078d463eb"
 	   if [[ "$checksum_file" != "$checksum_verified" ]]; then 
-		  echo -e "${T}██ ${C}   ${F}YUZU-EA   [${W}!!${T}]   checksum fail"    	
+		  echo -e "${T}YUZU-EA   [${W}!!${T}] download fail put yuzuea4176.AppImage in (/system/switch/appimages) then relaunch script"    	
 	   else
-		  echo -e "${T}██ ${C}   ${F}YUZU-EA   ${T}❯❯   ${T}/$version/"
+		  echo -e "${T}YUZU-EA   ${T}❯❯   ${T}/$version/ SUCCESS"
 		  rm -rf $temp/yuzuea 2>/dev/null
 		  mkdir $temp/yuzuea 2>/dev/null
 		  cd $temp/yuzuea
@@ -1100,7 +1113,13 @@ fi
 ##
 if [ "$3" = "RYUJINX" ]; then
 T=$THEME_COLOR_RYUJINX
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinx1403.tar.gz" "https://2424.filelu.cloud/d/rn3mxu2njs4f5jtas6mmsyphr47c7mpcdcif5zrbodu6jx6tmznukkdcobjzd6ysd7of4wuy/ryujinx1403.tar.gz"
+cd /userdata/system/switch/appimages
+ryuM="/userdata/system/switch/appimages/ryujinx1403.tar.gz"
+if [ -f "$ryuM" ]; then
+    cp /userdata/system/switch/appimages/ryujinx1403.tar.gz /userdata/system/switch/ryujinx1403.tar.gz 2>/dev/null;
+else 
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1403.tar.gz" "https://3333.filelu.cloud/d/rf3mxu2njs4f5jtas6mmsyphr46aqwduo7djyfsm7o3q5bbg5zrnlthljmkqytkkf2hz5lrq/ryujinx1403.tar.gz"
+    cp /userdata/system/switch/appimages/ryujinx1403.tar.gz /userdata/system/switch/ryujinx1403.tar.gz 2>/dev/null; fi
 link_ryujinx="/userdata/system/switch/ryujinx1403.tar.gz"
 version="1403"
 # --------------------------------------------------------
@@ -1109,9 +1128,9 @@ if [ -f "$link_ryujinx" ]; then
 	checksum_file=$(md5sum $link_ryujinx | awk '{print $1}')
 	checksum_verified="442b76511ad0f727f290d8c1e380d2d2"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
-		   echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   checksum fail"    	
+		   echo -e "${T}RYUJINX   [${W}!!${T}] download fail put ryujinx1403.tar.gz in (/system/switch/appimages) then relaunch script"    	
 		else
-		  echo -e "${T}██ ${C}   ${F}RYUJINX   ${T}❯❯   ${T}$version"
+		  echo -e "${T}RYUJINX   ${T}❯❯   ${T}$version SUCCESS"
 #if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then version="382"; fi
 #version=$(echo "$version" | sed 's,1\.1\.,,g')
 #if [[ "$version" = "1215" ]]; then
@@ -1264,7 +1283,13 @@ fi
 #
 if [ "$3" = "RYUJINXLDN" ]; then
 T=$THEME_COLOR_RYUJINXLDN
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinxldn313.tar.gz" "https://2424.filelu.cloud/d/rn3mfu2njs4f5jtas6mmozxuyzj7xr46gx5cvsvb4rzxpjdyiwdy75c33eqilh6rgnl4kojt/ryujinxldn313.tar.gz"
+cd /userdata/system/switch/appimages
+ryuL="/userdata/system/switch/appimages/ryujinxldn313.tar.gz"
+if [ -f "$ryuL" ]; then
+    cp /userdata/system/switch/appimages/ryujinxldn313.tar.gz /userdata/system/switch/ryujinxldn313.tar.gz 2>/dev/null;
+else 
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinxldn313.tar.gz" "https://3333.filelu.cloud/d/rf3mfu2njs4f5jtas6mmozxuyzcgfqb7m3nmjtxxkgbsft4cjqgx6s2tszu35jnjxyo4jdpu/ryujinxldn313.tar.gz"
+    cp /userdata/system/switch/appimages/ryujinxldn313.tar.gz /userdata/system/switch/ryujinxldn313.tar.gz 2>/dev/null; fi
 link_ryujinxldn="/userdata/system/switch/ryujinxldn313.tar.gz"
 version="3.1.3"
 # --------------------------------------------------------
@@ -1273,10 +1298,10 @@ if [ -f "$link_ryujinxldn" ]; then
 	checksum_file=$(md5sum $link_ryujinxldn | awk '{print $1}')
 	checksum_verified="1c2b6297d055552dfaac9b1aed0932f1"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
-		   echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   [${W}!!${T}]   checksum fail"    	
+		   echo -e "${T}RYUJINX-LDN   [${W}!!${T}] download fail put ryujinxldn313.tar.gz in (/system/switch/appimages) then relaunch script"    	
 		else
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
-		  echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   ${T}❯❯   ${T}$version"
+		  echo -e "${T}RYUJINX-LDN   ${T}❯❯   ${T}$version SUCCESS"
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
 		  link_tar=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
@@ -1426,7 +1451,13 @@ fi
 #
 if [ "$3" = "RYUJINXAVALONIA" ]; then
 T=$THEME_COLOR_RYUJINXAVALONIA
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinxava1403.tar.gz" "https://2424.filelu.cloud/d/rn3mnu2njs4f5jtas6mnaypgyyvtdonxuxsukxx27mjdm4fujjhg5w4t7bczo3nznkrxtlmm/ryujinxava1403.tar.gz"
+cd /userdata/system/switch/appimages
+ryuA="/userdata/system/switch/appimages/ryujinxava1403.tar.gz"
+if [ -f "$ryuA" ]; then
+    cp /userdata/system/switch/appimages/ryujinxava1403.tar.gz /userdata/system/switch/ryujinxava1403.tar.gz 2>/dev/null;
+else 
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinxava1403.tar.gz" "https://3333.filelu.cloud/d/rf3mnu2njs4f5jtas6mnaypgyycwvdflzgstqikfdhj2j5fsyvg3wxriqrmssgzgeenqrjnw/ryujinxava1403.tar.gz"
+    cp /userdata/system/switch/appimages/ryujinxava1403.tar.gz /userdata/system/switch/ryujinxava1403.tar.gz 2>/dev/null; fi
 link_ryujinxavalonia="/userdata/system/switch/ryujinxava1403.tar.gz"
 version="1403"
 # --------------------------------------------------------
@@ -1435,11 +1466,11 @@ if [ -f "$link_ryujinxavalonia" ]; then
 	checksum_file=$(md5sum $link_ryujinxavalonia | awk '{print $1}')
 	checksum_verified="442b76511ad0f727f290d8c1e380d2d2"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
-		   echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   checksum fail"    	
+		   echo -e "${T}RYUJINX-AVALONIA   [${W}!!${T}] download fail put ryujinxava1403.tar.gz in (/system/switch/appimages) then relaunch script"    	
 		else
 #		  if [[ "$(echo "$link_ryujinxavalonia" | grep "382")" != "" ]]; then version="382"; fi
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
-		  echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   ${T}❯❯   ${T}$version"
+		  echo -e "${T}RYUJINX-AVALONIA   ${T}❯❯   ${T}$version SUCCESS"
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
 		  link_tar=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
@@ -2007,7 +2038,7 @@ echo -e "${R}       ${W}/${R}/${W}\\\\${R}/      "
 sleep 0.1111
 # -------------------------
 clear
-echo -e "${W}SWITCH UPDATER FOR BATOCERA | !!Downloading... wait 1 to 5 minutes!!"
+echo -e "${W}INSTALL WITH LOCAL APPIMAGE (/system/switch/appimages/) OTHERWISE DOWNLOAD IT ONLINE WAIT 1 TO 5 MINUTES!!"
 echo
 # -------------------------
 links=/userdata/system/switch/extra/links
@@ -2239,12 +2270,36 @@ function post-install() {
 # show info 
 sleep 1
 echo
-echo -e "${THEME_COLOR_OK}❯❯❯ ${F}DOWNLOADING SUYU-DEV ${T}0.0.3${T}"
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/suyu.AppImage" "https://2424.filelu.cloud/d/rn3ntu2njs4f5jtas6mi665tzwmeaa4chbzr5hcfhfknrtwyhle2hn2qxghojxzgxdho4fsq/suyu.AppImage"
+echo -e "${THEME_COLOR_OK}❯❯❯ ${F}INSTALL WITH LOCAL APPIMAGE OTHERWISE DOWNLOAD SUYU-DEV ${T}0.0.3${T}"
+cd /userdata/system/switch/appimages
+suyU="/userdata/system/switch/appimages/suyu.AppImage"
+if [ -f "$suyU" ]; then
+    cp /userdata/system/switch/appimages/suyu.AppImage /userdata/system/switch/suyu.AppImage 2>/dev/null;
+else 
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/suyu.AppImage" "https://3333.filelu.cloud/d/rf3ntu2njs4f5jtas6mi665tzurns5cjqvurr2ofzj4ojyrcpiz62kfz62pedkgqdg3pkmma/suyu.AppImage"
+    cp /userdata/system/switch/appimages/suyu.AppImage /userdata/system/switch/suyu.AppImage 2>/dev/null; fi
+    checksum_file=$(md5sum $suyU | awk '{print $1}')
+    checksum_verified="0871793d8d393f4544d98eaf992c23c0"
+		if [[ "$checksum_file" != "$checksum_verified" ]]; then
+		   echo -e "${T}SUYU-DEV   [${W}!!${T}] download fail put suyu.AppImage in (/system/switch/appimages) then relaunch script";    	
+		else
+		   echo -e "${T}SUYU-DEV   ${T}❯❯   ${T}0.0.3 SUCCESS"; fi
 chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
 echo
-echo -e "${THEME_COLOR_OK}❯❯❯ ${F}DOWNLOADING SUDACHI ${T}1.0.11${T}"
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/sudachi.zip" "https://2424.filelu.cloud/d/rn3ihu2njs4f5jtas6mm26hzrynxyybn5eamy4qa5bupaorvf2ifweb6ubzjqepkh54e3gsj/sudachi.zip"
+echo -e "${THEME_COLOR_OK}❯❯❯ ${F}INSTALL WITH LOCAL APPIMAGE OTHERWISE DOWNLOAD SUDACHI ${T}1.0.11${T}"
+cd /userdata/system/switch/appimages
+suda="/userdata/system/switch/appimages/sudachi.zip"
+if [ -f "$suda" ]; then
+    cp /userdata/system/switch/appimages/sudachi.zip /userdata/system/switch/sudachi.zip 2>/dev/null;
+else 
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/sudachi.zip" "https://3333.filelu.cloud/d/rf3ihu2njs4f5jtas6mm26hzryfb7hq2iq7wvjbe4bxluklynfxgcmc64plymzngsjrorruz/sudachi.zip"
+    cp /userdata/system/switch/appimages/sudachi.zip /userdata/system/switch/sudachi.zip 2>/dev/null; fi
+    checksum_file=$(md5sum $suda | awk '{print $1}')
+    checksum_verified="38646c269d00be7796b2e501b741ef39"
+		if [[ "$checksum_file" != "$checksum_verified" ]]; then
+		   echo -e "${T}SUDACHI   [${W}!!${T}] download fail put sudachi.zip in (/system/switch/appimages) then relaunch script";    	
+		else
+		   echo -e "${T}SUDACHI   ${T}❯❯   ${T}1.0.11 SUCCESS"; fi
 cd /userdata/system/switch/
 rm -rf /userdata/system/switch/sudachi 2>/dev/null
 unzip -o -qq /userdata/system/switch/sudachi.zip 2>/dev/null
