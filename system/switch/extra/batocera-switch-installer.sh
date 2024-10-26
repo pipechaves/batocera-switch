@@ -148,7 +148,7 @@ if [[ -f "$cfg" ]]; then
 fi
 # -------------------------------------------------------------------- 
 # PURGE OLD INSTALLS 
-rm -rf /userdata/system/switch 2>/dev/null
+#rm -rf /userdata/system/switch 2>/dev/null
 rm /userdata/system/configs/emulationstation/add_feat_switch.cfg 2>/dev/null
 rm /userdata/system/configs/emulationstation/es_features.cfg 2>/dev/null
 # -------------------------------------------------------------------- 
