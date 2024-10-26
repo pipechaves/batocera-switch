@@ -350,7 +350,7 @@ echo -e "   ${X}IF INSTALLATION/DOWNLOAD FAIL ${X}"
 echo -e "   ${X}> Add manualy appimage/tar/zip in /userdata/system/switch/appimages${X}" 
 echo -e "   ${X}> Files pack available here : ${X}" 
 echo -e "   ${X}> https://1fichier.com/?3e044oww12djzfwvqbfb ${X}" 
-echo -e "   ${X}> After that relaunch CURL command ${X}" 
+echo -e "   ${X}> After that launch SWITCH UPDATER from PORTS ${X}" 
 echo
 echo
 echo -e "   ${X}-------------------------------------------------------------------${X}"
