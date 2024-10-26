@@ -1130,7 +1130,7 @@ if [ -f "$link_ryujinx" ]; then
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
 		   echo -e "${T}RYUJINX   [${W}!!${T}] download fail put ryujinx1403.tar.gz in (/system/switch/appimages) then relaunch script"    	
 		else
-		  echo -e "${T}RYUJINX   ${T}❯❯   ${T}$version SUCCESS"
+		  echo -e "${T}RYUJINX   ${T}❯❯   ${T}/$version/ SUCCESS"
 #if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then version="382"; fi
 #version=$(echo "$version" | sed 's,1\.1\.,,g')
 #if [[ "$version" = "1215" ]]; then
@@ -1301,7 +1301,7 @@ if [ -f "$link_ryujinxldn" ]; then
 		   echo -e "${T}RYUJINX-LDN   [${W}!!${T}] download fail put ryujinxldn313.tar.gz in (/system/switch/appimages) then relaunch script"    	
 		else
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
-		  echo -e "${T}RYUJINX-LDN   ${T}❯❯   ${T}$version SUCCESS"
+		  echo -e "${T}RYUJINX-LDN   ${T}❯❯   ${T}/$version/ SUCCESS"
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
 		  link_tar=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
@@ -1470,7 +1470,7 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		else
 #		  if [[ "$(echo "$link_ryujinxavalonia" | grep "382")" != "" ]]; then version="382"; fi
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
-		  echo -e "${T}RYUJINX-AVALONIA   ${T}❯❯   ${T}$version SUCCESS"
+		  echo -e "${T}RYUJINX-AVALONIA   ${T}❯❯   ${T}/$version/ SUCCESS"
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
 		  link_tar=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
@@ -2086,7 +2086,7 @@ fi
 if [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 5)" = "" ]] && [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 4)" = "" ]] && [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 3)" = "" ]] && [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 2)" = "" ]] && [[ "$(echo $EMULATORS | cut -d "=" -f 2 | cut -d "-" -f 1)" != "" ]]; then
 update_emulator 1 1 $(echo "$EMULATORS" | cut -d "-" -f 1) "$link_yuzu" "$link_yuzuea" "$link_ryujinx" "$link_ryujinxldn" "$link_ryujinxavalonia"
 echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATOR INSTALLED ${GREEN}OK ${THEME_COLOR} │${X}"
-echo -e "${THEME_COLOR}─────────────────────────────────────┘${X}"
+echo -e "${THEME_COLOR}───────────────────────────────────────┘${X}"
 fi
 # 
 #sleep 1.1 
@@ -2283,7 +2283,7 @@ else
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
 		   echo -e "${T}SUYU-DEV   [${W}!!${T}] download fail put suyu.AppImage in (/system/switch/appimages) then relaunch script";    	
 		else
-		   echo -e "${T}SUYU-DEV   ${T}❯❯   ${T}0.0.3 SUCCESS"; fi
+		   echo -e "${T}SUYU-DEV  ${T}/V0.0.3/ SUCCESS"; fi
 chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
 echo
 echo -e "${THEME_COLOR_OK}❯❯❯ ${F}INSTALL WITH LOCAL APPIMAGE OTHERWISE DOWNLOAD SUDACHI ${T}1.0.11${T}"
@@ -2299,7 +2299,7 @@ else
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
 		   echo -e "${T}SUDACHI   [${W}!!${T}] download fail put sudachi.zip in (/system/switch/appimages) then relaunch script";    	
 		else
-		   echo -e "${T}SUDACHI   ${T}❯❯   ${T}1.0.11 SUCCESS"; fi
+		   echo -e "${T}SUDACHI  ${T}/V1.0.11/ SUCCESS"; fi
 cd /userdata/system/switch/
 rm -rf /userdata/system/switch/sudachi 2>/dev/null
 unzip -o -qq /userdata/system/switch/sudachi.zip 2>/dev/null
