@@ -880,7 +880,7 @@ yuzuM="/userdata/system/switch/appimages/yuzu1734.AppImage"
 if [ -f "$yuzuM" ]; then
     cp /userdata/system/switch/appimages/yuzu1734.AppImage /userdata/system/switch/yuzu1734.AppImage 2>/dev/null;
 else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/yuzu1734.AppImage" "https://3333.filelu.cloud/d/rf3p3u2njs4f5jtas6mncyhutgen7z25jyy7uqga36auyx4iighescdofzuhggojnsewycvf/yuzu1734.AppImage"
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/yuzu1734.AppImage" "https://foclabroc.freeboxos.fr:55973/share/pbpFVdQsWQuIZLBK/yuzu1734.AppImage"
     cp /userdata/system/switch/appimages/yuzu1734.AppImage /userdata/system/switch/yuzu1734.AppImage 2>/dev/null; fi
 link_yuzu="/userdata/system/switch/yuzu1734.AppImage"
 version="1734"
@@ -999,7 +999,7 @@ yuzuE="/userdata/system/switch/appimages/yuzuea4176.AppImage"
 if [ -f "$yuzuE" ]; then
     cp /userdata/system/switch/appimages/yuzuea4176.AppImage /userdata/system/switch/yuzuea4176.AppImage 2>/dev/null;
 else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/yuzuea4176.AppImage" "https://3333.filelu.cloud/d/rf3pvu2njs4f5jtas6miyz5qzbsz4o6wadyjituen7ijszabqnscxc45rbtulqbuy2h6bjmt/yuzuea4176.AppImage"
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/yuzuea4176.AppImage" "https://foclabroc.freeboxos.fr:55973/share/wFMuNBT3U8Wwa2x5/yuzuea4176.AppImage"
     cp /userdata/system/switch/appimages/yuzuea4176.AppImage /userdata/system/switch/yuzuea4176.AppImage 2>/dev/null; fi
 link_yuzuEA="/userdata/system/switch/yuzuea4176.AppImage"
 version="4176"
@@ -1118,7 +1118,7 @@ ryuM="/userdata/system/switch/appimages/ryujinx1403.tar.gz"
 if [ -f "$ryuM" ]; then
     cp /userdata/system/switch/appimages/ryujinx1403.tar.gz /userdata/system/switch/ryujinx1403.tar.gz 2>/dev/null;
 else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1403.tar.gz" "https://3333.filelu.cloud/d/rf3mxu2njs4f5jtas6mmsyphr46aqwduo7djyfsm7o3q5bbg5zrnlthljmkqytkkf2hz5lrq/ryujinx1403.tar.gz"
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1403.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/lqVHIOAnffqV6hVv/ryujinx1403.tar.gz"
     cp /userdata/system/switch/appimages/ryujinx1403.tar.gz /userdata/system/switch/ryujinx1403.tar.gz 2>/dev/null; fi
 link_ryujinx="/userdata/system/switch/ryujinx1403.tar.gz"
 version="1403"
@@ -1288,7 +1288,7 @@ ryuL="/userdata/system/switch/appimages/ryujinxldn313.tar.gz"
 if [ -f "$ryuL" ]; then
     cp /userdata/system/switch/appimages/ryujinxldn313.tar.gz /userdata/system/switch/ryujinxldn313.tar.gz 2>/dev/null;
 else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinxldn313.tar.gz" "https://3333.filelu.cloud/d/rf3mfu2njs4f5jtas6mmozxuyzcgfqb7m3nmjtxxkgbsft4cjqgx6s2tszu35jnjxyo4jdpu/ryujinxldn313.tar.gz"
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinxldn313.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/wYMor7MbJcP8x3Nz/ryujinxldn313.tar.gz"
     cp /userdata/system/switch/appimages/ryujinxldn313.tar.gz /userdata/system/switch/ryujinxldn313.tar.gz 2>/dev/null; fi
 link_ryujinxldn="/userdata/system/switch/ryujinxldn313.tar.gz"
 version="3.1.3"
@@ -1456,7 +1456,7 @@ ryuA="/userdata/system/switch/appimages/ryujinxava1403.tar.gz"
 if [ -f "$ryuA" ]; then
     cp /userdata/system/switch/appimages/ryujinxava1403.tar.gz /userdata/system/switch/ryujinxava1403.tar.gz 2>/dev/null;
 else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinxava1403.tar.gz" "https://3333.filelu.cloud/d/rf3mnu2njs4f5jtas6mnaypgyycwvdflzgstqikfdhj2j5fsyvg3wxriqrmssgzgeenqrjnw/ryujinxava1403.tar.gz"
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinxava1403.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/DU36Dg9YsZK-gYsr/ryujinxava1403.tar.gz"
     cp /userdata/system/switch/appimages/ryujinxava1403.tar.gz /userdata/system/switch/ryujinxava1403.tar.gz 2>/dev/null; fi
 link_ryujinxavalonia="/userdata/system/switch/ryujinxava1403.tar.gz"
 version="1403"
@@ -2276,7 +2276,7 @@ suyU="/userdata/system/switch/appimages/suyu.AppImage"
 if [ -f "$suyU" ]; then
     cp /userdata/system/switch/appimages/suyu.AppImage /userdata/system/switch/suyu.AppImage 2>/dev/null;
 else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/suyu.AppImage" "https://3333.filelu.cloud/d/rf3ntu2njs4f5jtas6mi665tzurns5cjqvurr2ofzj4ojyrcpiz62kfz62pedkgqdg3pkmma/suyu.AppImage"
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/suyu.AppImage" "https://foclabroc.freeboxos.fr:55973/share/R6i7dVr560xwTpTj/suyu.AppImage"
     cp /userdata/system/switch/appimages/suyu.AppImage /userdata/system/switch/suyu.AppImage 2>/dev/null; fi
     checksum_file=$(md5sum $suyU | awk '{print $1}')
     checksum_verified="0871793d8d393f4544d98eaf992c23c0"
@@ -2292,7 +2292,7 @@ suda="/userdata/system/switch/appimages/sudachi.zip"
 if [ -f "$suda" ]; then
     cp /userdata/system/switch/appimages/sudachi.zip /userdata/system/switch/sudachi.zip 2>/dev/null;
 else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/sudachi.zip" "https://3333.filelu.cloud/d/rf3ihu2njs4f5jtas6mm26hzryfb7hq2iq7wvjbe4bxluklynfxgcmc64plymzngsjrorruz/sudachi.zip"
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/sudachi.zip" "https://foclabroc.freeboxos.fr:55973/share/3Y2onhJ2tw2uy2TS/sudachi.zip"
     cp /userdata/system/switch/appimages/sudachi.zip /userdata/system/switch/sudachi.zip 2>/dev/null; fi
     checksum_file=$(md5sum $suda | awk '{print $1}')
     checksum_verified="38646c269d00be7796b2e501b741ef39"
