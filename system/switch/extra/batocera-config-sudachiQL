@@ -8,4 +8,4 @@ then
     export DISPLAY=:0.0
 fi
 
-XDG_CONFIG_HOME="/userdata/system/.config" XDG_DATA_HOME="/userdata/system/.config" XDG_CACHE_HOME="/userdata/system/.cache" QT_QPA_PLATFORM="xcb" /userdata/system/switch/sudachi/bin/sudachi "-ql" -platform xcb
+XDG_CONFIG_HOME="/userdata/system/.config" XDG_DATA_HOME="/userdata/system/.local/share" XDG_CACHE_HOME="/userdata/system/.cache" QT_QPA_PLATFORM="xcb" /userdata/system/switch/sudachi/bin/sudachi "-ql" -platform xcb

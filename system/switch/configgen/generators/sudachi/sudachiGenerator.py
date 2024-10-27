@@ -1587,6 +1587,9 @@ class SudachiGenerator(Generator):
         with open(beforeyuzuConfigFile, 'w') as configfile:
             yuzuConfig.write(configfile)
 
+        if not os.path.exists("/userdata/system/.local/share/sudachi/qt-config.ini"):
+            st = os.symlink("/userdata/system/.config/sudachi/qt-config.ini","/userdata/system/.local/share/sudachi/qt-config.ini")
+
     # @staticmethod
     # def setButton(key, padGuid, padInputs,controllernumber):
 
