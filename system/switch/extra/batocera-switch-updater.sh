@@ -874,7 +874,7 @@ mkdir /userdata/system/switch/appimages 2>/dev/null
 ##
 
 if [ "$3" = "YUZU" ]; then
-T=$THEME_COLOR_YUZU
+T=$GREEN
 cd /userdata/system/switch/appimages
 yuzuM="/userdata/system/switch/appimages/yuzu1734.AppImage"
 if [ -f "$yuzuM" ]; then
@@ -890,6 +890,7 @@ if [ -f "$link_yuzu" ]; then
 	checksum_verified="fc405e5cdf0b506a3f3b28b87dacbcae"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
 		   echo -e "${T}YUZU   [${W}!!${T}] download fail put yuzu1734.AppImage in (/system/switch/appimages) then relaunch script"    	
+		   rm /userdata/system/switch/appimages/yuzu1734.AppImage 2>/dev/null
 		else
 		   rm -rf $temp/yuzu 2>/dev/null
 	       mkdir -p $temp/yuzu 2>/dev/null
@@ -1009,6 +1010,7 @@ if [ -f "$link_yuzuEA" ]; then
 	checksum_verified="9f20b0e6bacd2eb9723637d078d463eb"
 	   if [[ "$checksum_file" != "$checksum_verified" ]]; then 
 		  echo -e "${T}YUZU-EA   [${W}!!${T}] download fail put yuzuea4176.AppImage in (/system/switch/appimages) then relaunch script"    	
+		  rm /userdata/system/switch/appimages/yuzuea4176.AppImage 2>/dev/null
 	   else
 		  echo -e "${T}YUZU-EA   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
 		  rm -rf $temp/yuzuea 2>/dev/null
@@ -1129,6 +1131,7 @@ if [ -f "$link_ryujinx" ]; then
 	checksum_verified="442b76511ad0f727f290d8c1e380d2d2"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
 		   echo -e "${T}RYUJINX   [${W}!!${T}] download fail put ryujinx1403.tar.gz in (/system/switch/appimages) then relaunch script"    	
+		   rm /userdata/system/switch/appimages/ryujinx1403.tar.gz 2>/dev/null
 		else
 		  echo -e "${T}RYUJINX   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
 #if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then version="382"; fi
@@ -1299,6 +1302,7 @@ if [ -f "$link_ryujinxldn" ]; then
 	checksum_verified="1c2b6297d055552dfaac9b1aed0932f1"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
 		   echo -e "${T}RYUJINX-LDN   [${W}!!${T}] download fail put ryujinxldn313.tar.gz in (/system/switch/appimages) then relaunch script"    	
+		   rm /userdata/system/switch/appimages/ryujinxldn313.tar.gz 2>/dev/null
 		else
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
 		  echo -e "${T}RYUJINX-LDN   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
@@ -1467,6 +1471,7 @@ if [ -f "$link_ryujinxavalonia" ]; then
 	checksum_verified="442b76511ad0f727f290d8c1e380d2d2"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
 		   echo -e "${T}RYUJINX-AVALONIA   [${W}!!${T}] download fail put ryujinxava1403.tar.gz in (/system/switch/appimages) then relaunch script"    	
+		   rm /userdata/system/switch/appimages/ryujinxava1403.tar.gz 2>/dev/null
 		else
 #		  if [[ "$(echo "$link_ryujinxavalonia" | grep "382")" != "" ]]; then version="382"; fi
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
@@ -2282,6 +2287,7 @@ else
     checksum_verified="0871793d8d393f4544d98eaf992c23c0"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
 		   echo -e "${T}SUYU-DEV   [${W}!!${T}] download fail put suyu.AppImage in (/system/switch/appimages) then relaunch script";    	
+		   rm /userdata/system/switch/appimages/suyu.AppImage 2>/dev/null
 		else
 		   echo -e "${T}SUYU-DEV  ${T}/V0.0.3/ ${GREEN}SUCCESS"; fi
 chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
@@ -2298,6 +2304,7 @@ else
     checksum_verified="38646c269d00be7796b2e501b741ef39"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
 		   echo -e "${T}SUDACHI   [${W}!!${T}] download fail put sudachi.zip in (/system/switch/appimages) then relaunch script";    	
+		   rm /userdata/system/switch/appimages/sudachi.zip 2>/dev/null
 		else
 		   echo -e "${T}SUDACHI  ${T}/V1.0.11/ ${GREEN}SUCCESS"; fi
 cd /userdata/system/switch/

@@ -890,6 +890,7 @@ if [ -f "$link_yuzu" ]; then
 	checksum_verified="fc405e5cdf0b506a3f3b28b87dacbcae"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
 		   echo -e "${T}YUZU   [${W}!!${T}] download fail put yuzu1734.AppImage in (/system/switch/appimages) then relaunch script"    	
+		   rm /userdata/system/switch/appimages/yuzu1734.AppImage 2>/dev/null
 		else
 		   rm -rf $temp/yuzu 2>/dev/null
 	       mkdir -p $temp/yuzu 2>/dev/null
@@ -1009,6 +1010,7 @@ if [ -f "$link_yuzuEA" ]; then
 	checksum_verified="9f20b0e6bacd2eb9723637d078d463eb"
 	   if [[ "$checksum_file" != "$checksum_verified" ]]; then 
 		  echo -e "${T}YUZU-EA   [${W}!!${T}] download fail put yuzuea4176.AppImage in (/system/switch/appimages) then relaunch script"    	
+		  rm /userdata/system/switch/appimages/yuzuea4176.AppImage 2>/dev/null
 	   else
 		  echo -e "${T}YUZU-EA   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
 		  rm -rf $temp/yuzuea 2>/dev/null
@@ -1129,6 +1131,7 @@ if [ -f "$link_ryujinx" ]; then
 	checksum_verified="442b76511ad0f727f290d8c1e380d2d2"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
 		   echo -e "${T}RYUJINX   [${W}!!${T}] download fail put ryujinx1403.tar.gz in (/system/switch/appimages) then relaunch script"    	
+		   rm /userdata/system/switch/appimages/ryujinx1403.tar.gz 2>/dev/null
 		else
 		  echo -e "${T}RYUJINX   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
 #if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then version="382"; fi
@@ -1299,6 +1302,7 @@ if [ -f "$link_ryujinxldn" ]; then
 	checksum_verified="1c2b6297d055552dfaac9b1aed0932f1"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
 		   echo -e "${T}RYUJINX-LDN   [${W}!!${T}] download fail put ryujinxldn313.tar.gz in (/system/switch/appimages) then relaunch script"    	
+		   rm /userdata/system/switch/appimages/ryujinxldn313.tar.gz 2>/dev/null
 		else
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
 		  echo -e "${T}RYUJINX-LDN   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
@@ -1467,6 +1471,7 @@ if [ -f "$link_ryujinxavalonia" ]; then
 	checksum_verified="442b76511ad0f727f290d8c1e380d2d2"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
 		   echo -e "${T}RYUJINX-AVALONIA   [${W}!!${T}] download fail put ryujinxava1403.tar.gz in (/system/switch/appimages) then relaunch script"    	
+		   rm /userdata/system/switch/appimages/ryujinxava1403.tar.gz 2>/dev/null
 		else
 #		  if [[ "$(echo "$link_ryujinxavalonia" | grep "382")" != "" ]]; then version="382"; fi
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
@@ -2282,6 +2287,7 @@ else
     checksum_verified="0871793d8d393f4544d98eaf992c23c0"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
 		   echo -e "${T}SUYU-DEV   [${W}!!${T}] download fail put suyu.AppImage in (/system/switch/appimages) then relaunch script";    	
+		   rm /userdata/system/switch/appimages/suyu.AppImage 2>/dev/null
 		else
 		   echo -e "${T}SUYU-DEV  ${T}/V0.0.3/ ${GREEN}SUCCESS"; fi
 chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
@@ -2608,8 +2614,8 @@ mkdir -p /userdata/system/switch/configgen/generators/ryujinx 2>/dev/null
 mkdir -p /userdata/system/configs/emulationstation 2>/dev/null
 mkdir -p /userdata/system/configs/evmapy 2>/dev/null
 url_switchkeys=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/configs/evmapy/switch.keys
-url_es_features_switch=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/configs/emulationstation/es_features_switch.cfg
-url_es_systems_switch=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/configs/emulationstation/es_systems_switch.cfg
+url_es_features_switch=https://raw.githubusercontent.com/foclabroc/batocera-switch/refs/heads/main/system/switch/configgen40/emulationstation40/es_features_switch.cfg
+url_es_systems_switch=https://raw.githubusercontent.com/foclabroc/batocera-switch/refs/heads/main/system/switch/configgen40/emulationstation40/es_systems_switch.cfg
 # url_switchlauncher=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/switchlauncher.py
 # url_GeneratorImporter=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/GeneratorImporter.py
 # url_ryujinxMainlineGenerator=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/ryujinx/ryujinxMainlineGenerator.py
