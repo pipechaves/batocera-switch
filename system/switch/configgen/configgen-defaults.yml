@@ -11,7 +11,7 @@ default:
     forceNoBezel:   false
 
 switch:
-  emulator: yuzu-mainline
-  core:     yuzu-mainline
+  emulator: yuzu-early-access
+  core:     yuzu-early-access
   options:
     forceNoBezel: true

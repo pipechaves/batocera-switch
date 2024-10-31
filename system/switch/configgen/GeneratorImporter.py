@@ -18,14 +18,6 @@ def getGenerator(emulator: str) -> Generator:
         from generators.sudachi.sudachiGenerator import SudachiGenerator
         return SudachiGenerator()
 
-    if emulator == 'yuzu':
-        from generators.yuzu.yuzuMainlineGenerator import YuzuMainlineGenerator	
-        return YuzuMainlineGenerator()
-
-    if emulator == 'yuzu-mainline':
-        from generators.yuzu.yuzuMainlineGenerator import YuzuMainlineGenerator	
-        return YuzuMainlineGenerator()
-
     if emulator == 'yuzu-early-access':
         from generators.yuzu.yuzuMainlineGenerator import YuzuMainlineGenerator	
         return YuzuMainlineGenerator()
@@ -39,10 +31,6 @@ def getGenerator(emulator: str) -> Generator:
         return RyujinxMainlineGenerator()
 
     if emulator == 'ryujinx-avalonia':
-        from generators.ryujinx.ryujinxMainlineGenerator import RyujinxMainlineGenerator
-        return RyujinxMainlineGenerator()
-
-    if emulator == 'ryujinx-ldn':
         from generators.ryujinx.ryujinxMainlineGenerator import RyujinxMainlineGenerator
         return RyujinxMainlineGenerator()
 
