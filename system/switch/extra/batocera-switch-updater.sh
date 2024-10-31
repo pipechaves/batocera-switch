@@ -204,14 +204,6 @@ rm /userdata/system/.local/share/applications/yuzuEA-config.desktop 2>/dev/null
 rm /userdata/system/.local/share/applications/ryujinx-config.desktop 2>/dev/null
 rm /userdata/system/.local/share/applications/ryujinxavalonia-config.desktop 2>/dev/null
 rm /userdata/system/.local/share/applications/ryujinxldn-config.desktop 2>/dev/null
-rm /usr/share/applications/yuzu.desktop 2>/dev/null
-rm /usr/share/applications/Ryujinx-LDN.desktop 2>/dev/null
-rm -rf /userdata/system/switch/extra/yuzu 2>/dev/null
-rm -rf /userdata/system/switch/extra/ryujinxldn 2>/dev/null
-rm /userdata/system/switch/appimages/ryujinxldn313.tar.gz 2>/dev/null
-rm /userdata/system/switch/appimages/yuzu1734.AppImage 2>/dev/null
-rm /userdata/system/switch/yuzu.AppImage 2>/dev/null
-rm /userdata/system/switch/Ryujinx-LDN.AppImage 2>/dev/null
 # remove old version dekstop shortcuts from /usr/share/applications:
 rm /usr/share/applications/yuzu-config.desktop 2>/dev/null
 rm /usr/share/applications/yuzuEA-config.desktop 2>/dev/null
@@ -232,7 +224,7 @@ generate-shortcut-launcher 'Ryujinx-Avalonia' 'ryujinx-Avalonia'
 ######################################################################
 ######################################################################
 if [[ "$EMULATORS" == *"DEFAULT"* ]] || [[ "$EMULATORS" == *"default"* ]] || [[ "$EMULATORS" == *"ALL"* ]] || [[ "$EMULATORS" == *"all"* ]]; then
-   EMULATORS="YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA"
+   EMULATORS="YUZUEA RYUJINX RYUJINXAVALONIA"
    EMULATORS=$(echo "$EMULATORS ")
 fi
 if [ "$(echo $EMULATORS | grep "-")" = "" ]; then 
@@ -1173,6 +1165,43 @@ if [ -f "$link_ryujinxavalonia" ]; then
 	fi
 fi	
 #
+cd /userdata/system/switch/appimages
+suyU="/userdata/system/switch/appimages/suyu.AppImage"
+if [ -f "$suyU" ]; then
+    cp /userdata/system/switch/appimages/suyu.AppImage /userdata/system/switch/suyu.AppImage 2>/dev/null;
+else 
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/suyu.AppImage" "https://foclabroc.freeboxos.fr:55973/share/R6i7dVr560xwTpTj/suyu.AppImage"
+    cp /userdata/system/switch/appimages/suyu.AppImage /userdata/system/switch/suyu.AppImage 2>/dev/null; fi
+    checksum_file=$(md5sum $suyU | awk '{print $1}')
+    checksum_verified="0871793d8d393f4544d98eaf992c23c0"
+		if [[ "$checksum_file" != "$checksum_verified" ]]; then
+		   echo -e "${T}SUYU-DEV   [${W}!!${T}] download fail put suyu.AppImage in (/system/switch/appimages) then relaunch script";    	
+		   rm /userdata/system/switch/appimages/suyu.AppImage 2>/dev/null
+		else
+		   echo -e "${T}SUYU-DEV   ${T}❯❯   ${T}/V0.0.3/ ${GREEN}SUCCESS"; fi
+chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
+echo
+echo -e "${THEME_COLOR_OK}❯❯❯ ${F}INSTALL WITH LOCAL APPIMAGE OTHERWISE DOWNLOAD SUDACHI ${T}1.0.11${T}"
+cd /userdata/system/switch/appimages
+suda="/userdata/system/switch/appimages/sudachi.zip"
+if [ -f "$suda" ]; then
+    cp /userdata/system/switch/appimages/sudachi.zip /userdata/system/switch/sudachi.zip 2>/dev/null;
+else 
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/sudachi.zip" "https://foclabroc.freeboxos.fr:55973/share/3Y2onhJ2tw2uy2TS/sudachi.zip"
+    cp /userdata/system/switch/appimages/sudachi.zip /userdata/system/switch/sudachi.zip 2>/dev/null; fi
+    checksum_file=$(md5sum $suda | awk '{print $1}')
+    checksum_verified="38646c269d00be7796b2e501b741ef39"
+		if [[ "$checksum_file" != "$checksum_verified" ]]; then
+		   echo -e "${T}SUDACHI   [${W}!!${T}] download fail put sudachi.zip in (/system/switch/appimages) then relaunch script";    	
+		   rm /userdata/system/switch/appimages/sudachi.zip 2>/dev/null
+		else
+		   echo -e "${T}SUDACHI   ${T}❯❯   ${T}/V1.0.11/ ${GREEN}SUCCESS"; fi
+cd /userdata/system/switch/
+rm -rf /userdata/system/switch/sudachi 2>/dev/null
+unzip -o -qq /userdata/system/switch/sudachi.zip 2>/dev/null
+rm -rf /userdata/system/switch/sudachi.zip 2>/dev/null
+chmod 777 /userdata/system/switch/sudachi/bin/sudachi 2>/dev/null
+chmod 777 /userdata/system/switch/sudachi/bin/sudachi-room 2>/dev/null
 #
 # ---------------------------------------------------------------------------------- 
 # ---------------------------------------------------------------------------------- 
@@ -1749,44 +1778,6 @@ function post-install() {
 # show info 
 sleep 1
 echo
-echo -e "${THEME_COLOR_OK}❯❯❯ ${F}INSTALL WITH LOCAL APPIMAGE OTHERWISE DOWNLOAD SUYU-DEV ${T}0.0.3${T}"
-cd /userdata/system/switch/appimages
-suyU="/userdata/system/switch/appimages/suyu.AppImage"
-if [ -f "$suyU" ]; then
-    cp /userdata/system/switch/appimages/suyu.AppImage /userdata/system/switch/suyu.AppImage 2>/dev/null;
-else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/suyu.AppImage" "https://foclabroc.freeboxos.fr:55973/share/R6i7dVr560xwTpTj/suyu.AppImage"
-    cp /userdata/system/switch/appimages/suyu.AppImage /userdata/system/switch/suyu.AppImage 2>/dev/null; fi
-    checksum_file=$(md5sum $suyU | awk '{print $1}')
-    checksum_verified="0871793d8d393f4544d98eaf992c23c0"
-		if [[ "$checksum_file" != "$checksum_verified" ]]; then
-		   echo -e "${T}SUYU-DEV   [${W}!!${T}] download fail put suyu.AppImage in (/system/switch/appimages) then relaunch script";    	
-		   rm /userdata/system/switch/appimages/suyu.AppImage 2>/dev/null
-		else
-		   echo -e "${T}SUYU-DEV  ${T}/V0.0.3/ ${GREEN}SUCCESS"; fi
-chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
-echo
-echo -e "${THEME_COLOR_OK}❯❯❯ ${F}INSTALL WITH LOCAL APPIMAGE OTHERWISE DOWNLOAD SUDACHI ${T}1.0.11${T}"
-cd /userdata/system/switch/appimages
-suda="/userdata/system/switch/appimages/sudachi.zip"
-if [ -f "$suda" ]; then
-    cp /userdata/system/switch/appimages/sudachi.zip /userdata/system/switch/sudachi.zip 2>/dev/null;
-else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/sudachi.zip" "https://foclabroc.freeboxos.fr:55973/share/3Y2onhJ2tw2uy2TS/sudachi.zip"
-    cp /userdata/system/switch/appimages/sudachi.zip /userdata/system/switch/sudachi.zip 2>/dev/null; fi
-    checksum_file=$(md5sum $suda | awk '{print $1}')
-    checksum_verified="38646c269d00be7796b2e501b741ef39"
-		if [[ "$checksum_file" != "$checksum_verified" ]]; then
-		   echo -e "${T}SUDACHI   [${W}!!${T}] download fail put sudachi.zip in (/system/switch/appimages) then relaunch script";    	
-		   rm /userdata/system/switch/appimages/sudachi.zip 2>/dev/null
-		else
-		   echo -e "${T}SUDACHI  ${T}/V1.0.11/ ${GREEN}SUCCESS"; fi
-cd /userdata/system/switch/
-rm -rf /userdata/system/switch/sudachi 2>/dev/null
-unzip -o -qq /userdata/system/switch/sudachi.zip 2>/dev/null
-rm -rf /userdata/system/switch/sudachi.zip 2>/dev/null
-chmod 777 /userdata/system/switch/sudachi/bin/sudachi 2>/dev/null
-chmod 777 /userdata/system/switch/sudachi/bin/sudachi-room 2>/dev/null
 # -------------------------------------------------------------------
 # get additional files 
 # ------------------------------------------------------------------- 
@@ -2315,6 +2306,8 @@ rm /userdata/system/switch/appimages/ryujinxldn313.tar.gz 2>/dev/null
 rm /userdata/system/switch/appimages/yuzu1734.AppImage 2>/dev/null
 rm /userdata/system/switch/yuzu.AppImage 2>/dev/null
 rm /userdata/system/switch/Ryujinx-LDN.AppImage 2>/dev/null
+rm /userdata/system/switch/extra/yuzu.desktop 2>/dev/null
+rm /userdata/system/switch/extra/Ryujinx-LDN.desktop 2>/dev/null
 
 echo -e "${GREEN}❯❯❯ ${F}DONE ${T}"
 sleep 2
