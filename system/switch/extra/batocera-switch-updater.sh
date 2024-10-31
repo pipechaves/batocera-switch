@@ -1778,6 +1778,7 @@ function post-install() {
 # show info 
 sleep 1
 echo
+echo -e "${WHITE} ${F}UPDATING ADDITIONAL FILES WAIT${T}...${T}"
 # -------------------------------------------------------------------
 # get additional files 
 # ------------------------------------------------------------------- 
