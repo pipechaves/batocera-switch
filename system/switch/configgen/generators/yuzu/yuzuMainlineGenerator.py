@@ -3,8 +3,12 @@ import generators
 from configgen.generators.Generator import Generator
 from configgen import Command as Command
 import os
-import shutil
 import stat
+import json
+import uuid
+from os import path
+from os import environ
+import shutil
 import batoceraFiles
 import controllersConfig as controllersConfig
 import configparser
@@ -26,7 +30,7 @@ class YuzuMainlineGenerator(Generator):
 
     def getHotkeysContext(self) -> HotkeysContext:
         return {
-            "name": "yuzu-mainline",
+            "name": "yuzu-early-access",
             "keys": { "exit": ["KEY_LEFTALT", "KEY_F4"] }
         }
 
@@ -210,7 +214,7 @@ class YuzuMainlineGenerator(Generator):
         yuzuConfig.set("UI", "Screenshots\\screenshot_path", "/userdata/screenshots")
         yuzuConfig.set("UI", "Screenshots\\screenshot_path\\default", "false")
 
-        yuzuConfig.set("UI", "Shortcuts\Main%20Window\Fullscreen\Controller_KeySeq", "Home+ZR")
+        yuzuConfig.set("UI", "Shortcuts\Main%20Window\Fullscreen\Controller_KeySeq", "Minus+B")
         yuzuConfig.set("UI", "Shortcuts\Main%20Window\Fullscreen\Controller_KeySeq\\default", "false")
         yuzuConfig.set("UI", "Shortcuts\Main%20Window\Fullscreen\KeySeq", "F4")
         yuzuConfig.set("UI", "Shortcuts\Main%20Window\Fullscreen\KeySeq\\default", "false")
