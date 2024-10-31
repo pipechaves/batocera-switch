@@ -204,12 +204,14 @@ rm /userdata/system/.local/share/applications/yuzuEA-config.desktop 2>/dev/null
 rm /userdata/system/.local/share/applications/ryujinx-config.desktop 2>/dev/null
 rm /userdata/system/.local/share/applications/ryujinxavalonia-config.desktop 2>/dev/null
 rm /userdata/system/.local/share/applications/ryujinxldn-config.desktop 2>/dev/null
-rm /usr/share/applications/yuzu-config.desktop 2>/dev/null
-rm /usr/share/applications/ryujinxldn-config.desktop 2>/dev/null
+rm /usr/share/applications/yuzu.desktop 2>/dev/null
+rm /usr/share/applications/Ryujinx-LDN.desktop 2>/dev/null
 rm -rf /userdata/system/switch/extra/yuzu 2>/dev/null
 rm -rf /userdata/system/switch/extra/ryujinxldn 2>/dev/null
 rm /userdata/system/switch/appimages/ryujinxldn313.tar.gz 2>/dev/null
 rm /userdata/system/switch/appimages/yuzu1734.AppImage 2>/dev/null
+rm /userdata/system/switch/yuzu.AppImage 2>/dev/null
+rm /userdata/system/switch/appimages/Ryujinx-LDN.AppImage 2>/dev/null
 # remove old version dekstop shortcuts from /usr/share/applications:
 rm /usr/share/applications/yuzu-config.desktop 2>/dev/null
 rm /usr/share/applications/yuzuEA-config.desktop 2>/dev/null
