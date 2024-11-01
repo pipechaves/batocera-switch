@@ -1116,22 +1116,23 @@ fi
 if [ "$3" = "RYUJINX" ]; then
 T=$THEME_COLOR_RYUJINX
 cd /userdata/system/switch/appimages
-ryuM="/userdata/system/switch/appimages/ryujinx1403.tar.gz"
+ryuM="/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz"
 if [ -f "$ryuM" ]; then
-    cp /userdata/system/switch/appimages/ryujinx1403.tar.gz /userdata/system/switch/ryujinx1403.tar.gz 2>/dev/null;
+    cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx1.2.67.tar.gz 2>/dev/null;
 else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1403.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/lqVHIOAnffqV6hVv/ryujinx1403.tar.gz"
-    cp /userdata/system/switch/appimages/ryujinx1403.tar.gz /userdata/system/switch/ryujinx1403.tar.gz 2>/dev/null; fi
-link_ryujinx="/userdata/system/switch/ryujinx1403.tar.gz"
-version="1403"
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1403.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/akEmBYUV19PJglYs/ryujinx1.2.67.tar.gz"
+    rm /userdata/system/switch/appimages/ryujinx1403.tar.gz 2>/dev/null
+    cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx1.2.67.tar.gz 2>/dev/null; fi
+link_ryujinx="/userdata/system/switch/ryujinx1.2.67.tar.gz"
+version="1.2.67"
 # --------------------------------------------------------
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_ryujinx" ]; then
 	checksum_file=$(md5sum $link_ryujinx | awk '{print $1}')
-	checksum_verified="442b76511ad0f727f290d8c1e380d2d2"
+	checksum_verified="5fa4c1c1516c60eb321cad8d7f551ea3"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
-		   echo -e "${T}RYUJINX   [${W}!!${T}] download fail put ryujinx1403.tar.gz in (/system/switch/appimages) then relaunch script"    	
-		   rm /userdata/system/switch/appimages/ryujinx1403.tar.gz 2>/dev/null
+		   echo -e "${T}RYUJINX   [${W}!!${T}] download fail put ryujinx1.2.67.tar.gz in (/system/switch/appimages) then relaunch script"    	
+		   rm /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz 2>/dev/null
 		else
 		  echo -e "${T}RYUJINX   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
 #if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then version="382"; fi
@@ -1173,7 +1174,7 @@ if [ -f "$link_ryujinx" ]; then
 		  rm -rf $temp/$emu 2>/dev/null
 		  mkdir $temp/$emu 2>/dev/null
 		  cd $temp/$emu
-		  mv $link_ryujinx $temp/$emu/ryujinx-1.1.1403-linux_x64.tar.gz 2>/dev/null
+		  mv $link_ryujinx $temp/$emu/ryujinx1.2.67.tar.gz-linux_x64.tar.gz 2>/dev/null
 		  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/$emu/xdg-mime" "https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/xdg-mime"
 		  ###curl -sSf "https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/xdg-mime" -o "$extra/$emu/xdg-mime"
 		  chmod a+x "$extra/$emu/xdg-mime"
