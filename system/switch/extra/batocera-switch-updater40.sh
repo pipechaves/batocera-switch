@@ -2684,7 +2684,7 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/swit
 ##curl -sSf "$url/switchlauncher.py" -o "$path/switchlauncher.py"
 ###wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switchlauncher_old.py" "$url/switchlauncher_old.py"
 ####curl -sSf "$url/switchlauncher_old.py" -o "$path/switchlauncher_old.py"
--------------------------------------------------------------------- 
+# -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS
 path=/userdata/system/switch/configgen/generators
 url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen40/generators
@@ -2693,7 +2693,7 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__in
 ##curl -sSf "$url/__init__.py" -o "$path/__init__.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Generator.py" "$url/Generator.py"
 ##curl -sSf "$url/Generator.py" -o "$path/Generator.py"
--------------------------------------------------------------------- 
+# -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/YUZU
 path=/userdata/system/switch/configgen/generators/yuzu
 url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen40/generators/yuzu
@@ -2970,6 +2970,9 @@ fi
                   DISPLAY=:0.0 batocera_update_switch console && DISPLAY=:0.0 post-install
             fi 
 #################################################################################################################################
+rm /userdata/roms/ports/Switch Updater.sh 2>/dev/null
+rm /userdata/roms/ports/Switch Updater.sh.keys 2>/dev/null
+rm /userdata/system/switch/extra/ryujinxavalonia/libSDL2.so 2>/dev/null
 rm /userdata/system/switch/extra/ryujinx/libSDL2.so 2>/dev/null
 rm /userdata/system/switch/extra/ryujinxavalonia/libSDL2.so 2>/dev/null
 cp /userdata/system/switch/extra/sdl/libSDL2.so /userdata/system/switch/extra/ryujinx/libSDL2.so 2>/dev/null
