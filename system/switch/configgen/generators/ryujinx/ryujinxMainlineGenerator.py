@@ -152,6 +152,16 @@ class RyujinxMainlineGenerator(Generator):
         else:
             data['max_anisotropy'] = -1 
 
+        if system.isOptSet('anti_aliasing'):
+            data['anti_aliasing'] = system.config["anti_aliasing"]
+        else:
+            data['anti_aliasing'] = 'None'
+
+        if system.isOptSet('scaling_filter'):
+            data['scaling_filter'] = system.config["scaling_filter"]
+        else:
+            data['scaling_filter'] = 'Bilinear'
+
         if system.isOptSet('aspect_ratio'):
             data['aspect_ratio'] = system.config["aspect_ratio"]
         else:
