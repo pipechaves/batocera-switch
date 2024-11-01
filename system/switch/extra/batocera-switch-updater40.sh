@@ -2657,12 +2657,12 @@ url_portsupdaterkeys=https://raw.githubusercontent.com/foclabroc/batocera-switch
    dos2unix "/userdata/system/switch/extra/batocera-switch-updater40.sh" 2>/dev/null
    chmod a+x "/userdata/system/switch/extra/batocera-switch-updater40.sh" 2>/dev/null
    # update ports Switch Updater.sh
-   wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/roms/ports/Switch Updater.sh" "$url_portsupdater"
+   wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/roms/ports/Switch Updater40.sh" "$url_portsupdater"
    ###curl -sSf "$url_portsupdater" -o "/userdata/roms/ports/Switch Updater.sh"
    dos2unix "/userdata/system/roms/ports/Switch Updater.sh" 2>/dev/null
    chmod a+x "/userdata/system/roms/ports/Switch Updater.sh" 2>/dev/null
    # update ports Switch Updater.sh.keys
-   wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/roms/ports/Switch Updater.sh.keys" "$url_portsupdaterkeys"
+   wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/roms/ports/Switch Updater40.sh.keys" "$url_portsupdaterkeys"
    ###curl -sSf "$url_portsupdaterkeys" -o "/userdata/roms/ports/Switch Updater.sh.keys"
    dos2unix "/userdata/system/roms/ports/Switch Updater.sh.keys" 2>/dev/null
    # get batocera-switch-patcher.sh 
