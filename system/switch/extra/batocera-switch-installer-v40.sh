@@ -154,8 +154,6 @@ rm /userdata/system/configs/emulationstation/es_features.cfg 2>/dev/null
 rm /userdata/system/switch/configgen/controllersConfig.py 2>/dev/null
 rm /userdata/system/switch/configgen/batoceraFiles.py 2>/dev/null
 rm /userdata/system/switch/configgen/evmapy.py 2>/dev/null
-rm /userdata/roms/ports/Switch Updater.sh.keys 2>/dev/null
-rm /userdata/roms/ports/Switch Updater.sh 2>/dev/null
 # -------------------------------------------------------------------- 
 # FILL PATHS
 #mkdir -p /userdata/roms/ports/images 2>/dev/null

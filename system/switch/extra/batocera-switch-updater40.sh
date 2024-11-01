@@ -2970,6 +2970,8 @@ fi
                   DISPLAY=:0.0 batocera_update_switch console && DISPLAY=:0.0 post-install
             fi 
 #################################################################################################################################
+rm "/userdata/roms/ports/Switch Updater.sh" 2>/dev/null
+rm "/userdata/roms/ports/Switch Updater.sh.keys" 2>/dev/null
 rm /userdata/roms/ports/Switch Updater.sh 2>/dev/null
 rm /userdata/roms/ports/Switch Updater.sh.keys 2>/dev/null
 rm /userdata/system/switch/extra/ryujinxavalonia/libSDL2.so 2>/dev/null
