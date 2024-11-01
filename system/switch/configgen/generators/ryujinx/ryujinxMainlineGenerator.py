@@ -102,7 +102,8 @@ class RyujinxMainlineGenerator(Generator):
             
         if os.path.exists(filename):
             file = open(filename, 'r')
-            ryu_version = int(file.readline())
+            versiontxt = file.read()
+            ryu_version = int(versiontxt.replace('.', ''))
             file.close()
         else:
             ryu_version = 382
@@ -121,14 +122,14 @@ class RyujinxMainlineGenerator(Generator):
                 data = {}
 
         if system.config['emulator'] == 'ryujinx-avalonia':
-            if ryu_version >= 1215:
+            if ryu_version >= 1267:
                 data['version'] = 49
             elif ryu_version >= 924:
                 data['version'] = 47
             else:
                 data['version'] = 42
         else:
-            if ryu_version >= 1215:
+            if ryu_version >= 1267:
                 data['version'] = 49
             elif ryu_version >= 924:
                 data['version'] = 47
