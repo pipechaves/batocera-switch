@@ -34,6 +34,12 @@ class RyujinxMainlineGenerator(Generator):
 
     def generate(self, system, rom, playersControllers, metadata, guns, wheels, gameResolution):
         #handles chmod so you just need to download Ryujinx.AppImage
+        if os.path.exists("/userdata/system/switch/extra/ryujinx/Ryujinx.AppImage"):
+            st = os.stat("/userdata/system/switch/extra/ryujinx/Ryujinx.AppImage")
+            os.chmod("/userdata/system/switch/extra/ryujinx/Ryujinx.AppImage", st.st_mode | stat.S_IEXEC)
+        if os.path.exists("/userdata/system/switch/extra/ryujinxavalonia/Ryujinx-Avalonia.AppImage"):
+            st = os.stat("/userdata/system/switch/extra/ryujinxavalonia/Ryujinx-Avalonia.AppImage")
+            os.chmod("/userdata/system/switch/extra/ryujinxavalonia/Ryujinx-Avalonia.AppImage", st.st_mode | stat.S_IEXEC)
         if os.path.exists("/userdata/system/switch/Ryujinx.AppImage"):
             st = os.stat("/userdata/system/switch/Ryujinx.AppImage")
             os.chmod("/userdata/system/switch/Ryujinx.AppImage", st.st_mode | stat.S_IEXEC)
