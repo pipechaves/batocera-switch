@@ -1120,7 +1120,7 @@ ryuM="/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz"
 if [ -f "$ryuM" ]; then
     cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx1.2.67.tar.gz 2>/dev/null;
 else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1403.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/akEmBYUV19PJglYs/ryujinx1.2.67.tar.gz"
+    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/akEmBYUV19PJglYs/ryujinx1.2.67.tar.gz"
     rm /userdata/system/switch/appimages/ryujinx1403.tar.gz 2>/dev/null
     cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx1.2.67.tar.gz 2>/dev/null; fi
 link_ryujinx="/userdata/system/switch/ryujinx1.2.67.tar.gz"
