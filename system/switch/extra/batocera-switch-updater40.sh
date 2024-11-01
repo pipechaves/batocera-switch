@@ -2622,8 +2622,8 @@ url_es_systems_switch=https://raw.githubusercontent.com/foclabroc/batocera-switc
 # url_yuzuMainlineGenerator=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/yuzu/yuzuMainlineGenerator.py
 #url_sshupdater=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-sshupdater.sh
 url_updater=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-updater40.sh
-url_portsupdater=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports/Switch%20Updater.sh
-url_portsupdaterkeys=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports/Switch%20Updater.sh.keys   
+url_portsupdater=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports/Switch%20Updater40.sh
+url_portsupdaterkeys=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports/Switch%20Updater40.sh.keys   
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/configs/evmapy/switch.keys" "$url_switchkeys"
    ###curl -sSf "$url_switchkeys" -o "/userdata/system/configs/evmapy/switch.keys"
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/configs/emulationstation/es_features_switch.cfg" "$url_es_features_switch"
@@ -2673,44 +2673,44 @@ url_portsupdaterkeys=https://raw.githubusercontent.com/foclabroc/batocera-switch
 # --------------------------------------------------------------------
 # pull the whole configgen to sync all autocontroller changes: 
 # -------------------------------------------------------------------- 
-# # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN
-# path=/userdata/system/switch/configgen
-# url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen
-# mkdir -p $path 2>/dev/null
-# wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/GeneratorImporter.py" "$url/GeneratorImporter.py"
-# ###curl -sSf "$url/GeneratorImporter.py" -o "$path/GeneratorImporter.py"
-# #wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/mapping.csv" "$url/mapping.csv"
-# wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switchlauncher.py" "$url/switchlauncher.py"
-###curl -sSf "$url/switchlauncher.py" -o "$path/switchlauncher.py"
-####wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switchlauncher_old.py" "$url/switchlauncher_old.py"
-#####curl -sSf "$url/switchlauncher_old.py" -o "$path/switchlauncher_old.py"
+# FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN
+path=/userdata/system/switch/configgen
+url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen40
+mkdir -p $path 2>/dev/null
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/GeneratorImporter.py" "$url/GeneratorImporter.py"
+###curl -sSf "$url/GeneratorImporter.py" -o "$path/GeneratorImporter.py"
+#wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/mapping.csv" "$url/mapping.csv"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switchlauncher.py" "$url/switchlauncher.py"
+##curl -sSf "$url/switchlauncher.py" -o "$path/switchlauncher.py"
+###wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switchlauncher_old.py" "$url/switchlauncher_old.py"
+####curl -sSf "$url/switchlauncher_old.py" -o "$path/switchlauncher_old.py"
+-------------------------------------------------------------------- 
+# FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS
+path=/userdata/system/switch/configgen/generators
+url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen40/generators
+mkdir -p $path 2>/dev/null
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
+##curl -sSf "$url/__init__.py" -o "$path/__init__.py"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Generator.py" "$url/Generator.py"
+##curl -sSf "$url/Generator.py" -o "$path/Generator.py"
+-------------------------------------------------------------------- 
+# FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/YUZU
+path=/userdata/system/switch/configgen/generators/yuzu
+url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen40/generators/yuzu
+mkdir -p $path 2>/dev/null
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
+##curl -sSf "$url/__init__.py" -o "$path/__init__.py"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzuMainlineGenerator.py" "$url/yuzuMainlineGenerator.py"
+##curl -sSf "$url/yuzuMainlineGenerator.py" -o "$path/yuzuMainlineGenerator.py"
 # -------------------------------------------------------------------- 
-# # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS
-# path=/userdata/system/switch/configgen/generators
-# url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators
-# mkdir -p $path 2>/dev/null
-# wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
-# ##curl -sSf "$url/__init__.py" -o "$path/__init__.py"
-# wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Generator.py" "$url/Generator.py"
-# ##curl -sSf "$url/Generator.py" -o "$path/Generator.py"
-# -------------------------------------------------------------------- 
-# # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/YUZU
-# path=/userdata/system/switch/configgen/generators/yuzu
-# url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/yuzu
-# mkdir -p $path 2>/dev/null
-# wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
-# ##curl -sSf "$url/__init__.py" -o "$path/__init__.py"
-# wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzuMainlineGenerator.py" "$url/yuzuMainlineGenerator.py"
-# ##curl -sSf "$url/yuzuMainlineGenerator.py" -o "$path/yuzuMainlineGenerator.py"
-# # -------------------------------------------------------------------- 
-# # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/RYUJINX
-# path=/userdata/system/switch/configgen/generators/ryujinx
-# url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/ryujinx
-# mkdir -p $path 2>/dev/null
-# wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
-# ##curl -sSf "$url/__init__.py" -o "$path/__init__.py"
-# wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinxMainlineGenerator.py" "$url/ryujinxMainlineGenerator.py"
-# ##curl -sSf "$url/ryujinxMainlineGenerator.py" -o "$path/ryujinxMainlineGenerator.py"
+# FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/RYUJINX
+path=/userdata/system/switch/configgen/generators/ryujinx
+url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen40/generators/ryujinx
+mkdir -p $path 2>/dev/null
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
+##curl -sSf "$url/__init__.py" -o "$path/__init__.py"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinxMainlineGenerator.py" "$url/ryujinxMainlineGenerator.py"
+##curl -sSf "$url/ryujinxMainlineGenerator.py" -o "$path/ryujinxMainlineGenerator.py"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/SDL2
 path=/userdata/system/switch/configgen/sdl2

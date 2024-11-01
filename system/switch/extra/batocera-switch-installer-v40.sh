@@ -154,6 +154,8 @@ rm /userdata/system/configs/emulationstation/es_features.cfg 2>/dev/null
 rm /userdata/system/switch/configgen/controllersConfig.py 2>/dev/null
 rm /userdata/system/switch/configgen/batoceraFiles.py 2>/dev/null
 rm /userdata/system/switch/configgen/evmapy.py 2>/dev/null
+rm /userdata/roms/ports/Switch Updater.sh.keys 2>/dev/null
+rm /userdata/roms/ports/Switch Updater.sh 2>/dev/null
 # -------------------------------------------------------------------- 
 # FILL PATHS
 #mkdir -p /userdata/roms/ports/images 2>/dev/null
@@ -261,7 +263,8 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/swit
 # FILL /USERDATA/ROMS/PORTS 
 path=/userdata/roms/ports 
 url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater.sh" "$url/Switch Updater.sh"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater40.sh" "$url/Switch Updater40.sh"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater40.sh.keys" "$url/Switch Updater40.sh.keys"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Suyu Qlauncher.sh" "$url/Suyu Qlauncher.sh"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Suyu Qlauncher.sh.keys" "$url/Suyu Qlauncher.sh.keys"
 # -------------------------------------------------------------------- 
