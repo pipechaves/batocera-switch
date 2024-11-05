@@ -830,22 +830,23 @@ if [ "$3" = "RYUJINX" ]; then
 T=$THEME_COLOR_RYUJINX
 version=$(curl -s https://api.github.com/repos/GreemDev/Ryujinx/releases/latest | grep -oP '(?<="tag_name": ")[^"]*')
 wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz" "https://github.com/GreemDev/Ryujinx/releases/download/$version/ryujinx-${version}-linux_x64.tar.gz"
-link_ryujinx="/userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz"
+link_ryujinx=/userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz
 link_tarR="/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz"
 # --------------------------------------------------------
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_ryujinx" ]; then
     if [ -f "$link_ryujinx" ] && [ $(stat -c%s "$link_ryujinx") -gt 2048 ]; then
-	   echo -e "${T}RYUJINX   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS";
-	   echo
-	else
-	   if [ -f "$link_tarR" ]; then
-	        cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
-			echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.67 BACKUP INSTEAD   ${T}/1.2.67/ ${GREEN}SUCCESS";
-		 else
-	        wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/akEmBYUV19PJglYs/ryujinx1.2.67.tar.gz"
-            cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
-	        echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.67 INSTEAD   ${T}/1.2.67/ ${GREEN}SUCCESS"; fi
+	      echo -e "${T}RYUJINX   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
+		
+	        else
+	          if [ -f "$link_tarR" ]; then
+	            cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
+			    echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.67 BACKUP INSTEAD   ${T}/1.2.67/ ${GREEN}SUCCESS";
+		      else
+	            wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/akEmBYUV19PJglYs/ryujinx1.2.67.tar.gz"
+                cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
+	            echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.67 INSTEAD   ${T}/1.2.67/ ${GREEN}SUCCESS"
+			  fi
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
 		  link_tar=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
@@ -884,7 +885,12 @@ if [ -f "$link_ryujinx" ]; then
 		  chmod a+x "$extra/$emu/xdg-mime"
 		  # curl --progress-bar --remote-name --location $link_ryujinx
 		  LD_LIBRARY_PATH="/userdata/system/switch/extra:/usr/lib64:/usr/lib:/lib:${LD_LIBRARY_PATH}" $extra/batocera-switch-tar -xf $temp/$emu/*.tar.gz
-		  cp $temp/$emu/publish/lib* $extra/$emu/
+		  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/extralibr.zip" "https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/extralibr.zip"
+		  cd /userdata/system/switch/extra/
+          unzip -o -qq /userdata/system/switch/extra/extralibr.zip 2>/dev/null
+		  cp /userdata/system/switch/extra/extralibr/lib* $extra/$emu/
+		  rm -rf /userdata/system/switch/extra/extralibr 2>/dev/null
+		  rm /userdata/system/switch/extra/extralibr.zip 2>/dev/null
 		  mkdir $extra/$emu/mime 2>/dev/null; 
 		  cp -rL $temp/$emu/publish/mime/* $extra/$emu/mime/ 2>/dev/null;
 		  cp -rL $temp/$emu/publish/*.config $extra/$emu/ 2>/dev/null;
@@ -979,7 +985,6 @@ if [ -f "$link_ryujinx" ]; then
 		  rm /userdata/system/switch/extra/ryujinx/version.txt 2>/dev/null
 		  echo $version >> /userdata/system/switch/extra/ryujinx/version.txt
 		fi
-	fi
 fi
 #
 #
