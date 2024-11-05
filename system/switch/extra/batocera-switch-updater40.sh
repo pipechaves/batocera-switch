@@ -1124,7 +1124,6 @@ if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_ryujinx" ]; then
     if [ -f "$link_ryujinx" ] && [ $(stat -c%s "$link_ryujinx") -gt 2048 ]; then
 	      echo -e "${T}RYUJINX   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
-		
 	        else
 	          if [ -f "$link_tarR" ]; then
 	            cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
@@ -1132,7 +1131,7 @@ if [ -f "$link_ryujinx" ]; then
 		      else
 	            wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/akEmBYUV19PJglYs/ryujinx1.2.67.tar.gz"
                 cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
-	            echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.67 INSTEAD   ${T}/1.2.67/ ${GREEN}SUCCESS"
+	            echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.67 INSTEAD   ${T}/1.2.67/ ${GREEN}SUCCESS";
 			  fi
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
@@ -1270,8 +1269,7 @@ if [ -f "$link_ryujinx" ]; then
 #		  ver=$(echo "$link_ryujinx" | sed 's,^.*download/,,g' | cut -d "/" -f1 | sed 's,1\.1\.,,g')
 #		  if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then ver="382"; fi
 		  rm /userdata/system/switch/extra/ryujinx/version.txt 2>/dev/null
-		  echo $version >> /userdata/system/switch/extra/ryujinx/version.txt
-		fi
+		  echo $version >> /userdata/system/switch/extra/ryujinx/version.txt; fi
 fi
 #
 #
