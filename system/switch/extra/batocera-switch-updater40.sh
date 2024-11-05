@@ -1115,33 +1115,24 @@ fi
 ##
 if [ "$3" = "RYUJINX" ]; then
 T=$THEME_COLOR_RYUJINX
-cd /userdata/system/switch/appimages
-ryuM="/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz"
-if [ -f "$ryuM" ]; then
-    cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx1.2.67.tar.gz 2>/dev/null;
-else 
-    wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/akEmBYUV19PJglYs/ryujinx1.2.67.tar.gz"
-    rm /userdata/system/switch/appimages/ryujinx1403.tar.gz 2>/dev/null
-    cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx1.2.67.tar.gz 2>/dev/null; fi
-link_ryujinx="/userdata/system/switch/ryujinx1.2.67.tar.gz"
-version="1.2.67"
+version=$(curl -s https://api.github.com/repos/GreemDev/Ryujinx/releases/latest | grep -oP '(?<="tag_name": ")[^"]*')
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz" "https://github.com/GreemDev/Ryujinx/releases/download/$version/ryujinx-${version}-linux_x64.tar.gz"
+link_ryujinx="/userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz"
+link_tarR="/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz"
 # --------------------------------------------------------
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_ryujinx" ]; then
-	checksum_file=$(md5sum $link_ryujinx | awk '{print $1}')
-	checksum_verified="5fa4c1c1516c60eb321cad8d7f551ea3"
-		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
-		   echo -e "${T}RYUJINX   [${W}!!${T}] download fail put ryujinx1.2.67.tar.gz in (/system/switch/appimages) then relaunch script"    	
-		   rm /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz 2>/dev/null
-		else
-		  echo -e "${T}RYUJINX   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
-#if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then version="382"; fi
-#version=$(echo "$version" | sed 's,1\.1\.,,g')
-#if [[ "$version" = "1215" ]]; then
-#   echo -e "${T}██ $C   ${F}RYUJINX   ${T}❯❯   ${T}$version   /last vanilla version/"
-#else 
-#   echo -e "${T}██ $C   ${F}RYUJINX   ${T}❯❯   ${T}$version"
-#fi
+    if [ -f "$link_ryujinx" ] && [ $(stat -c%s "$link_ryujinx") -gt 2048 ]; then
+	   echo -e "${T}RYUJINX   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS";
+	   echo
+	else
+	   if [ -f "$link_tarR" ]; then
+	        cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
+			echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.67 BACKUP INSTEAD   ${T}/1.2.67/ ${GREEN}SUCCESS";
+		 else
+	        wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/akEmBYUV19PJglYs/ryujinx1.2.67.tar.gz"
+            cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
+	        echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.67 INSTEAD   ${T}/1.2.67/ ${GREEN}SUCCESS"; fi
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
 		  link_tar=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
@@ -1174,7 +1165,7 @@ if [ -f "$link_ryujinx" ]; then
 		  rm -rf $temp/$emu 2>/dev/null
 		  mkdir $temp/$emu 2>/dev/null
 		  cd $temp/$emu
-		  mv $link_ryujinx $temp/$emu/ryujinx1.2.67.tar.gz-linux_x64.tar.gz 2>/dev/null
+		  mv $link_ryujinx $temp/$emu/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null
 		  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/$emu/xdg-mime" "https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/xdg-mime"
 		  ###curl -sSf "https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/xdg-mime" -o "$extra/$emu/xdg-mime"
 		  chmod a+x "$extra/$emu/xdg-mime"
@@ -1275,8 +1266,6 @@ if [ -f "$link_ryujinx" ]; then
 		  rm /userdata/system/switch/extra/ryujinx/version.txt 2>/dev/null
 		  echo $version >> /userdata/system/switch/extra/ryujinx/version.txt
 		fi
-	else
-		echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   place ryujinx-1.1.1403-linux_x64.tar.gz in /userdata/system/switch/"	
 	fi
 fi
 #
