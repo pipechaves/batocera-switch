@@ -176,7 +176,7 @@ rm -rf "$f" 2>/dev/null
          echo 'Exec=/userdata/system/switch/yuzuEA.AppImage' >> "$f" 
          fi
       if [[ "$Name" = "Ryujinx" ]]; then 
-         echo "Icon=/userdata/system/switch/extra/icon_ryujinx.png" >> "$f"
+         echo "Icon=/userdata/system/switch/extra/icon_ryujinxg.png" >> "$f"
          echo 'Exec=/userdata/system/switch/Ryujinx.AppImage' >> "$f" 
          fi
       if [[ "$Name" = "Ryujinx-Avalonia" ]]; then 

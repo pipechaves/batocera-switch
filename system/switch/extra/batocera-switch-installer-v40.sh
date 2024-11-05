@@ -201,6 +201,7 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/bato
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-tput" "$url/batocera-switch-tput"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-updater40.sh" "$url/batocera-switch-updater40.sh"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/icon_ryujinx.png" "$url/icon_ryujinx.png"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/icon_ryujinxg.png" "$url/icon_ryujinxg.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/icon_yuzu.png" "$url/icon_yuzu.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/libthai.so.0.3.1" "$url/libthai.so.0.3.1"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinx-avalonia.png" "$url/ryujinx-avalonia.png"
