@@ -1,9 +1,9 @@
-// CONFIG // SETTINGS FOR BATOCERA SWITCH UPDATER (ver 1.0.4)
+// CONFIG // SETTINGS FOR BATOCERA SWITCH UPDATER (ver 1.0.0)
 ################################################################
 
 
 
-EMULATORS="YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA"
+EMULATORS="YUZU YUZUEA RYUJINX RYUJINXAVALONIA"
 	#---------------------------------------------------------------
 	#  to only update specific emulators: 
 	#---------------------------------------------------------------
@@ -13,10 +13,9 @@ EMULATORS="YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA"
 	#    ="RYUJINX RYUJINXAVALONIA YUZU"
 	#
 	#    > default  
-	#    EMULATORS="YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA"
+	#    EMULATORS="YUZU YUZUEA RYUJINX RYUJINXAVALONIA"
 	#
 	#---------------------------------------------------------------
-
 
 
 USE_YUZU_VERSION=AUTO
@@ -61,7 +60,6 @@ THEME_COLOR_OK=WHITE
 THEME_COLOR_YUZU=RED
 THEME_COLOR_YUZUEA=RED
 THEME_COLOR_RYUJINX=BLUE
-THEME_COLOR_RYUJINXLDN=BLUE
 THEME_COLOR_RYUJINXAVALONIA=BLUE
 	#---------------------------------------------------------------
 	#  available font/theme colors: 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash 
-# BATOCERA.PRO INSTALLER
+#INSTALLER
 ######################################################################
 #--------------------------------------------------------------------- 
 APPNAME="SWITCH-EMULATION" 
@@ -13,7 +13,7 @@ mkdir /userdata/system/switch/extra
 #/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 # --------------------------------------------------------------------
 #\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\   
-function batocera-pro-installer {
+function emus-installer {
 APPNAME=$1
 ORIGIN=$2
 # --------------------------------------------------------------------
@@ -255,9 +255,9 @@ sleep 0.1
    fi 
    # --- /
 } 
-export -f batocera-pro-installer  
+export -f emus-installer  
 # --------------------------------------------------------------------
-batocera-pro-installer "$APPNAME" "$ORIGIN" 
+emus-installer "$APPNAME" "$ORIGIN" 
 # --------------------------------------------------------------------
 X='\033[0m' # / resetcolor
 if [[ -e /userdata/system/switch/extra/installation ]]; then

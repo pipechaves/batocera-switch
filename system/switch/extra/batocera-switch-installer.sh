@@ -1,9 +1,11 @@
 #!/usr/bin/env bash 
-# BATOCERA.PRO INSTALLER
+# INSTALLER
+# http://bit.ly/pipe-switch
+# curl -L bit.ly/pipe-switch | bash
 ######################################################################
 #--------------------------------------------------------------------- 
 APPNAME="SWITCH-EMULATION FOR 41+" 
-ORIGIN="github.com/foclabroc/batocera-switch" 
+ORIGIN="github.com/pipechaves/batocera-switch" 
 #---------------------------------------------------------------------
 ######################################################################
 ORIGIN="${ORIGIN^^}"
@@ -15,7 +17,7 @@ sysctl -w net.ipv6.conf.all.disable_ipv6=1 1>/dev/null 2>/dev/null
 #/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 # --------------------------------------------------------------------
 #\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\   
-function batocera-pro-installer {
+function emus-installer {
 APPNAME=$1
 ORIGIN=$2
 # --------------------------------------------------------------------
@@ -134,7 +136,7 @@ echo -e "${X}PLEASE WAIT${X} . . ."
 cfg=/userdata/system/switch/CONFIG.txt 
 if [[ -f "$cfg" ]]; then 
       # check config file version & update ---------------------------
-      link_defaultconfig=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
+      link_defaultconfig=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
       wget -q --no-check-certificate --no-cache --no-cookies -O "/tmp/.CONFIG.txt" "$link_defaultconfig"
          currentver=$(cat "$cfg" | grep "(ver " | head -n1 | sed 's,^.*(ver ,,g' | cut -d ")" -f1)
             if [[ "$currentver" = "" ]]; then currentver=1.0.0; fi
@@ -150,9 +152,13 @@ fi
 # PURGE OLD INSTALLS 
 #rm -rf /userdata/system/switch 2>/dev/null
 rm /userdata/system/configs/emulationstation/add_feat_switch.cfg 2>/dev/null
+rm /userdata/system/configs/emulationstation/es_systems_switch.cfg 2>/dev/null
 rm /userdata/system/configs/emulationstation/es_features.cfg 2>/dev/null
 rm "/userdata/roms/ports/Sudachi Qlauncher.sh" 2>/dev/null 
 rm "/userdata/roms/ports/Sudachi Qlauncher.sh.keys" 2>/dev/null
+rm "/userdata/roms/ports/Switch Updater40.sh.keys" 2>/dev/null
+rm "/userdata/roms/ports/Switch Updater40.sh" 2>/dev/null
+
 # -------------------------------------------------------------------- 
 # FILL PATHS
 #mkdir -p /userdata/roms/ports/images 2>/dev/null
@@ -188,67 +194,76 @@ mkdir /userdata/system/configs/emulationstation 2>/dev/null
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/EXTRA
 path=/userdata/system/switch/extra
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-ryujinx" "$url/batocera-config-ryujinx"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-ryujinx-avalonia" "$url/batocera-config-ryujinx-avalonia"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-sudachi" "$url/batocera-config-sudachi"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-sudachiQL" "$url/batocera-config-sudachiQL"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-yuzuEA" "$url/batocera-config-yuzuEA"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyu" "$url/batocera-config-suyu"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyuQL" "$url/batocera-config-suyuQL"
+# -------------------------------------------------------------------- -----------------------------------------------------------------------------------
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-libselinux.so.1" "$url/batocera-switch-libselinux.so.1"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-libthai.so.0.3" "$url/batocera-switch-libthai.so.0.3"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-libtinfo.so.6" "$url/batocera-switch-libtinfo.so.6"
+# -------------------------------------------------------------------- -----------------------------------------------------------------------------------
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-sshupdater.sh" "$url/batocera-switch-sshupdater.sh"
+# -------------------------------------------------------------------- -----------------------------------------------------------------------------------
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-tar" "$url/batocera-switch-tar"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-tput" "$url/batocera-switch-tput"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-updater.sh" "$url/batocera-switch-updater.sh"
+# -------------------------------------------------------------------- -----------------------------------------------------------------------------------
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/icon_ryujinx.png" "$url/icon_ryujinx.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/icon_ryujinxg.png" "$url/icon_ryujinxg.png"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/libthai.so.0.3.1" "$url/libthai.so.0.3.1"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinx-avalonia.png" "$url/ryujinx-avalonia.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinx.png" "$url/ryujinx.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzu.png" "$url/yuzu.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzuEA.png" "$url/yuzuEA.png"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyu" "$url/batocera-config-suyu"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-suyuQL" "$url/batocera-config-suyuQL"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu.png" "$url/suyu.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/sudachi.png" "$url/sudachi.png"
+# -------------------------------------------------------------------- -----------------------------------------------------------------------------------
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/libthai.so.0.3.1" "$url/libthai.so.0.3.1"
+# -------------------------------------------------------------------- -----------------------------------------------------------------------------------
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/sudachi-config.desktop" "$url/sudachi-config.desktop"
 # -------------------------------------------------------------------- 
 # + get default config file: 
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/CONFIG.txt" "https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-config.txt"
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/CONFIG.txt" "https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-config.txt"
+# -------------------------------------------------------------------- 
+# -------------------------------------------------------------------- 
+# -------------------------------------------------------------------- 
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/RYUJINX
 path=/userdata/system/switch/configgen/generators/ryujinx
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/ryujinx
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen/generators/ryujinx
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinxMainlineGenerator.py" "$url/ryujinxMainlineGenerator.py"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/SUYU-DEV
 path=/userdata/system/switch/configgen/generators/suyu
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/suyu
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen/generators/suyu
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyuGenerator.py" "$url/suyuGenerator.py"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/SUDACHI
 path=/userdata/system/switch/configgen/generators/sudachi
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/sudachi
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen/generators/sudachi
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/sudachiGenerator.py" "$url/sudachiGenerator.py"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/YUZU
 path=/userdata/system/switch/configgen/generators/yuzu
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/yuzu
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen/generators/yuzu
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzuMainlineGenerator.py" "$url/yuzuMainlineGenerator.py"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS
 path=/userdata/system/switch/configgen/generators
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen/generators
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Generator.py" "$url/Generator.py"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN
 path=/userdata/system/switch/configgen
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/GeneratorImporter.py" "$url/GeneratorImporter.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switchlauncher.py" "$url/switchlauncher.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/configgen-defaults.yml" "$url/configgen-defaults.yml"
@@ -260,25 +275,25 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/evma
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/CONFIGS/EMULATIONSTATION
 path=/userdata/system/configs/emulationstation
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/configs/emulationstation
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/configs/emulationstation
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/es_features_switch.cfg" "$url/es_features_switch.cfg"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/es_systems_switch.cfg" "$url/es_systems_switch.cfg"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/CONFIGS/EMULATIONSTATION 
 path=/userdata/system/configs/evmapy
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/configs/evmapy
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/configs/evmapy
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switch.keys" "$url/switch.keys"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/ROMS/PORTS 
 path=/userdata/roms/ports 
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/roms/ports
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater.sh" "$url/Switch Updater.sh"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Suyu Qlauncher.sh" "$url/Suyu Qlauncher.sh"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Suyu Qlauncher.sh.keys" "$url/Suyu Qlauncher.sh.keys"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/ROMS/PORTS/IMAGES 
 path=/userdata/roms/ports/images
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports/images
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/roms/ports/images
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater-boxart.png" "$url/Switch Updater-boxart.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater-cartridge.png" "$url/Switch Updater-cartridge.png"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater-mix.png" "$url/Switch Updater-mix.png"
@@ -290,22 +305,22 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/.LOCAL/SHARE/APPLICATIONS
 path=/userdata/system/.local/share/applications
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra
 wget --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/suyu-config.desktop" "$url/suyu-config.desktop"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/SYSTEM/.LOCAL/SHARE/APPLICATIONS
 path=/userdata/system/.local/share/applications
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra
 wget --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/sudachi-config.desktop" "$url/sudachi-config.desktop"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/ROMS/SWITCH
 path=/userdata/roms/switch
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/switch
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/roms/switch
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/_info.txt" "$url/_info.txt"
 # -------------------------------------------------------------------- 
 # FILL /USERDATA/BIOS/SWITCH 
 path=/userdata/bios/switch
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/bios/switch
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/bios/switch
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/_info.txt" "$url/_info.txt"
 # -------------------------------------------------------------------- 
 # REMOVE OLD UPDATERS 
@@ -335,7 +350,7 @@ echo -e "${X} "
 rm -rf /userdata/system/switch/extra/installation 2>/dev/null
 rm /tmp/batocera-switch-updater.sh 2>/dev/null 
 mkdir -p /tmp 2>/dev/null
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/tmp/batocera-switch-updater.sh" "https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh" 
+wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/tmp/batocera-switch-updater.sh" "https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh" 
 sed -i 's,MODE=DISPLAY,MODE=CONSOLE,g' /tmp/batocera-switch-updater.sh 2>/dev/null
 dos2unix /tmp/batocera-switch-updater.sh 2>/dev/null 
 chmod a+x /tmp/batocera-switch-updater.sh 2>/dev/null 
@@ -349,9 +364,9 @@ sleep 0.1
    fi 
    # --- /
 } 
-export -f batocera-pro-installer 2>/dev/null 
+export -f emus-installer 2>/dev/null 
 # --------------------------------------------------------------------
-batocera-pro-installer "$APPNAME" "$ORIGIN" 
+emus-installer "$APPNAME" "$ORIGIN" 
 # --------------------------------------------------------------------
 sysctl -w net.ipv6.conf.default.disable_ipv6=0 1>/dev/null 2>/dev/null
 sysctl -w net.ipv6.conf.all.disable_ipv6=0 1>/dev/null 2>/dev/null

@@ -2,7 +2,7 @@
 ################################################################################
 # v3.3                SWITCH EMULATORS UPDATER FOR BATOCERA                    #
 #                   ----------------------------------------                   #
-#                     > github.com/foclabroc/batocera-switch                   #
+#                     > github.com/pipechaves/batocera-switch                   #
 #                                                                              #     
 ################################################################################
 #  ---------------
@@ -55,7 +55,7 @@ TEXT_COLOR=WHITE
 THEME_COLOR=WHITE
 THEME_COLOR_OK=WHITE
 THEME_COLOR_YUZUEA=RED
-THEME_COLOR_RYUJINX=BLUE
+THEME_COLOR_RYUJINX=PURPLE
 THEME_COLOR_RYUJINXAVALONIA=BLUE
 #
 #   AVAILABLE COLORS:
@@ -89,7 +89,7 @@ THEME_COLOR_RYUJINXAVALONIA=BLUE
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#                > github.com/foclabroc/batocera-switch           #
+#                > github.com/pipechaves/batocera-switch           #
 #                    > https://discord.gg/SWBvBkmn9P                 #
 ######################################################################
 ######################################################################
@@ -172,7 +172,7 @@ rm -rf "$f" 2>/dev/null
    echo "[Desktop Entry]" >> "$f"
    echo "Version=1.0" >> "$f"
       if [[ "$Name" = "yuzuEA" ]]; then 
-         echo "Icon=/userdata/system/switch/extra/icon_yuzu.png" >> "$f"
+         echo "Icon=/userdata/system/switch/extra/yuzuEA.png" >> "$f"
          echo 'Exec=/userdata/system/switch/yuzuEA.AppImage' >> "$f" 
          fi
       if [[ "$Name" = "Ryujinx" ]]; then 
@@ -234,14 +234,14 @@ EMULATORS="$(echo $EMULATORS | sed 's/ /-/g')"
    # GET EMULATORS FROM CONFIG FILE -------------------------------------
    cfg=/userdata/system/switch/CONFIG.txt
    if [[ ! -f $cfg ]]; then 
-      link_defaultconfig=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
+      link_defaultconfig=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
       wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/CONFIG.txt" "$link_defaultconfig"
       ###curl -sSf "$link_defaultconfig" -o "/userdata/system/switch/CONFIG.txt"
    fi 
    dos2unix $cfg 1>/dev/null 2>/dev/null
    if [[ -f $cfg ]]; then 
       # check config file version & update ---------------------------
-      link_defaultconfig=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
+      link_defaultconfig=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
       rm "/tmp/.CONFIG.txt" 2>/dev/null
       wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/tmp/.CONFIG.txt" "$link_defaultconfig"
       ###curl -sSf "$link_defaultconfig" -o "/tmp/.CONFIG.txt"
@@ -297,8 +297,8 @@ echo "MODE=$MODE" >> /tmp/updater-mode
 #-------------------------------------------------------------------
 # get tar dependencies 
 # \\ 
-link_tar=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
-link_libselinux=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-libselinux.so.1
+link_tar=https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
+link_libselinux=https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/batocera-switch-libselinux.so.1
 if [[ -e "$extra/batocera-switch-tar" ]]; then 
 chmod a+x "$extra/batocera-switch-tar"
 else 
@@ -522,7 +522,7 @@ EMULATORS="$(cat $cookie | grep "EMULATORS=" | cut -d "=" -f 2)"
 cfg=/userdata/system/switch/CONFIG.txt
 dos2unix $cfg 1>/dev/null 2>/dev/null
 if [[ ! -e "$cfg" ]]; then 
-link_defaultconfig=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
+link_defaultconfig=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/CONFIG.txt" "$link_defaultconfig"
 ###curl -sSf "$link_defaultconfig" -o "/userdata/system/switch/CONFIG.txt"
 fi 
@@ -745,7 +745,7 @@ if [ -f "$link_yuzuEA" ]; then
 		  cd $temp
 # fix broken libstdc++.so.6 for v37 
 		  if [[ "$(uname -a | awk '{print $3}')" > "6.2" ]]; then 
-			 link_libstdc=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-libstdc++.so.6
+			 link_libstdc=https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/batocera-switch-libstdc++.so.6
 			 wget -q --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/yuzuea/libstdc++.so.6" "$link_libstdc"
 		  else 
 			 rm /userdata/system/switch/extra/yuzuea/libstdc++.so.6 2>/dev/null
@@ -828,10 +828,10 @@ fi
 ##
 if [ "$3" = "RYUJINX" ]; then
 T=$THEME_COLOR_RYUJINX
-version=$(curl -s https://api.github.com/repos/GreemDev/Ryujinx/releases/latest | grep -oP '(?<="tag_name": ")[^"]*')
-wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz" "https://github.com/GreemDev/Ryujinx/releases/download/$version/ryujinx-${version}-linux_x64.tar.gz"
+version=$(curl -s https://api.github.com/repos/Ryubing/Canary-Releases/releases/latest | grep -oP '(?<="tag_name": ")[^"]*')
+wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz" "https://github.com/Ryubing/Canary-Releases/releases/download/$version/ryujinx-canary-${version}-linux_x64.tar.gz"
 link_ryujinx=/userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz
-link_tarR="/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz"
+link_tarR="/userdata/system/switch/appimages/ryujinx-canary-1.2.96-linux_x64.tar.gz"
 # --------------------------------------------------------
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_ryujinx" ]; then
@@ -839,18 +839,18 @@ if [ -f "$link_ryujinx" ]; then
 	      echo -e "${T}RYUJINX   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
 	        else
 	          if [ -f "$link_tarR" ]; then
-	            cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
-			    echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.67 BACKUP INSTEAD   ${T}/1.2.67/ ${GREEN}SUCCESS";
+	            cp /userdata/system/switch/appimages/ryujinx-canary-1.2.96-linux_x64.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
+			    echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.96 BACKUP INSTEAD   ${T}/1.2.96/ ${GREEN}SUCCESS";
 		      else
-	            wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx1.2.67.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/akEmBYUV19PJglYs/ryujinx1.2.67.tar.gz"
-                cp /userdata/system/switch/appimages/ryujinx1.2.67.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
-	            echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.67 INSTEAD   ${T}/1.2.67/ ${GREEN}SUCCESS";
+	            wget -q --show-progress --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/appimages/ryujinx-canary-1.2.96-linux_x64.tar.gz" "https://foclabroc.freeboxos.fr:55973/share/tGbwP0xLt1KcKXYS/ryujinx-canary-1.2.96-linux_x64.tar.gz"
+                cp /userdata/system/switch/appimages/ryujinx-canary-1.2.96-linux_x64.tar.gz /userdata/system/switch/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null;
+	            echo -e "${T}RYUJINX   ${RED}FAIL TO DOWNLOAD LAST GREEMDEV USE 1.2.96 INSTEAD   ${T}/1.2.96/ ${GREEN}SUCCESS";
 			  fi
 	fi
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
-		  link_tar=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
-		  link_libselinux=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-libselinux.so.1
+		  link_tar=https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
+		  link_libselinux=https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/batocera-switch-libselinux.so.1
 		  if [[ -e "$extra/batocera-switch-tar" ]]; then 
 			chmod a+x "$extra/batocera-switch-tar"
 		  else 
@@ -880,12 +880,12 @@ if [ -f "$link_ryujinx" ]; then
 		  mkdir $temp/$emu 2>/dev/null
 		  cd $temp/$emu
 		  mv $link_ryujinx $temp/$emu/ryujinx-${version}-linux_x64.tar.gz 2>/dev/null
-		  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/$emu/xdg-mime" "https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/xdg-mime"
-		  ###curl -sSf "https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/xdg-mime" -o "$extra/$emu/xdg-mime"
+		  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/$emu/xdg-mime" "https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/xdg-mime"
+		  ###curl -sSf "https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/xdg-mime" -o "$extra/$emu/xdg-mime"
 		  chmod a+x "$extra/$emu/xdg-mime"
 		  # curl --progress-bar --remote-name --location $link_ryujinx
 		  LD_LIBRARY_PATH="/userdata/system/switch/extra:/usr/lib64:/usr/lib:/lib:${LD_LIBRARY_PATH}" $extra/batocera-switch-tar -xf $temp/$emu/*.tar.gz
-		  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/extralibr.zip" "https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/extralibr.zip"
+		  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/extralibr.zip" "https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/extralibr.zip"
 		  cd /userdata/system/switch/extra/
           unzip -o -qq /userdata/system/switch/extra/extralibr.zip 2>/dev/null
 		  cp /userdata/system/switch/extra/extralibr/lib* $extra/$emu/
@@ -1020,8 +1020,8 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		  echo -e "${T}RYUJINX-AVALONIA   ${T}❯❯   ${T}/$version/ ${GREEN}SUCCESS"
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
-		  link_tar=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
-		  link_libselinux=https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-libselinux.so.1
+		  link_tar=https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
+		  link_libselinux=https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/batocera-switch-libselinux.so.1
 		  if [[ -e "$extra/batocera-switch-tar" ]]; then 
 			chmod a+x "$extra/batocera-switch-tar"
 		  else 
@@ -1051,8 +1051,8 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		  mkdir $temp/$emu 2>/dev/null
 		  cd $temp/$emu
 		  mv $link_ryujinxavalonia $temp/$emu/test-ava-ryujinx-1.1.1403-linux_x64.tar.gz 2>/dev/null
-		  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/$emu/xdg-mime" "https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/xdg-mime"
-		  ###curl -sSf "https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/xdg-mime" -o "$extra/$emu/xdg-mime"
+		  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/$emu/xdg-mime" "https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/xdg-mime"
+		  ###curl -sSf "https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/xdg-mime" -o "$extra/$emu/xdg-mime"
 		  chmod a+x "$extra/$emu/xdg-mime"
 		  #curl --progress-bar --remote-name --location $link_ryujinxavalonia
 		  LD_LIBRARY_PATH="/userdata/system/switch/extra:/usr/lib64:/usr/lib:/lib:${LD_LIBRARY_PATH}" $extra/batocera-switch-tar -xf $temp/$emu/*.tar.gz 2>/dev/null
@@ -1541,6 +1541,7 @@ sleep 0.1111
 # -------------------------
 clear
 echo -e "${W}INSTALL WITH LOCAL APPIMAGE (/system/switch/appimages/) OTHERWISE DOWNLOAD IT ONLINE WAIT 1 TO 5 MINUTES!!"
+mkdir /userdata/system/switch/appimages 2>/dev/null
 cd /userdata/system/switch/appimages
 suyU="/userdata/system/switch/appimages/suyu.AppImage"
 if [ -f "$suyU" ]; then
@@ -1776,7 +1777,7 @@ echo -e "${WHITE} ${F}UPDATING ADDITIONAL FILES WAIT${T}...${T}"
 # -------------------------------------------------------------------
 # get additional files 
 # ------------------------------------------------------------------- 
-   extraurl="https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra"
+   extraurl="https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra"
 # ------------------------------------------------------------------- 
 # prepare xdg integration 
    if [[ ! -d /userdata/system/switch/extra/xdg ]] || [[ "$(du -Hs /userdata/system/switch/extra/xdg | awk '{print $1}')" < "50000" ]]; then 
@@ -1803,7 +1804,7 @@ echo -e "${WHITE} ${F}UPDATING ADDITIONAL FILES WAIT${T}...${T}"
    cd /userdata/system/ 
 # ------------------------------------------------------------------- 
 # get mapping.csv file (obsolete)
-#   wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/configgen/mapping.csv" "https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/mapping.csv"
+#   wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/configgen/mapping.csv" "https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen/mapping.csv"
 #   dos2unix /userdata/system/switch/configgen/mapping.csv 2>/dev/null 
    rm /userdata/system/switch/configgen/mapping.csv 2>/dev/null 
 # ------------------------------------------------------------------- 
@@ -1882,7 +1883,7 @@ fi
    chmod a+x /userdata/system/switch/extra/yuzu-controller-patcher.sh 2>/dev/null  
 # -------------------------------------------------------------------
 # prepare patcher 
-#url_patcher="https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-patcher.sh"
+#url_patcher="https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-patcher.sh"
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-patcher.sh" "$url_patcher"
    ###curl -sSf "$url_patcher" -o "/userdata/system/switch/extra/batocera-switch-patcher.sh"
    dos2unix ~/switch/extra/batocera-switch-patcher.sh 2>/dev/null
@@ -2095,17 +2096,17 @@ mkdir -p /userdata/system/switch/configgen/generators/yuzu 2>/dev/null
 mkdir -p /userdata/system/switch/configgen/generators/ryujinx 2>/dev/null
 mkdir -p /userdata/system/configs/emulationstation 2>/dev/null
 mkdir -p /userdata/system/configs/evmapy 2>/dev/null
-url_switchkeys=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/configs/evmapy/switch.keys
-url_es_features_switch=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/configs/emulationstation/es_features_switch.cfg
-url_es_systems_switch=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/configs/emulationstation/es_systems_switch.cfg
-url_switchlauncher=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/switchlauncher.py
-url_GeneratorImporter=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/GeneratorImporter.py
-url_ryujinxMainlineGenerator=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/ryujinx/ryujinxMainlineGenerator.py
-url_yuzuMainlineGenerator=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/generators/yuzu/yuzuMainlineGenerator.py
-url_sshupdater=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-sshupdater.sh
-url_updater=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh
-url_portsupdater=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports/Switch%20Updater.sh
-url_portsupdaterkeys=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/roms/ports/Switch%20Updater.sh.keys   
+url_switchkeys=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/configs/evmapy/switch.keys
+url_es_features_switch=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/configs/emulationstation/es_features_switch.cfg
+url_es_systems_switch=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/configs/emulationstation/es_systems_switch.cfg
+url_switchlauncher=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen/switchlauncher.py
+url_GeneratorImporter=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen/GeneratorImporter.py
+url_ryujinxMainlineGenerator=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen/generators/ryujinx/ryujinxMainlineGenerator.py
+url_yuzuMainlineGenerator=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen/generators/yuzu/yuzuMainlineGenerator.py
+url_sshupdater=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-sshupdater.sh
+url_updater=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh
+url_portsupdater=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/roms/ports/Switch%20Updater.sh
+url_portsupdaterkeys=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/roms/ports/Switch%20Updater.sh.keys   
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/configs/evmapy/switch.keys" "$url_switchkeys"
    ###curl -sSf "$url_switchkeys" -o "/userdata/system/configs/evmapy/switch.keys"
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/configs/emulationstation/es_features_switch.cfg" "$url_es_features_switch"
@@ -2175,7 +2176,7 @@ fi
    function get() {
       file="$1"
       path=/userdata/system/switch/configgen/sdl2
-      url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/configgen/sdl2
+      url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/configgen/sdl2
          mkdir -p $path 2>/dev/null
             if [[ ! -e "$path/$file" ]]; then
                cd $path
@@ -2244,7 +2245,7 @@ cd ~/
 rm /userdata/system/switch/extra/batocera-switch-libSDL2.so 2>/dev/null
 mkdir -p /userdata/system/switch/extra/sdl 2>/dev/null
 sdl=/userdata/system/switch/extra/sdl/libSDL2.so
-sdlurl=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-libSDL2.so
+sdlurl=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-libSDL2.so
    if [[ ! -e "$sdl" ]]; then 
       wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$sdl" "$sdlurl"
       ###curl -sSf "$sdlurl" -o "$sdl"
@@ -2264,7 +2265,7 @@ fi
 # -------------------------------------------------------------------- 
 # GET TRANSLATIONS
 path=/userdata/system/switch/extra/translations
-url=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/translations
+url=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/translations
 mkdir -p $path 2>/dev/null
 mkdir -p $path/en_US 2>/dev/null
 mkdir -p $path/fr_FR 2>/dev/null
@@ -2275,13 +2276,13 @@ mkdir -p $path/fr_FR 2>/dev/null
    dos2unix "$path/$english" 2>/dev/null
    dos2unix "$path/$french" 2>/dev/null
 # GET TRANSLATOR
-translator=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-translator.sh
+translator=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-translator.sh
 path=/userdata/system/switch/extra/batocera-switch-translator.sh
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path" "$translator"
    dos2unix "$path" 2>/dev/null
    chmod 777 "$path" 2>/dev/null
 # GET RYUJINX-FIXES.SH
-file=https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-ryujinx-fixes.sh
+file=https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-ryujinx-fixes.sh
 path=/userdata/system/switch/extra/batocera-switch-ryujinx-fixes.sh
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path" "$file"
    dos2unix "$path" 2>/dev/null
@@ -2319,13 +2320,13 @@ if [[ "$MODE" != "CONSOLE" ]]; then
    mkdir /userdata/system/switch 2>/dev/null; mkdir /userdata/system/switch/extra 2>/dev/null
       if [[ ( -e "$tput" && "$(wc -c "$tput" | awk '{print $1}')" < "444" ) || ( ! -e "$tput" ) ]]; then
          rm "$tput" 2>/dev/null
-         wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O /userdata/system/switch/extra/batocera-switch-tput https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-tput
-         ##curl -sSf "https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-tput" -o "/userdata/system/switch/extra/batocera-switch-tput"
+         wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O /userdata/system/switch/extra/batocera-switch-tput https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/batocera-switch-tput
+         ##curl -sSf "https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-tput" -o "/userdata/system/switch/extra/batocera-switch-tput"
       fi
       if [[ ( -e "$libtinfo" && "$(wc -c "$libtinfo" | awk '{print $1}')" < "444" ) || ( ! -e "$libtinfo" ) ]]; then
          rm "$libtinfo" 2>/dev/null
-         wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O /userdata/system/switch/extra/batocera-switch-libtinfo.so.6 https://github.com/foclabroc/batocera-switch/raw/main/system/switch/extra/batocera-switch-libtinfo.so.6
-         ##curl -sSf "https://raw.githubusercontent.com/foclabroc/batocera-switch/main/system/switch/extra/batocera-switch-libtinfo.so.6" -o "/userdata/system/switch/extra/batocera-switch-libtinfo.so.6"
+         wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O /userdata/system/switch/extra/batocera-switch-libtinfo.so.6 https://github.com/pipechaves/batocera-switch/raw/main/system/switch/extra/batocera-switch-libtinfo.so.6
+         ##curl -sSf "https://raw.githubusercontent.com/pipechaves/batocera-switch/main/system/switch/extra/batocera-switch-libtinfo.so.6" -o "/userdata/system/switch/extra/batocera-switch-libtinfo.so.6"
       fi
    chmod a+x "$tput" 2>/dev/null
    if [[ -e "/lib/libtinfo.so.6" ]] || [[ -e "/usr/lib/libtinfo.so.6" ]]; then 
@@ -2414,6 +2415,8 @@ fi
 #################################################################################################################################
 rm /userdata/system/switch/extra/ryujinx/libSDL2.so 2>/dev/null
 rm /userdata/system/switch/extra/ryujinxavalonia/libSDL2.so 2>/dev/null
+rm "/userdata/roms/ports/Switch Updater40.sh.keys" 2>/dev/null
+rm "/userdata/roms/ports/Switch Updater40.sh" 2>/dev/null
 cp /userdata/system/switch/extra/sdl/libSDL2.so /userdata/system/switch/extra/ryujinx/libSDL2.so 2>/dev/null
 cp /userdata/system/switch/extra/sdl/libSDL2.so /userdata/system/switch/extra/ryujinxavalonia/libSDL2.so 2>/dev/null
 wait
