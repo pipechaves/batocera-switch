@@ -2331,6 +2331,8 @@ rm /userdata/system/switch/extra/ryujinx/libSDL2.so 2>/dev/null
 rm /userdata/system/switch/extra/ryujinxavalonia/libSDL2.so 2>/dev/null
 rm "/userdata/roms/ports/Switch Updater40.sh.keys" 2>/dev/null
 rm "/userdata/roms/ports/Switch Updater40.sh" 2>/dev/null
+rm "/userdata/roms/ports/Switch Updater40.sh.keys" 2>/dev/null
+rm "/userdata/roms/ports/Switch Updater40.sh" 2>/dev/null
 cp /userdata/system/switch/extra/sdl/libSDL2.so /userdata/system/switch/extra/ryujinx/libSDL2.so 2>/dev/null
 cp /userdata/system/switch/extra/sdl/libSDL2.so /userdata/system/switch/extra/ryujinxavalonia/libSDL2.so 2>/dev/null
 wait

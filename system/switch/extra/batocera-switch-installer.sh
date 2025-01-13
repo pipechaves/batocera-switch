@@ -44,65 +44,28 @@ G=$GREEN
 P=$PURPLE
 W=$X
 # --------------------------------------------------------------------
-clear
-echo
-echo
-echo
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo
-echo
-echo
-sleep 0.33
+display_installer_header() {
+    local pattern1="${X}- - - - - - - - -"
+    local pattern2="${X}${X}$APPNAME${X} INSTALLER ${X}"
+    
+    # Define the display variations
+    declare -a variations=(
+        "\n\n\n${pattern2}\n\n\n"
+        "\n\n${pattern1}\n${pattern2}\n${pattern1}\n\n"
+        "\n${pattern1}\n\n${pattern2}\n\n${pattern1}"
+        "\n\n\n${pattern2}\n\n\n"
+    )
+    
+    # Loop through the variations with delays
+    for variation in "${variations[@]}"; do
+        clear
+        echo -e "${variation}"
+        sleep 0.33
+    done
+}
 
-clear
-echo
-echo
-echo
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo
-echo
-echo
-sleep 0.33
-
-clear
-echo
-echo
-echo -e "${X}- - - - - - - - -"
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo -e "${X}- - - - - - - - -"
-echo
-echo
-sleep 0.33
-clear
-
-echo
-echo -e "${X}- - - - - - - - -"
-echo
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo 
-echo -e "${X}- - - - - - - - -"
-echo
-sleep 0.33
-
-clear
-echo -e "${X}- - - - - - - - -"
-echo 
-echo 
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo 
-echo 
-echo -e "${X}- - - - - - - - -"
-sleep 0.33
-
-clear
-echo
-echo
-echo 
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo 
-echo 
-echo
-sleep 0.33
+# Call the function
+display_installer_header
 
 echo -e "${X}INSTALLING $APPNAME FOR BATOCERA"
 echo -e "${X}USING $ORIGIN"
@@ -151,14 +114,20 @@ fi
 # -------------------------------------------------------------------- 
 # PURGE OLD INSTALLS 
 #rm -rf /userdata/system/switch 2>/dev/null
+rm /userdata/system/switch/*.AppImage 2>/dev/null
+rm -rf /userdata/system/switch/configgen 2>/dev/null
+rm -rf /userdata/system/switch/extra 2>/dev/null
+rm -rf /userdata/system/switch/logs 2>/dev/null
+rm -rf /userdata/system/switch/sudachi 2>/dev/null
+rm "/userdata/system/switch/CONFIG.txt" 2>/dev/null
 rm /userdata/system/configs/emulationstation/add_feat_switch.cfg 2>/dev/null
 rm /userdata/system/configs/emulationstation/es_systems_switch.cfg 2>/dev/null
+rm /userdata/system/configs/emulationstation/es_features_switch.cfg 2>/dev/null
 rm /userdata/system/configs/emulationstation/es_features.cfg 2>/dev/null
 rm "/userdata/roms/ports/Sudachi Qlauncher.sh" 2>/dev/null 
 rm "/userdata/roms/ports/Sudachi Qlauncher.sh.keys" 2>/dev/null
 rm "/userdata/roms/ports/Switch Updater40.sh.keys" 2>/dev/null
 rm "/userdata/roms/ports/Switch Updater40.sh" 2>/dev/null
-
 # -------------------------------------------------------------------- 
 # FILL PATHS
 #mkdir -p /userdata/roms/ports/images 2>/dev/null
