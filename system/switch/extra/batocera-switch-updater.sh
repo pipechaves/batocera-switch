@@ -580,6 +580,7 @@ if [ "$3" = "YUZUEA" ]; then
 T=$THEME_COLOR_YUZUEA
 cd /userdata/system/switch/appimages
 yuzuE="/userdata/system/switch/appimages/yuzuea4176.AppImage"
+
 if [ -f "$yuzuE" ]; then
     cp /userdata/system/switch/appimages/yuzuea4176.AppImage /userdata/system/switch/yuzuea4176.AppImage 2>/dev/null;
 else 
@@ -587,7 +588,9 @@ else
     cp /userdata/system/switch/appimages/yuzuea4176.AppImage /userdata/system/switch/yuzuea4176.AppImage 2>/dev/null; fi
 link_yuzuEA="/userdata/system/switch/yuzuea4176.AppImage"
 version="4176"
+
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
+
 if [ -f "$link_yuzuEA" ]; then	
 	checksum_file=$(md5sum $link_yuzuEA | awk '{print $1}')
 	checksum_verified="9f20b0e6bacd2eb9723637d078d463eb"
@@ -1763,117 +1766,158 @@ fi
 # PREPARE BATOCERA-SWITCH-STARTUP FILE
 # -------------------------------------------------------------------
 #
+#!/bin/bash
+#!/bin/bash
+
+# Define the output file
 f=/userdata/system/switch/extra/batocera-switch-startup
-rm "$f" 2>/dev/null 
-# 
-echo '#!/bin/bash' >> "$f"
-echo '#' >> "$f"
-#\ check language
-echo '#\ check language ' >> "$f"
-echo '/userdata/system/switch/extra/batocera-switch-translator.sh 2>/dev/null &' >> "$f"
-#\ prepare system 
-echo '#\ prepare system ' >> "$f"
-echo 'cp /userdata/system/switch/extra/batocera-switch-rev /usr/bin/rev 2>/dev/null ' >> "$f"
-#echo 'rm /userdata/system/switch/logs/* 2>/dev/null ' >> "$f" 
-echo 'mkdir -p /userdata/system/switch/logs 2>/dev/null ' >> "$f"
-echo 'sysctl -w vm.max_map_count=2147483642 1>/dev/null' >> "$f"
-echo 'extra=/userdata/system/switch/extra' >> "$f"
-echo 'cp $extra/*.desktop /usr/share/applications/ 2>/dev/null' >> "$f"
-echo '#' >> "$f"
-#echo 'cp $extra/lib* /lib/ 2>/dev/null' >> "$f"
-echo 'if [[ -e "/lib/libthai.so.0.3.1" ]] || [[ -e "/usr/lib/libthai.so.0.3.1" ]]; then echo 1>/dev/null; else cp /userdata/system/switch/extra/libthai.so.0.3.1 /usr/lib/libthai.so.0.3.1 2>/dev/null; fi' >> "$f"
-echo 'if [[ -e "/lib/libthai.so.0.3" ]] || [[ -e "/usr/lib/libthai.so.0.3" ]]; then echo 1>/dev/null; else cp /userdata/system/switch/extra/batocera-switch-libthai.so.0.3 /usr/lib/libthai.so.0.3 2>/dev/null; fi' >> "$f"
-echo 'if [[ -e "/lib/libselinux.so.1" ]] || [[ -e "/usr/lib/libselinux.so.1" ]]; then echo 1>/dev/null; else cp /userdata/system/switch/extra/batocera-switch-libselinux.so.1 /usr/lib/libselinux.so.1 2>/dev/null; fi' >> "$f"
-echo 'if [[ -e "/lib/libtinfo.so.6" ]] || [[ -e "/usr/lib/libtinfo.so.6" ]]; then echo 1>/dev/null; else cp /userdata/system/switch/extra/batocera-switch-libtinfo.so.6 /usr/lib/libtinfo.so.6 2>/dev/null; fi' >> "$f"
-echo '#' >> "$f"
-#\ link ryujinx config folders 
-echo '#\ link ryujinx config folders ' >> "$f"
-echo 'mkdir /userdata/system/configs 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/Ryujinx 2>/dev/null' >> "$f"
-echo 'mv /userdata/system/configs/Ryujinx /userdata/system/configs/Ryujinx_tmp 2>/dev/null' >> "$f"
-echo 'cp -rL /userdata/system/.config/Ryujinx/* /userdata/configs/Ryujinx_tmp 2>/dev/null' >> "$f"
-echo 'rm -rf /userdata/system/.config/Ryujinx' >> "$f"
-echo 'mv /userdata/system/configs/Ryujinx_tmp /userdata/system/configs/Ryujinx 2>/dev/null' >> "$f"
-echo 'ln -s /userdata/system/configs/Ryujinx /userdata/system/.config/Ryujinx 2>/dev/null' >> "$f"
-echo 'rm /userdata/system/configs/Ryujinx/Ryujinx 2>/dev/null' >> "$f"
-echo '#' >> "$f"
+rm "$f" 2>/dev/null
+
+# Function to append a command to the startup script
+append_to_startup() {
+    echo "$1" >> "$f"
+}
+
+# Helper function for directory creation
+create_dirs() {
+    for dir in "$@"; do
+        append_to_startup "mkdir -p $dir 2>/dev/null"
+    done
+}
+
+
+# Function to prepare the system
+prepare_system() {
+    append_to_startup '#\ prepare system '
+    append_to_startup 'cp /userdata/system/switch/extra/batocera-switch-rev /usr/bin/rev 2>/dev/null'
+    create_dirs /userdata/system/switch/logs
+    append_to_startup 'sysctl -w vm.max_map_count=2147483642 1>/dev/null'
+    append_to_startup 'extra=/userdata/system/switch/extra'
+    append_to_startup 'cp $extra/*.desktop /usr/share/applications/ 2>/dev/null'
+    append_to_startup '#'
+
+    libraries=(
+        "libthai.so.0.3.1"
+        "libthai.so.0.3"
+        "libselinux.so.1"
+        "libtinfo.so.6"
+    )
+    for lib in "${libraries[@]}"; do
+        append_to_startup "if [[ ! -e \"/lib/$lib\" && ! -e \"/usr/lib/$lib\" ]]; then cp /userdata/system/switch/extra/$lib /usr/lib/$lib 2>/dev/null; fi"
+    done
+    append_to_startup '#'
+}
+
+# Function to link config folders
+link_config_folder() {
+    local source="$1"
+    local target="$2"
+    append_to_startup "mv $target ${target}_tmp 2>/dev/null"
+    append_to_startup "cp -rL $source/* ${target}_tmp 2>/dev/null"
+    append_to_startup "rm -rf $source"
+    append_to_startup "mv ${target}_tmp $target 2>/dev/null"
+    append_to_startup "ln -s $target $source 2>/dev/null"
+}
+
+# Function to link Ryujinx config folders
+link_ryujinx_config() {
+    append_to_startup '#\ link ryujinx config folders'
+    create_dirs /userdata/system/configs /userdata/system/configs/Ryujinx
+    link_config_folder "/userdata/system/.config/Ryujinx" "/userdata/system/configs/Ryujinx"
+    append_to_startup 'rm /userdata/system/configs/Ryujinx/Ryujinx 2>/dev/null'
+    append_to_startup '#'
+}
+
+# Function to link Ryujinx saves folders
+link_ryujinx_saves() {
+   append_to_startup '#\ link ryujinx saves folders '
+   create_dirs /userdata/saves /userdata/saves/Ryujinx /userdata/system/configs /userdata/system/configs/Ryujinx /userdata/system/configs/Ryujinx/bis /userdata/system/configs/Ryujinx/bis/user
+   append_to_startup 'mv /userdata/saves/Ryujinx /userdata/saves/Ryujinx_tmp 2>/dev/null'
+   append_to_startup 'cp -rL /userdata/system/configs/Ryujinx/bis/user/save/* /userdata/saves/Ryujinx_tmp/ 2>/dev/null'
+   append_to_startup 'rm -rf /userdata/system/configs/Ryujinx/bis/user/save 2>/dev/null'
+   append_to_startup 'mv /userdata/saves/Ryujinx_tmp /userdata/saves/Ryujinx 2>/dev/null'
+   append_to_startup 'ln -s /userdata/saves/Ryujinx /userdata/system/configs/Ryujinx/bis/user/save 2>/dev/null'
+   append_to_startup 'rm /userdata/saves/Ryujinx/Ryujinx 2>/dev/null'
+   append_to_startup 'if [ ! -L /userdata/system/configs/Ryujinx/bis/user/save ]; then mkdir /userdata/system/configs/Ryujinx/bis/user/save 2>/dev/null; rsync -au /userdata/saves/Ryujinx/ /userdata/system/configs/Ryujinx/bis/user/save/ 2>/dev/null; fi'
+   append_to_startup '#'
+}
+
+# Function to link Yuzu config folders
+link_yuzu_config() {
+    append_to_startup '#\ link yuzu config folders'
+    create_dirs /userdata/system/configs /userdata/system/configs/yuzu
+    append_to_startup 'mv /userdata/system/configs/yuzu /userdata/system/configs/yuzu_tmp 2>/dev/null'
+    append_to_startup 'cp -rL /userdata/system/.config/yuzu/* /userdata/configs/yuzu_tmp 2>/dev/null'
+    append_to_startup 'cp -rL /userdata/system/.local/share/yuzu/* /userdata/configs/yuzu_tmp 2>/dev/null'
+    append_to_startup 'rm -rf /userdata/system/.config/yuzu'
+    append_to_startup 'rm -rf /userdata/system/.local/share/yuzu'
+    append_to_startup 'mv /userdata/system/configs/yuzu_tmp /userdata/system/configs/yuzu 2>/dev/null'
+    append_to_startup 'ln -s /userdata/system/configs/yuzu /userdata/system/.config/yuzu 2>/dev/null'
+    append_to_startup 'ln -s /userdata/system/configs/yuzu /userdata/system/.local/share/yuzu 2>/dev/null'
+    append_to_startup 'rm /userdata/system/configs/yuzu/yuzu 2>/dev/null'
+    append_to_startup '#'
+}
+
+# Function to link Yuzu saves folders
+link_yuzu_saves() {
+    append_to_startup '#\ link yuzu saves folders'
+    create_dirs /userdata/saves /userdata/saves/yuzu /userdata/system/configs /userdata/system/configs/yuzu /userdata/system/configs/yuzu/nand /userdata/system/configs/yuzu/nand/user
+    append_to_startup 'mv /userdata/saves/yuzu /userdata/saves/yuzu_tmp 2>/dev/null'
+    append_to_startup 'cp -rL /userdata/system/configs/yuzu/nand/user/save/* /userdata/saves/yuzu_tmp/ 2>/dev/null'
+    append_to_startup 'rm -rf /userdata/system/configs/yuzu/nand/user/save 2>/dev/null'
+    append_to_startup 'mv /userdata/saves/yuzu_tmp /userdata/saves/yuzu 2>/dev/null'
+    append_to_startup 'ln -s /userdata/saves/yuzu /userdata/system/configs/yuzu/nand/user/save 2>/dev/null'
+    append_to_startup 'rm /userdata/saves/yuzu/yuzu 2>/dev/null'
+    append_to_startup 'if [ ! -L /userdata/system/configs/yuzu/nand/user/save ]; then mkdir /userdata/system/configs/yuzu/nand/user/save 2>/dev/null; rsync -au /userdata/saves/yuzu/ /userdata/system/configs/yuzu/nand/user/save/ 2>/dev/null; fi'
+    append_to_startup '#'
+}
+
+# Function to link keys folders
+link_keys() {
+    append_to_startup '#\ link yuzu and ryujinx keys folders to bios/switch '
+    append_to_startup 'cp -rL /userdata/system/configs/yuzu/keys/* /userdata/bios/switch/ 2>/dev/null'
+    append_to_startup 'cp -rL /userdata/system/configs/Ryujinx/system/* /userdata/bios/switch/ 2>/dev/null'
+    append_to_startup 'mkdir -p /userdata/system/configs 2>/dev/null'
+    append_to_startup 'mkdir -p /userdata/system/configs/yuzu 2>/dev/null'
+    append_to_startup 'mkdir -p /userdata/system/configs/Ryujinx 2>/dev/null'
+    append_to_startup 'mv /userdata/bios/switch /userdata/bios/switch_tmp 2>/dev/null'
+    append_to_startup 'rm -rf /userdata/system/configs/yuzu/keys 2>/dev/null'
+    append_to_startup 'rm -rf /userdata/system/configs/Ryujinx/system 2>/dev/null'
+    append_to_startup 'mv /userdata/bios/switch_tmp /userdata/bios/switch 2>/dev/null'
+    append_to_startup 'mkdir -p /userdata/system/configs/yuzu/keys 2>/dev/null'
+    append_to_startup 'mkdir -p /userdata/system/configs/Ryujinx/system 2>/dev/null'
+    append_to_startup 'ln -s /userdata/bios/switch /userdata/system/configs/yuzu/keys 2>/dev/null'
+    append_to_startup 'ln -s /userdata/bios/switch /userdata/system/configs/Ryujinx/system 2>/dev/null'
+    append_to_startup 'if [ ! -L /userdata/system/configs/yuzu/keys ]; then mkdir -p /userdata/system/configs/yuzu/keys 2>/dev/null; cp -rL /userdata/bios/switch/*.keys /userdata/system/configs/yuzu/keys/ 2>/dev/null; fi'
+    append_to_startup 'if [ ! -L /userdata/system/configs/Ryujinx/system ]; then mkdir -p /userdata/system/configs/Ryujinx/system 2>/dev/null; cp -rL /userdata/bios/switch/*.keys /userdata/system/configs/Ryujinx/system/ 2>/dev/null; fi'
+    append_to_startup 'mkdir -p /userdata/system/.local/share/yuzu/keys 2>/dev/null; cp -rL /userdata/bios/switch/*.keys /userdata/system/.local/share/yuzu/keys/ 2>/dev/null'
+    append_to_startup 'mkdir -p /userdata/system/configs/Ryujinx/system 2>/dev/null; cp -rL /userdata/bios/switch/*.keys /userdata/system/configs/Ryujinx/system/ 2>/dev/null'
+    append_to_startup '#'
+}
+
+
+# Fix Batocera Linux folder issues
+fix_batocera_linux() {
+    # fix batocera.linux folder issue for f1/apps menu tx to drizzt'
+    append_to_startup "sed -i 's/inline_limit=\"20\"/inline_limit=\"256\"/' /etc/xdg/menus/batocera-applications.menu 2>/dev/null"
+    append_to_startup "sed -i 's/inline_limit=\"60\"/inline_limit=\"256\"/' /etc/xdg/menus/batocera-applications.menu 2>/dev/null"
+    append_to_startup '#'
+}
+
+# Generate the startup script
+append_to_startup '#!/bin/bash'
+append_to_startup '#'
+append_to_startup '#\ check language '
+append_to_startup '/userdata/system/switch/extra/batocera-switch-translator.sh 2>/dev/null &'
+prepare_system
+link_ryujinx_config
+link_ryujinx_saves
+link_yuzu_config
+link_yuzu_saves
+link_keys
+fix_batocera_linux
 #
-#\ link ryujinx saves folders 
-echo '#\ link ryujinx saves folders ' >> "$f"
-echo 'mkdir /userdata/saves 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/saves/Ryujinx 2>/dev/null' >> "$f"
-echo 'mv /userdata/saves/Ryujinx /userdata/saves/Ryujinx_tmp 2>/dev/null' >> "$f"
-echo 'cp -rL /userdata/system/configs/Ryujinx/bis/user/save/* /userdata/saves/Ryujinx_tmp/ 2>/dev/null' >> "$f"
-echo 'rm -rf /userdata/system/configs/Ryujinx/bis/user/save 2>/dev/null' >> "$f"
-echo 'mv /userdata/saves/Ryujinx_tmp /userdata/saves/Ryujinx 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/Ryujinx 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/Ryujinx/bis 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/Ryujinx/bis/user 2>/dev/null' >> "$f"
-echo 'ln -s /userdata/saves/Ryujinx /userdata/system/configs/Ryujinx/bis/user/save 2>/dev/null' >> "$f"
-echo 'rm /userdata/saves/Ryujinx/Ryujinx 2>/dev/null' >> "$f"
-echo 'if [ ! -L /userdata/system/configs/Ryujinx/bis/user/save ]; then mkdir /userdata/system/configs/Ryujinx/bis/user/save 2>/dev/null; rsync -au /userdata/saves/Ryujinx/ /userdata/system/configs/Ryujinx/bis/user/save/ 2>/dev/null; fi' >> "$f"
-echo '#' >> "$f"
 #
-#\ link yuzu config folders 
-echo '#\ link yuzu config folders ' >> "$f"
-echo 'mkdir /userdata/system/configs 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/yuzu 2>/dev/null' >> "$f"
-echo 'mv /userdata/system/configs/yuzu /userdata/system/configs/yuzu_tmp 2>/dev/null' >> "$f"
-echo 'cp -rL /userdata/system/.config/yuzu/* /userdata/configs/yuzu_tmp 2>/dev/null' >> "$f"
-echo 'cp -rL /userdata/system/.local/share/yuzu/* /userdata/configs/yuzu_tmp 2>/dev/null' >> "$f"
-echo 'rm -rf /userdata/system/.config/yuzu' >> "$f"
-echo 'rm -rf /userdata/system/.local/share/yuzu' >> "$f"
-echo 'mv /userdata/system/configs/yuzu_tmp /userdata/system/configs/yuzu 2>/dev/null' >> "$f"
-echo 'ln -s /userdata/system/configs/yuzu /userdata/system/.config/yuzu 2>/dev/null' >> "$f"
-echo 'ln -s /userdata/system/configs/yuzu /userdata/system/.local/share/yuzu 2>/dev/null' >> "$f"
-echo 'rm /userdata/system/configs/yuzu/yuzu 2>/dev/null' >> "$f"
-echo '#' >> "$f"
-#
-#\ link yuzu saves folders
-echo '#\ link yuzu saves folders' >> "$f"
-echo 'mkdir /userdata/saves 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/saves/yuzu 2>/dev/null' >> "$f"
-echo 'mv /userdata/saves/yuzu /userdata/saves/yuzu_tmp 2>/dev/null' >> "$f"
-echo 'cp -rL /userdata/system/configs/yuzu/nand/user/save/* /userdata/saves/yuzu_tmp/ 2>/dev/null' >> "$f"
-echo 'rm -rf /userdata/system/configs/yuzu/nand/user/save 2>/dev/null' >> "$f"
-echo 'mv /userdata/saves/yuzu_tmp /userdata/saves/yuzu 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/yuzu 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/yuzu/nand 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/yuzu/nand/user 2>/dev/null' >> "$f"
-echo 'ln -s /userdata/saves/yuzu /userdata/system/configs/yuzu/nand/user/save 2>/dev/null' >> "$f"
-echo 'rm /userdata/saves/yuzu/yuzu 2>/dev/null' >> "$f"
-echo 'if [ ! -L /userdata/system/configs/yuzu/nand/user/save ]; then mkdir /userdata/system/configs/yuzu/nand/user/save 2>/dev/null; rsync -au /userdata/saves/yuzu/ /userdata/system/configs/yuzu/nand/user/save/ 2>/dev/null; fi' >> "$f"
-echo '#' >> "$f"
-#
-#\ link yuzu and ryujinx keys folders to bios/switch 
-echo '#\ link yuzu and ryujinx keys folders to bios/switch ' >> "$f"
-echo 'cp -rL /userdata/system/configs/yuzu/keys/* /userdata/bios/switch/ 2>/dev/null' >> "$f"
-echo 'cp -rL /userdata/system/configs/Ryujinx/system/* /userdata/bios/switch/ 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/yuzu 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/Ryujinx 2>/dev/null' >> "$f"
-echo 'mv /userdata/bios/switch /userdata/bios/switch_tmp 2>/dev/null' >> "$f"
-echo 'rm -rf /userdata/system/configs/yuzu/keys 2>/dev/null' >> "$f"
-echo 'rm -rf /userdata/system/configs/Ryujinx/system 2>/dev/null' >> "$f"
-echo 'mv /userdata/bios/switch_tmp /userdata/bios/switch 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/yuzu 2>/dev/null' >> "$f"
-echo 'mkdir /userdata/system/configs/Ryujinx 2>/dev/null' >> "$f"
-echo 'ln -s /userdata/bios/switch /userdata/system/configs/yuzu/keys 2>/dev/null' >> "$f"
-echo 'ln -s /userdata/bios/switch /userdata/system/configs/Ryujinx/system 2>/dev/null' >> "$f"
-echo 'if [ ! -L /userdata/system/configs/yuzu/keys ]; then mkdir /userdata/system/configs/yuzu/keys 2>/dev/null; cp -rL /userdata/bios/switch/*.keys /userdata/system/configs/yuzu/keys/ 2>/dev/null; fi' >> "$f"
-echo 'if [ ! -L /userdata/system/configs/Ryujinx/system ]; then mkdir /userdata/system/configs/Ryujinx/system 2>/dev/null; cp -rL /userdata/bios/switch/*.keys /userdata/system/configs/Ryujinx/system/ 2>/dev/null; fi' >> "$f"
-echo 'mkdir -p /userdata/system/configs/yuzu/keys 2>/dev/null; cp -rL /userdata/bios/switch/*.keys /userdata/system/configs/yuzu/keys/ 2>/dev/null ' >> "$f"
-echo 'mkdir -p /userdata/system/.local/share/yuzu/keys 2>/dev/null; cp -rL /userdata/bios/switch/*.keys /userdata/system/.local/share/yuzu/keys/ 2>/dev/null ' >> "$f"
-echo 'mkdir -p /userdata/system/configs/Ryujinx/system 2>/dev/null; cp -rL /userdata/bios/switch/*.keys /userdata/system/configs/Ryujinx/system/ 2>/dev/null ' >> "$f"
-echo '#' >> "$f"
-#
-#\ fix batocera.linux folder issue for f1/apps menu tx to drizzt
-echo "sed -i 's/inline_limit=\"20\"/inline_limit=\"256\"/' /etc/xdg/menus/batocera-applications.menu 2>/dev/null" >> "$f"
-echo "sed -i 's/inline_limit=\"60\"/inline_limit=\"256\"/' /etc/xdg/menus/batocera-applications.menu 2>/dev/null" >> "$f"
-echo '#' >> "$f"
 #
 #\ add xdg integration with pcmanfm for f1 emu configs
 echo '  fs=$(blkid | grep "$(df -h /userdata | awk '\''END {print $1}'\'')" | sed '\''s,^.*TYPE=,,g'\'' | sed '\''s,",,g'\'' | tr '\''a-z'\'' '\''A-Z'\'') ' >> "$f"
